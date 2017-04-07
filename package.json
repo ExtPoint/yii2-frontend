@@ -1,6 +1,6 @@
 {
   "name": "extpoint-yii2",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "JavaScript part for projects on ExtPoint Yii2 Boilerplate and yii2-core",
   "main": "index.js",
   "author": "Vladimir Kozhin <affka@affka.ru>",
@@ -33,10 +33,9 @@
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",
     "redux": "^3.6.0",
-    "redux-form": "^6.6.1"
-  },
-  "devDependencies": {
+    "redux-form": "^6.6.1",
     "fsevents": "^1.1.1",
+    "webpack": "^1.13.2",
     "webpack-easy": "*"
   }
 }

@@ -8,7 +8,7 @@ module.exports = (entry) => {
         .entry(entry)
         .config({
             resolve: {
-                root: `${__dirname}/app`,
+                root: `${process.cwd()}/app`,
                 alias: {
                     actions: 'core/frontend/actions',
                     components: 'core/frontend/components',
@@ -19,7 +19,7 @@ module.exports = (entry) => {
             },
         })
         .output({
-            path: `${__dirname}/public/`,
+            path: `${process.cwd()}/public/`,
             filename: `${staticPath}assets/bundle-[name].js`,
             chunkFilename: `${staticPath}assets/bundle-[name].js`,
         })

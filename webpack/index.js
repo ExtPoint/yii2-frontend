@@ -8,6 +8,7 @@ const api = module.exports = {
     /**
      * Index js. Core module at first
      * @param {string} path
+     * @return {exports}
      */
     base(path) {
         this._entries.push(
@@ -19,12 +20,14 @@ const api = module.exports = {
                     index: result,
                 }))
         );
+        return this;
     },
 
     /**
      * Module styles
      * @param {string} path
      * @param {null|string} name
+     * @return {exports}
      */
     styles(path, name = null) {
         if (typeof name === 'string') {
@@ -46,15 +49,17 @@ const api = module.exports = {
                     )
             );
         }
+        return this;
     },
 
     /**
      * PHP widgets. Only widgets with php file. Filter /path/MY_WIDGET/MY_WIDGET.js
      * @param {string} path
+     * @return {exports}
      */
     widgets(path) {
         this._entries.push(
-            webpackEasy.glob(path)
+            webpackEasy.glob(path + '/*/*.+(js|jsx|php)')
                 .then(files => {
                     let phpWidgets = files
                         .filter(file => file.match(/\.php$/))
@@ -66,11 +71,16 @@ const api = module.exports = {
                         .filter(file => file.match(/([^\/]+)\.jsx?$/)[1] === file.match(/([^\/]+)\/[^\/]+?$/)[1]);
                 })
                 .then(result => result.reduce((obj, file) => {
-                        obj[file.match(/([^\/]+)\.js?$/)[1]] = file;
+                        const bundleName = file
+                            .split('/').slice(0, -1)
+                            .filter(name => name.match(/[a-z0-9_-]+/) && ['app', 'widgets'].indexOf(name) === -1)
+                            .join('-');
+                        obj[bundleName] = file;
                         return obj;
                     }, {})
                 )
         );
+        return this;
     }
 
 };
