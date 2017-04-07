@@ -35,7 +35,7 @@ module.exports = (entry) => {
             ]
         })
         .loaderJs({
-            exclude: /node_modules(\/|\\+)(?!jii)/
+            exclude: /node_modules(\/|\\+)(?!jii)(?!extpoint-yii2)/
         })
         .serverConfig({
             contentBase: './public',
