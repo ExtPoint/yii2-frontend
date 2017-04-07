@@ -73,7 +73,7 @@ const api = module.exports = {
                 .then(result => result.reduce((obj, file) => {
                         const bundleName = file
                             .split('/').slice(0, -1)
-                            .filter(name => name.match(/[a-z0-9_-]+/) && ['app', 'widgets'].indexOf(name) === -1)
+                            .filter(name => name.match(/[a-z0-9_-]+/) && ['app', 'widgets', 'lib', 'vendor'].indexOf(name) === -1)
                             .join('-');
                         obj[bundleName] = file;
                         return obj;
