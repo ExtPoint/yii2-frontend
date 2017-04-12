@@ -23,6 +23,16 @@ const api = module.exports = {
         return this;
     },
 
+    entry(path, name) {
+        this._entries.push(
+            webpackEasy.glob(path)
+                .then(result => ({
+                    [name]: result
+                }))
+        );
+        return this;
+    },
+
     /**
      * Module styles
      * @param {string} path
