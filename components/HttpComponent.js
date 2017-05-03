@@ -40,7 +40,7 @@ export default class HttpComponent {
     _send(method, config, options) {
         const axiosConfig = {
             ...config,
-            url: `${_trimEnd(this.apiUrl, '/')}/${_trimStart(method)}`,
+            url: `${_trimEnd(this.apiUrl, '/')}/${_trimStart(method, '/')}`,
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
