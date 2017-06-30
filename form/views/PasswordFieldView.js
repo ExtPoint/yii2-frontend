@@ -29,12 +29,7 @@ export default class PasswordFieldView extends React.Component {
                     this.props.className,
                 )}
             >
-                <div
-                    className={bem(
-                        bem.element('container'),
-                        this.props.currency && 'input-group',
-                    )}
-                >
+                <div className={bem.element('container')}>
                     <input
                         {...this.props.inputProps}
                         className={bem(bem.element('input'), 'form-control')}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _isString from 'lodash/isString';
 import _range from 'lodash/range';
 import _padStart from 'lodash/padStart';
 import _keyBy from 'lodash/keyBy';
@@ -53,7 +54,7 @@ export default class DateTimeField extends React.Component {
                     layout: 'inline',
                     input: {
                         name: '',
-                        value: this.getDate(),
+                        value: this.getDate(this.props.valueFormat),
                         onChange: this._onChangeDate,
                     },
                     pickerProps: {
@@ -90,11 +91,15 @@ export default class DateTimeField extends React.Component {
     }
 
     getDate(format) {
-        const date = this.props.input.value ? locale.moment(this.props.input.value, this.props.valueFormat) : null;
-        if (date && format) {
-            return date.format(format);
+        let value = this.props.input.value || null;
+        if (_isString(value)) {
+            value = locale.moment(value, this.props.valueFormat);
         }
-        return date;
+
+        if (value && format) {
+            return value.format(format);
+        }
+        return value;
     }
 
     _onChangeHours(hour) {
@@ -117,9 +122,9 @@ export default class DateTimeField extends React.Component {
 
     _onChangeDate(date) {
         const prevDate = this.getDate();
-        const nextDate = date ? locale.moment(date) : null;
-        nextDate.hour(prevDate ? prevDate.hour() : '00');
-        nextDate.minute(prevDate ? prevDate.minute() : '00');
+        const nextDate = date ? locale.moment(date, this.props.valueFormat) : null;
+        nextDate.hour(prevDate ? prevDate.hour() : 0);
+        nextDate.minute(prevDate ? prevDate.minute() : 0);
         this._onChange(nextDate);
     }
 

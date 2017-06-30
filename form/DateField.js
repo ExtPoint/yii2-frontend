@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _isString from 'lodash/isString';
 
 import {locale, form} from 'components';
 
@@ -33,6 +34,11 @@ export default class DateField extends React.Component {
     render() {
         const {input, pickerProps, onChange, ...props} = this.props; // eslint-disable-line no-unused-vars
         const DateFieldView = form.getViewComponent('DateFieldView');
+        let value = this.props.input.value || null;
+        if (_isString(value)) {
+            value = locale.moment(value, this.props.valueFormat);
+        }
+
         return (
             <DateFieldView
                 {...props}
@@ -41,7 +47,7 @@ export default class DateField extends React.Component {
                     peekNextMonth: true,
                     showYearDropdown: true,
                     scrollableYearDropdown: true,
-                    selected: this.props.input.value ? locale.moment(this.props.input.value, this.props.valueFormat) : null,
+                    selected: value,
                     dateFormat: this.props.displayFormat,
                     ...input,
                     onChange: this._onChange,

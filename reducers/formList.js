@@ -101,7 +101,7 @@ export default (state = initialState, action) => {
                     ...state.cache,
                     [action.fieldId]: {
                         entries: {
-                            ...state.cache[action.fieldId].entries,
+                            ...(state.cache[action.fieldId] && state.cache[action.fieldId].entries || {}),
                             ..._keyBy(entries, 'id'),
                         },
                     }

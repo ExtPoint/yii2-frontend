@@ -81,8 +81,10 @@ export default class DropDownFieldView extends React.Component {
                 key={item.id}
                 className={bem(
                     bem.element('dropdown-item'),
-                    bem.element('dropdown-item', {active: item.isChecked}),
-                    bem.element('dropdown-item', {hover: item.isHovered})
+                    bem.element('dropdown-item', {
+                        active: item.isChecked,
+                        hover: item.isHovered,
+                    }),
                 )}
                 onClick={item.onClick}
                 onMouseOver={item.onMouseOver}
