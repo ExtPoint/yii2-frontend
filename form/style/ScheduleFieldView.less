@@ -1,0 +1,64 @@
+.@{bem-namespace}ScheduleFieldView {
+  &__days-container {
+    margin-bottom: 10px;
+    position: relative;
+    max-width: 245px;
+  }
+  &__time-container {
+    margin-bottom: 10px;
+    position: relative;
+  }
+  &__week-day {
+    font-size: 75%;
+    border: 1px solid #f2eee5;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1.2;
+    padding: 0 4px;
+    border-radius: 2px;
+    margin: 0 3px 0 0;
+    color: #000 !important;
+
+    &:hover {
+      background: @brand-primary;
+      border: 1px solid @brand-primary;
+    }
+    &_active {
+      background: @brand-primary;
+      border: 1px solid @brand-primary;
+    }
+  }
+  &__everyday {
+    font-size: 62.5%;
+    border: none;
+    padding: 0;
+    float: right;
+    margin: 4px 0 0 0;
+    color: @brand-success;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  &__alltime {
+    margin: 7px 0 0 0;
+
+    > a {
+      font-size: 62.5%;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  &__since, &__till {
+    display: inline-block;
+
+    .@{bem-namespace}DropDownFieldView {
+      display: inline-block;
+      width: 45px;
+      margin: 0 5px;
+
+      &__input {
+        padding: 2px 5px;
+      }
+    }
+  }
+}

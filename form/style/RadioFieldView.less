@@ -1,0 +1,67 @@
+.@{bem-namespace}RadioFieldView {
+
+  &__container {
+    position: relative;
+  }
+
+  &__item {
+    margin: 0 0 15px;
+
+  }
+
+  &__item-input {
+
+  }
+
+  &__item-label {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    padding: 0 0 0 30px;
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: 4px;
+      width: 16px;
+      height: 16px;
+      z-index: 0;
+      transition: .28s ease;
+      border-radius: 50%;
+    }
+
+    &:before {
+      box-sizing: border-box;
+      display: inline-block;
+      content: '';
+      width: 19px;
+      height: 19px;
+      vertical-align: top;
+      margin: 0 10px 0 0;
+      float: left;
+      position: absolute;
+      left: 0;
+      top: 0;
+      box-shadow: 0 0 0 1px #c4b58f;
+    }
+  }
+  &__item_checked &__item-label:before {
+    border: 3px solid #fff;
+    background: @brand-success;
+  }
+  &__item_checked &__item-label:after {
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+  }
+
+  &__item-text {
+    padding: 3px 0 0 0;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+}

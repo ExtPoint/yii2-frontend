@@ -1,0 +1,32 @@
+.@{bem-namespace}StringFieldView {
+
+  &__container {
+    position: relative;
+  }
+
+  // Phone
+  .intl-tel-input {
+    width: 100%;
+  }
+
+  &_has-error &__input {
+    border-color: rgba(219, 50, 50, 0.5);
+  }
+
+  // Readonly
+  &__icon-readonly {
+    content: ' ';
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    background: url(/img/svg/icon_edit.svg) no-repeat;
+    cursor: pointer;
+  }
+  &_readonly &__icon-readonly {
+    display: block;
+  }
+
+}

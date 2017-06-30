@@ -1,0 +1,483 @@
+.react-datepicker {
+  font-size: 13px;
+  color: #333;
+  display: inline-block;
+  position: relative;
+
+  &__tether-element-attached-top &__triangle, &__tether-element-attached-bottom &__triangle, &__year-read-view--down-arrow,
+  &__month-read-view--down-arrow {
+    margin-left: -8px;
+    position: absolute;
+  }
+  &__tether-element-attached-top &__triangle, &__tether-element-attached-bottom &__triangle, &__year-read-view--down-arrow,
+  &__month-read-view--down-arrow, &__tether-element-attached-top &__triangle::before, &__tether-element-attached-bottom &__triangle::before, &__year-read-view--down-arrow::before,
+  &__month-read-view--down-arrow::before {
+    box-sizing: content-box;
+    position: absolute;
+    border: 8px solid transparent;
+    height: 0;
+    width: 1px;
+  }
+  &__tether-element-attached-top &__triangle::before, &__tether-element-attached-bottom &__triangle::before, &__year-read-view--down-arrow::before,
+  &__month-read-view--down-arrow::before {
+    content: "";
+    z-index: -1;
+    border-width: 8px;
+    left: -8px;
+    border-bottom-color: #efefef;
+  }
+
+  &__tether-element-attached-top &__triangle {
+    top: 0;
+    margin-top: -8px;
+  }
+  &__tether-element-attached-top &__triangle, &__tether-element-attached-top &__triangle::before {
+    border-top: none;
+    border-bottom-color: #f7f6f4;
+  }
+  &__tether-element-attached-top &__triangle::before {
+    top: -1px;
+    border-bottom-color: #efefef;
+  }
+
+  &__tether-element-attached-bottom &__triangle, &__year-read-view--down-arrow,
+  &__month-read-view--down-arrow {
+    bottom: 0;
+    margin-bottom: -8px;
+  }
+  &__tether-element-attached-bottom &__triangle, &__year-read-view--down-arrow,
+  &__month-read-view--down-arrow, &__tether-element-attached-bottom &__triangle::before, &__year-read-view--down-arrow::before,
+  &__month-read-view--down-arrow::before {
+    border-bottom: none;
+    border-top-color: #fff;
+  }
+  &__tether-element-attached-bottom &__triangle::before, &__year-read-view--down-arrow::before,
+  &__month-read-view--down-arrow::before {
+    bottom: -1px;
+    border-top-color: #efefef;
+  }
+
+  &__triangle {
+    position: absolute;
+    left: 70px;
+  }
+  &__day-names {
+    @media (max-width: @screen-xs-max) {
+      display: none;
+    }
+  }
+
+  &__tether-element-attached-bottom&__tether-element {
+    margin-top: -20px;
+  }
+
+  &__header {
+    text-align: center;
+    background-color: #f7f6f4;
+    border-bottom: 1px solid #efefef;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding-top: 8px;
+    position: relative;
+  }
+  &__header__dropdown {
+    display: inline-block;
+  }
+
+  &__year-dropdown-container--select,
+  &__month-dropdown-container--select,
+  &__year-dropdown-container--scroll,
+  &__month-dropdown-container--scroll {
+    display: inline-block;
+    margin: 0 2px;
+  }
+
+  &__current-month {
+    margin-top: 0;
+    color: #000;
+    font-weight: 500;
+    @media (max-width: @screen-xs-max) {
+      margin-bottom: 5px;
+    }
+
+    &--hasYearDropdown {
+      display: inline-block;
+    }
+  }
+
+  &__navigation {
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    width: 0;
+    border: 6px solid transparent;
+    z-index: 8;
+    line-height: 30px;
+    @media (max-width: @screen-xs-max) {
+      line-height: 26px;
+    }
+  }
+  &__navigation--previous {
+    left: 10px;
+    border-right-color: #ccc;
+  }
+  &__navigation--previous:hover {
+    border-right-color: #f7f6f4;
+  }
+  &__navigation--next {
+    right: 10px;
+    border-left-color: #ccc;
+  }
+  &__navigation--next:hover {
+    border-left-color: #f7f6f4;
+  }
+  &__navigation--years {
+    position: relative;
+    top: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &__navigation--years-previous {
+    top: 4px;
+    border-top-color: #ccc;
+  }
+  &__navigation--years-previous:hover {
+    border-top-color: #f7f6f4;
+  }
+  &__navigation--years-upcoming {
+    top: -4px;
+    border-bottom-color: #ccc;
+  }
+  &__navigation--years-upcoming:hover {
+    border-bottom-color: #f7f6f4;
+  }
+
+  &__month-container {
+    display: inline;
+    float: left;
+    position: relative;
+    z-index: 6;
+    background-color: #fff;
+    border: 1px solid #efefef;
+    border-radius: 4px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.10);
+  }
+
+  &__month {
+    margin: 1px;
+    text-align: center;
+    background-color: #fff;
+  }
+
+  &__week-number {
+    color: #ccc;
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    margin: 1px;
+    line-height: 30px;
+    @media (max-width: @screen-xs-max) {
+      line-height: 26px;
+    }
+  }
+
+  &__day-name,
+  &__day {
+    color: #333;
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    margin: 1px;
+    line-height: 30px;
+    @media (max-width: @screen-xs-max) {
+      line-height: 26px;
+    }
+  }
+
+  &__day {
+    cursor: pointer;
+    font-size: 13px;
+  }
+  &__day:hover {
+    border-radius: 4px;
+    background-color: #f7f6f4;
+  }
+  &__day--today {
+    font-weight: bold;
+  }
+  &__day--highlighted {
+    border-radius: 4px;
+    background-color: #3dcc4a;
+    color: #fff;
+  }
+  &__day--highlighted:hover {
+    background-color: #32be3f;
+  }
+  &__day--selected, &__day--in-selecting-range, &__day--in-range {
+    border-radius: 4px;
+    background-color: @brand-primary;
+    color: #fff;
+  }
+  &__day--selected:hover, &__day--in-selecting-range:hover, &__day--in-range:hover {
+    background-color: darken(@brand-primary, 5%);
+  }
+  &__day--in-selecting-range:not(.react-datepicker__day--in-range) {
+    background-color: lighten(@brand-primary, 5%);
+  }
+  &__month--selecting-range &__day--in-range:not(.react-datepicker__day--in-selecting-range) {
+    background-color: #f7f6f4;
+    color: #000;
+  }
+  &__day--disabled {
+    cursor: default;
+    color: #ccc;
+  }
+  &__day--disabled:hover {
+    background-color: transparent;
+  }
+  &__day--outside-month {
+    color: #ccc;
+  }
+
+  &__input-container {
+    position: relative;
+    display: block;
+    height: 34px;
+  }
+
+  &__year-read-view,
+  &__month-read-view {
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+  &__year-read-view:hover,
+  &__month-read-view:hover {
+    cursor: pointer;
+  }
+  &__year-read-view:hover &__year-read-view--down-arrow,
+  &__year-read-view:hover &__month-read-view--down-arrow,
+  &__month-read-view:hover &__year-read-view--down-arrow,
+  &__month-read-view:hover &__month-read-view--down-arrow {
+    border-top-color: lighten(@brand-success, 10%);
+  }
+  &__year-read-view--down-arrow,
+  &__month-read-view--down-arrow {
+    border-top-color: @brand-success;
+    float: right;
+    margin-left: 20px;
+    top: 3px;
+    position: relative;
+    border-width: 5px;
+  }
+
+  &__year-dropdown,
+  &__month-dropdown {
+    background-color: #f7f6f4;
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    top: 30px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #efefef;
+  }
+  &__year-dropdown:hover,
+  &__month-dropdown:hover {
+    cursor: pointer;
+  }
+  &__year-dropdown--scrollable,
+  &__month-dropdown--scrollable {
+    height: 150px;
+    overflow-y: scroll;
+  }
+
+  &__year-option,
+  &__month-option {
+    line-height: 20px;
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &__year-option:first-of-type,
+  &__month-option:first-of-type {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  &__year-option:last-of-type,
+  &__month-option:last-of-type {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+  &__year-option:hover,
+  &__month-option:hover {
+    background-color: #ccc;
+  }
+  &__year-option:hover &__navigation--years-upcoming,
+  &__month-option:hover &__navigation--years-upcoming {
+    border-bottom-color: #f7f6f4;
+  }
+  &__year-option:hover &__navigation--years-previous,
+  &__month-option:hover &__navigation--years-previous {
+    border-top-color: #f7f6f4;
+  }
+  &__year-option--selected,
+  &__month-option--selected {
+    position: absolute;
+    left: 15px;
+  }
+
+  &__close-icon {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    height: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: middle;
+  }
+  &__close-icon::after {
+    background-color: @brand-primary;
+    border-radius: 50%;
+    bottom: 0;
+    box-sizing: border-box;
+    color: #fff;
+    content: "\00d7";
+    cursor: pointer;
+    font-size: 12px;
+    height: 16px;
+    width: 16px;
+    line-height: 1;
+    margin: -8px auto 0;
+    padding: 2px;
+    position: absolute;
+    right: 7px;
+    text-align: center;
+    top: 50%;
+  }
+
+  &__today-button {
+    background: #f7f6f4;
+    border-top: 1px solid #efefef;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 0;
+    clear: left;
+  }
+
+  &__tether-element {
+    z-index: 2147483647;
+  }
+}
+
+.@{bem-namespace}DateFieldView {
+
+  &__container {
+    position: relative;
+  }
+  &__input {
+    border-bottom-right-radius: @input-border-radius !important;
+    border-top-right-radius: @input-border-radius !important;;
+  }
+
+  &__time-manager-container {
+    position: absolute;
+    top: 0;
+    user-select: none;
+    margin: 59px 0 0 5px;
+    font-size: 13px;
+    color: #333;
+    border: 1px solid #efefef;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.10);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    width: 224px;
+    z-index: 2;
+
+    left: 35%;
+    opacity: .9;
+    pointer-events: none;
+    transition: left 0.3s ease, right 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    background-color: #efefef;
+    &_visible {
+      pointer-events: auto;
+      left: 100%;
+      opacity: 1;
+      background-color: #fff;
+    }
+
+    @media (max-width: @screen-xs-max) {
+      left: auto;
+      top: 230px;
+      margin-left: 0;
+      margin-top: 5px;
+
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+  &__time {
+    width: 56px;
+    height: 32px;
+    @media (max-width: @screen-xs-max) {
+      height: 28px;
+    }
+  }
+  &__time-label {
+    color: #333;
+    border-radius: 4px;
+    font-size: 13px;
+    text-align: center;
+    vertical-align: middle;
+    width: 54px;
+    margin: 1px;
+
+    height: 30px;
+    line-height: 30px;
+    @media (max-width: @screen-xs-max) {
+      height: 26px;
+      line-height: 26px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: #f7f6f4;
+    }
+    &_selected {
+      color: #fff;
+      background-color: @brand-primary;
+      &:hover {
+        background-color: @brand-primary;
+      }
+    }
+  }
+
+  &__clean-icon {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    font-size: 25px;
+    line-height: 16px;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    color: @gray-light;
+    cursor: pointer;
+    background-color: #fff;
+    z-index: 1;
+
+    &:hover {
+      color: @gray;
+    }
+  }
+}

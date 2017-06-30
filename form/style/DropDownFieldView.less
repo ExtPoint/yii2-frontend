@@ -1,0 +1,75 @@
+.@{bem-namespace}DropDownFieldView {
+
+  .@{bem-namespace}FormFieldView__control {
+    padding: 0;
+    border: none;
+  }
+
+  &__container {
+    position: relative;
+  }
+
+  &__caret {
+    right: 16px;
+    top: 0;
+    position: absolute;
+    bottom: 0;
+    margin: auto 0;
+    z-index: 1;
+  }
+
+  &__input {
+    &, &[readonly] {
+      background-color: @input-bg;
+    }
+  }
+
+  &__dropdown {
+    display: block;
+    width: 100%;
+    max-height: 300px;
+    overflow: auto;
+  }
+
+  &__dropdown-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  &__dropdown-item {
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: @dropdown-link-color;
+    cursor: pointer;
+
+    &:hover, &_hover {
+      color: @dropdown-link-hover-color;
+      background-color: @dropdown-link-hover-bg;
+    }
+    &_active {
+      color: @dropdown-link-active-color;
+      background-color: @dropdown-link-active-bg;
+    }
+  }
+
+  &__search {
+    margin: 3px 8px;
+  }
+  &__search-input {
+    width: 100%;
+  }
+
+  &__checkbox {
+  }
+  &__checkbox-input {
+    margin-right: 10px !important;
+  }
+
+  &__auto-complete-hint {
+    padding: 20px 15px 10px;
+    font-size: 80%;
+    color: #aaa;
+  }
+}

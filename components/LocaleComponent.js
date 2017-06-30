@@ -15,11 +15,15 @@ export default class LocaleComponent {
 
     constructor() {
         this.language = null;
+        this.backendTimeZone = null;
         this.translations = {};
     }
 
-    moment() {
-        return moment(...arguments).locale(this.language);
+    moment(date, format) {
+        if (this.backendTimeZone && date && moment(date, 'YYYY-MM-DD HH:mm:ss').isValid()) {
+            date = date + this.backendTimeZone;
+        }
+        return moment(date, format).locale(this.language);
     }
 
     translate(message, params = {}) {

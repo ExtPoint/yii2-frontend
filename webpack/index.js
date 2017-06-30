@@ -1,5 +1,9 @@
 const runner = require('./runner');
+const fs = require('fs');
 const webpackEasy = require('webpack-easy');
+
+let stands = null;
+let standsPath = '';
 
 const api = module.exports = {
 
@@ -91,6 +95,49 @@ const api = module.exports = {
                 )
         );
         return this;
+    },
+
+    /**
+     *
+     * @param path
+     */
+    stands(path) {
+        stands = {};
+        standsPath = path;
+
+        const entries = {};
+        function processDirEntries(name, parentName = null) {
+            ['js', 'less', 'html'].forEach(ext => {
+                if (fs.existsSync(`${path}/${name}/index.${ext}`)) {
+                    const key = name.replace(/\//g, '-');
+                    if (ext === 'html') {
+                        const path = `./${name}/index.${ext}`;
+                        stands[key] = path;
+                        if (parentName) {
+                            const parentKey = parentName.replace(/\//g, '-');
+                            if (!Array.isArray(stands[parentKey])) {
+                                stands[parentKey] = [];
+                            }
+                            stands[parentKey].push(path)
+                        }
+                    } else if (!entries[key]) {
+                        entries[key] = `${path}/${name}/index.${ext}`;
+                    }
+                }
+            });
+        }
+        fs.readdirSync(path).forEach(name => {
+            if (name === 'less' || !fs.lstatSync(`${path}/${name}`).isDirectory()) {
+                return;
+            }
+
+            fs.readdirSync(`${path}/${name}`).forEach(subname => {
+                processDirEntries(`${name}/${subname}`, name);
+            });
+            processDirEntries(name);
+        });
+
+        this._entries.push(entries);
     }
 
 };
@@ -98,7 +145,11 @@ const api = module.exports = {
 setTimeout(() => {
     Promise.all(api._entries)
         .then(result => {
-            runner(Object.assign.apply(null, result));
+            runner(
+                Object.assign.apply(null, result),
+                stands,
+                standsPath
+            );
         })
         .catch(e => console.log(e));
 });

@@ -1,0 +1,33 @@
+.@{bem-namespace}SwitcherFieldView {
+  &__list {
+    border: 1px solid #c4b58f;
+    border-radius: 3px;
+    &:after {
+      display: block;
+      content: '';
+      clear: both;
+    }
+  }
+  &__item {
+    cursor: pointer;
+    display: block;
+    float: left;
+    width: 50%;
+    height: 37px;
+    text-align: center;
+    padding: 0;
+    line-height: 34px;
+    border-radius: 0;
+    overflow: hidden;
+    background: rgba(234, 238, 220, 0);
+    box-shadow: none !important;
+    font-size: 100%;
+    font-weight: bold;
+    color: #4f4f4f;
+
+    &_selected {
+      background: #eaeedc;
+      color: #896c1f;
+    }
+  }
+}
