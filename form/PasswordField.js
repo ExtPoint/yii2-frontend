@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {form} from 'components';
+import {types} from 'components';
 
 export default class PasswordField extends React.Component {
 
@@ -31,7 +31,7 @@ export default class PasswordField extends React.Component {
 
     render() {
         const {input, disabled, placeholder, ...props} = this.props;
-        const PasswordFieldView = form.getViewComponent('PasswordFieldView');
+        const PasswordFieldView = types.getViewComponent('PasswordFieldView');
         return (
             <PasswordFieldView
                 {...props}

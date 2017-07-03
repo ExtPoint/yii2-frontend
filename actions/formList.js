@@ -1,4 +1,4 @@
-import {http, form} from 'components';
+import {http, types} from 'components';
 
 export const FORM_LIST_BEFORE_FETCH = 'FORM_LIST_BEFORE_FETCH';
 export const FORM_LIST_AFTER_FETCH = 'FORM_LIST_AFTER_FETCH';
@@ -47,7 +47,7 @@ export const fetchAutoComplete = (fieldId, queryString, params = {}) => [
 
         const {method, ...requestParams} = params;
         return dispatch(
-            http.post(method || form.autoCompleteUrl, {
+            http.post(method || types.autoCompleteUrl, {
                 ...requestParams,
                 queryString,
             }, {
@@ -89,7 +89,7 @@ const fetchByIdsInternal = (state, fieldId, ids, params) => {
         lastCallback = resolve;
         timeout = setTimeout(() => {
             // New data
-            http.post(form.fetchUrl, {requests})
+            http.post(types.fetchUrl, {requests})
                 .then(result => resolve(result));
 
             requests = [];

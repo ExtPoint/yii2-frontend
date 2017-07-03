@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {form} from 'components';
+import {types} from 'components';
 
 export default class PhoneField extends React.Component {
 
@@ -28,7 +28,7 @@ export default class PhoneField extends React.Component {
 
     render() {
         const {input, disabled, placeholder, ...props} = this.props;
-        const PhoneFieldView = form.getViewComponent('PhoneFieldView');
+        const PhoneFieldView = types.getViewComponent('PhoneFieldView');
         return (
             <PhoneFieldView
                 {...props}

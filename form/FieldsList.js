@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {FieldArray} from 'redux-form';
 
-import {form} from 'components';
+import {types} from 'components';
 import Field from './Field';
 
 class FieldsListArrayComponent extends React.Component {
@@ -40,7 +40,7 @@ class FieldsListArrayComponent extends React.Component {
 
     render() {
         const {fields, columns, ...props} = this.props;
-        const FieldsListView = form.getViewComponent('FieldsListView');
+        const FieldsListView = types.getViewComponent('FieldsListView');
         return (
             <span>
                 {fields.map(
@@ -69,7 +69,7 @@ class FieldsListArrayComponent extends React.Component {
     }
 
     getItem(column) {
-        return form.getMetaItem(column.modelMeta || this.context.modelMeta, column.attribute);
+        return types.getMetaItem(column.modelMeta || this.context.modelMeta, column.attribute);
     }
 
     renderPkField(column, prefix, rowIndex, columnIndex) {

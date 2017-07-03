@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
-import {form} from 'components';
+import {types} from 'components';
 
 export default class CategorizedStringField extends React.Component {
 
@@ -21,7 +21,7 @@ export default class CategorizedStringField extends React.Component {
 
     render() {
         const {fieldId, metaItem, stringProps, dropDownProps, ...props} = this.props;
-        const CategorizedStringFieldView = form.getViewComponent('CategorizedStringFieldView');
+        const CategorizedStringFieldView = types.getViewComponent('CategorizedStringFieldView');
         return (
             <CategorizedStringFieldView
                 {...props}

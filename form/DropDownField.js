@@ -12,7 +12,7 @@ import _isString from 'lodash/isString';
 import _isObject from 'lodash/isObject';
 import _find from 'lodash/find';
 
-import {form} from 'components';
+import {types} from 'components';
 import {fetchByIds, fetchAutoComplete, cacheEntries} from '../actions/formList';
 import {getLabels, getAutoComplete} from '../reducers/formList';
 
@@ -73,7 +73,7 @@ class DropDownField extends React.Component {
         if (this.props.items) {
             allItems = this.props.items;
         } else if (this.props.enumClassName) {
-            allItems = form.getEnumLabels(this.props.enumClassName);
+            allItems = types.getEnumLabels(this.props.enumClassName);
         }
 
         // Convert to array
@@ -202,7 +202,7 @@ class DropDownField extends React.Component {
     render() {
         const values = this.getValues();
         const {input, onChange, ...props} = this.props; // eslint-disable-line no-unused-vars
-        const DropDownFieldView = form.getViewComponent('DropDownFieldView');
+        const DropDownFieldView = types.getViewComponent('DropDownFieldView');
         return (
             <span>
                 <DropDownFieldView

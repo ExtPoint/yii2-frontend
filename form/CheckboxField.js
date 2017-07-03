@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {change} from 'redux-form';
 
-import {form} from 'components';
+import {types} from 'components';
 
 class CheckboxField extends React.Component {
 
@@ -31,7 +31,7 @@ class CheckboxField extends React.Component {
 
     render() {
         const {input, disabled, labelProps, ...props} = this.props;
-        const CheckboxFieldView = form.getViewComponent('CheckboxFieldView');
+        const CheckboxFieldView = types.getViewComponent('CheckboxFieldView');
         return (
             <CheckboxFieldView
                 {...props}

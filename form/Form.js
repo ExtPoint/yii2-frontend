@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {reduxForm, SubmissionError} from 'redux-form';
 
-import {http, form} from 'components';
+import {http, types} from 'components';
 
 class Form extends React.Component {
 
@@ -63,7 +63,7 @@ class Form extends React.Component {
 
     render() {
         const {handleSubmit, modelMeta, formId, children, action, onSubmit, onComplete, ...props} = this.props; // eslint-disable-line no-unused-vars
-        const FormView = form.getViewComponent('FormView');
+        const FormView = types.getViewComponent('FormView');
         return (
             <FormView
                 {...props}

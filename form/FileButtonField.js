@@ -8,7 +8,7 @@ import File from 'fileup-core/lib/models/File';
 import QueueCollection from 'fileup-core/lib/models/QueueCollection';
 import _sum from 'lodash/sum';
 
-import {form} from 'components';
+import {types} from 'components';
 
 class FileButtonField extends React.Component {
 
@@ -67,7 +67,7 @@ class FileButtonField extends React.Component {
         }
 
         const {size, color, ...props} = this.props;
-        const FileButtonFieldView = form.getViewComponent('FileButtonFieldView');
+        const FileButtonFieldView = types.getViewComponent('FileButtonFieldView');
         return (
             <FileButtonFieldView
                 {...props}

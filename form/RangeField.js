@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
-import {form} from 'components';
+import {types} from 'components';
 
 export default class RangeField extends React.Component {
 
@@ -27,7 +27,7 @@ export default class RangeField extends React.Component {
 
     render() {
         const {fromProps, toProps, attributesMap, labelProps, errorProps, hintProps, ...props} = this.props;
-        const RangeFieldView = form.getViewComponent('RangeFieldView');
+        const RangeFieldView = types.getViewComponent('RangeFieldView');
         return (
             <RangeFieldView
                 {...props}
@@ -53,10 +53,10 @@ export default class RangeField extends React.Component {
 
     renderField(props) {
         // Get input field config
-        const fieldConfig = form.getFieldConfig(this.props.metaItem.subAppType);
+        const fieldConfig = types.getFieldConfig(this.props.metaItem.subAppType);
 
         // Get input component
-        const FieldCompoent = this.props.component || form.getFieldComponent(fieldConfig.component || 'StringField');
+        const FieldCompoent = this.props.component || types.getFieldComponent(fieldConfig.component || 'StringField');
         delete fieldConfig.component;
 
         return (

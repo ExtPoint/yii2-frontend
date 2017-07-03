@@ -9,7 +9,7 @@ import FilePropType from 'fileup-redux/lib/types/FilePropType';
 import {fetchByIds, clearCache} from '../actions/formList';
 import {getEntries} from '../reducers/formList';
 
-import {form} from 'components';
+import {types} from 'components';
 
 class FileField extends React.Component {
 
@@ -93,7 +93,7 @@ class FileField extends React.Component {
 
     render() {
         const {buttonLabel, files, remove, thumbnailProcessor, uploader, ...props} = this.props; // eslint-disable-line no-unused-vars
-        const FileFieldView = form.getViewComponent('FileFieldView');
+        const FileFieldView = types.getViewComponent('FileFieldView');
         return (
             <FileFieldView
                 {...props}

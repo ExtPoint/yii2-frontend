@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {change} from 'redux-form';
 
-import {form} from 'components';
+import {types} from 'components';
 
 class RadioField extends React.Component {
 
@@ -27,13 +27,13 @@ class RadioField extends React.Component {
     }
 
     getItems() {
-        return form.getEnumLabels(this.props.enumClassName || this.props.metaItem.enumClassName);
+        return types.getEnumLabels(this.props.enumClassName || this.props.metaItem.enumClassName);
     }
 
     render() {
         const items = this.getItems();
         const {input, ...props} = this.props;
-        const RadioFieldView = form.getViewComponent('RadioFieldView');
+        const RadioFieldView = types.getViewComponent('RadioFieldView');
         return (
             <RadioFieldView
                 {...props}

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {form} from 'components';
+import {types} from 'components';
 
 export default class TextAreaField extends React.Component {
 
@@ -16,7 +16,7 @@ export default class TextAreaField extends React.Component {
 
     render() {
         const {input, placeholder, ...props} = this.props;
-        const TextAreaFieldView = form.getViewComponent('TextAreaFieldView');
+        const TextAreaFieldView = types.getViewComponent('TextAreaFieldView');
         return (
             <TextAreaFieldView
                 {...props}

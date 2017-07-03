@@ -7,7 +7,7 @@ import _isArray from 'lodash/isArray';
 import _isObject from 'lodash/isObject';
 import _get from 'lodash/get';
 
-import {form} from 'components';
+import {types} from 'components';
 
 class Input extends React.Component {
 
@@ -116,14 +116,14 @@ class Field extends React.Component {
         props.modelClass = _isObject(finedModelMeta) ? finedModelMeta.className : finedModelMeta;
 
         // Get meta item
-        const metaItem = form.getMetaItem(finedModelMeta, attribute);
+        const metaItem = types.getMetaItem(finedModelMeta, attribute);
         props.metaItem = metaItem;
 
         // Get input field config
-        const fieldConfig = form.getFieldConfig(metaItem.appType);
+        const fieldConfig = types.getFieldConfig(metaItem.appType);
 
         // Get input component
-        props.component = component || form.getFieldComponent(fieldConfig.component || 'StringField');
+        props.component = component || types.getFieldComponent(fieldConfig.component || 'StringField');
         delete fieldConfig.component;
 
         // Get prefix

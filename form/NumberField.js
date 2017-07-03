@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {form} from 'components';
+import {types} from 'components';
 
 export default class NumberField extends React.Component {
 
@@ -24,7 +24,7 @@ export default class NumberField extends React.Component {
 
     render() {
         const {disabled, placeholder, input, ...props} = this.props;
-        const NumberFieldView = form.getViewComponent('NumberFieldView');
+        const NumberFieldView = types.getViewComponent('NumberFieldView');
         return (
             <NumberFieldView
                 {...props}

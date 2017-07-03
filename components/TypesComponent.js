@@ -4,7 +4,7 @@ import {reduxForm} from 'redux-form';
 import ReactDOM from 'react-dom';
 import _isObject from 'lodash/isObject';
 
-export default class FormComponent {
+export default class TypesComponent {
 
     constructor(store) {
         this.store = store || null;

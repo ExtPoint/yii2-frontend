@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {form} from 'components';
+import {types} from 'components';
 
 export default class StringField extends React.Component {
 
@@ -31,7 +31,7 @@ export default class StringField extends React.Component {
 
     render() {
         const {input, disabled, placeholder, ...props} = this.props;
-        const StringFieldView = form.getViewComponent('StringFieldView');
+        const StringFieldView = types.getViewComponent('StringFieldView');
         return (
             <StringFieldView
                 {...props}
