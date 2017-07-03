@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class FieldSet extends React.Component {
 
     static propTypes = {
-        modelMeta: PropTypes.oneOfType([
+        model: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.func,
         ]),
@@ -14,7 +14,7 @@ export default class FieldSet extends React.Component {
     };
 
     static childContextTypes = {
-        modelMeta: PropTypes.oneOfType([
+        model: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.func,
         ]),
@@ -25,7 +25,7 @@ export default class FieldSet extends React.Component {
 
     getChildContext() {
         return {
-            modelMeta: this.props.modelMeta,
+            model: this.props.model,
             prefix: (this.context.prefix || '') + (this.props.prefix || ''),
             layout: this.context.layout || this.props.layout,
             layoutCols: this.context.layoutCols || this.props.layoutCols,

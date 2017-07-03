@@ -1,4 +1,4 @@
-export default class ModelMeta {
+export default class Enum {
 
     static getLabels() {
         return {};

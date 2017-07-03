@@ -15,7 +15,7 @@ class FieldsListArrayComponent extends React.Component {
         }),
         columns: PropTypes.arrayOf(PropTypes.shape({
             attribute: PropTypes.string,
-            modelMeta: PropTypes.oneOfType([
+            model: PropTypes.oneOfType([
                 PropTypes.string,
                 PropTypes.func,
             ]),
@@ -26,7 +26,7 @@ class FieldsListArrayComponent extends React.Component {
     };
 
     static contextTypes = {
-        modelMeta: PropTypes.oneOfType([
+        model: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.func,
         ]),
@@ -69,7 +69,7 @@ class FieldsListArrayComponent extends React.Component {
     }
 
     getItem(column) {
-        return types.getMetaItem(column.modelMeta || this.context.modelMeta, column.attribute);
+        return types.getMetaItem(column.model || this.context.model, column.attribute);
     }
 
     renderPkField(column, prefix, rowIndex, columnIndex) {
@@ -108,13 +108,13 @@ export default class FieldsList extends React.Component {
 
     static propTypes = {
         attribute: PropTypes.string.isRequired,
-        modelMeta: PropTypes.oneOfType([
+        model: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.func,
         ]),
         columns: PropTypes.arrayOf(PropTypes.shape({
             attribute: PropTypes.string,
-            modelMeta: PropTypes.oneOfType([
+            model: PropTypes.oneOfType([
                 PropTypes.string,
                 PropTypes.func,
             ]),
@@ -128,7 +128,7 @@ export default class FieldsList extends React.Component {
     };
 
     static childContextTypes = {
-        modelMeta: PropTypes.oneOfType([
+        model: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.func,
         ]),
@@ -137,7 +137,7 @@ export default class FieldsList extends React.Component {
 
     getChildContext() {
         return {
-            modelMeta: this.props.modelMeta,
+            model: this.props.model,
             prefix: '',
         };
     }

@@ -66,7 +66,7 @@ class Field extends React.Component {
     static propTypes = {
         attribute: PropTypes.string.isRequired,
         formId: PropTypes.string,
-        modelMeta: PropTypes.oneOfType([
+        model: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.func,
         ]),
@@ -81,7 +81,7 @@ class Field extends React.Component {
 
     static contextTypes = {
         formId: PropTypes.string,
-        modelMeta: PropTypes.oneOfType([
+        model: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.func,
         ]),
@@ -96,7 +96,7 @@ class Field extends React.Component {
 
     render() {
         // Get params
-        const {attribute, formId, modelMeta, prefix, component, label, hint, required, layout, layoutCols, ...props} = this.props;
+        const {attribute, formId, model, prefix, component, label, hint, required, layout, layoutCols, ...props} = this.props;
         props.attribute = attribute;
         props.layout = layout || this.context.layout;
         props.layoutCols = layoutCols || this.context.layoutCols;
@@ -109,9 +109,9 @@ class Field extends React.Component {
         props.formId = finedFormId;
 
         // Model meta
-        const finedModelMeta = modelMeta || this.context.modelMeta;
+        const finedModelMeta = model || this.context.model;
         if (!finedModelMeta) {
-            throw new Error(`Not found modelMeta for attribute '${attribute}'`);
+            throw new Error(`Not found model for attribute '${attribute}'`);
         }
         props.modelClass = _isObject(finedModelMeta) ? finedModelMeta.className : finedModelMeta;
 

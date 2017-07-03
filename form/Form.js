@@ -9,7 +9,7 @@ class Form extends React.Component {
 
     static propTypes = {
         formId: PropTypes.string.isRequired,
-        modelMeta: PropTypes.oneOfType([
+        model: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.func,
         ]),
@@ -22,7 +22,7 @@ class Form extends React.Component {
     };
 
     static childContextTypes = {
-        modelMeta: PropTypes.oneOfType([
+        model: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.func,
         ]),
@@ -40,7 +40,7 @@ class Form extends React.Component {
 
     getChildContext() {
         return {
-            modelMeta: this.props.modelMeta,
+            model: this.props.model,
             formId: this.props.formId,
             layout: this.props.layout,
             layoutCols: this.props.layoutCols,
@@ -62,7 +62,7 @@ class Form extends React.Component {
     }
 
     render() {
-        const {handleSubmit, modelMeta, formId, children, action, onSubmit, onComplete, ...props} = this.props; // eslint-disable-line no-unused-vars
+        const {handleSubmit, model, formId, children, action, onSubmit, onComplete, ...props} = this.props; // eslint-disable-line no-unused-vars
         const FormView = types.getViewComponent('FormView');
         return (
             <FormView
