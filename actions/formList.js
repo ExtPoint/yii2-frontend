@@ -5,6 +5,7 @@ export const FORM_LIST_AFTER_FETCH = 'FORM_LIST_AFTER_FETCH';
 export const FORM_LIST_CLEAR_CACHE = 'FORM_LIST_CLEAR_CACHE';
 export const FORM_LIST_BEFORE_AUTO_COMPLETE = 'FORM_LIST_BEFORE_AUTO_COMPLETE';
 export const FORM_LIST_AFTER_AUTO_COMPLETE = 'FORM_LIST_AFTER_AUTO_COMPLETE';
+export const FORM_LIST_SAVE_TO_CACHE = 'FORM_LIST_SAVE_TO_CACHE';
 export const FORM_LIST_CACHE_ENTRIES = 'FORM_LIST_CACHE_ENTRIES';
 
 export const fetchByIds = (fieldId, ids, params = {}) => (dispatch, getState) => {
@@ -61,6 +62,12 @@ export const fetchAutoComplete = (fieldId, queryString, params = {}) => [
         );
     }
 ];
+
+export const saveToCache = (fieldId, entries) => ({
+    fieldId,
+    entries,
+    type: FORM_LIST_SAVE_TO_CACHE,
+});
 
 export const cacheEntries = (fieldId, entryIds) => ({
     fieldId,

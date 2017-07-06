@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import _uniq from 'lodash/uniq';
 import _range from 'lodash/range';
-import _pad from 'lodash/pad';
+import _padStart from 'lodash/padStart';
 
 import {types} from 'components';
 
@@ -11,29 +11,26 @@ export default class ScheduleField extends React.Component {
 
     static propTypes = {
         metaItem: PropTypes.object.isRequired,
+        attributesMap: PropTypes.object,
         input: PropTypes.shape({
             name: PropTypes.string,
             value: PropTypes.any,
             onChange: PropTypes.func,
         }),
-        refNames: PropTypes.shape({
-            sinceTimeAttribute: PropTypes.string,
-            tillTimeAttribute: PropTypes.string,
-        }),
     };
 
-    static hours = _range(24).map(n => _pad(n, 2, '0'));
-    static minutes = _range(60).map(n => _pad(n, 2, '0'));
+    static hours = _range(24).map(n => _padStart(n, 2, '0'));
+    static minutes = _range(4).map(n => _padStart(n * 15, 2, '0'));
 
     render() {
-        const daysInput = _get(this.props, this.props.name).input;
-        const timeSinceInput = _get(this.props, this.props.refNames.sinceTimeAttribute).input;
-        const timeTillInput = _get(this.props, this.props.refNames.tillTimeAttribute).input;
+        const daysInput = _get(this.props, this.props.attributesMap[this.props.attribute]).input;
+        const timeSinceInput = _get(this.props, this.props.attributesMap[this.props.metaItem.sinceTimeAttribute]).input;
+        const timeTillInput = _get(this.props, this.props.attributesMap[this.props.metaItem.tillTimeAttribute]).input;
 
         const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
         const selectedDays = (daysInput.value || '').split(',').filter(Boolean).map(v => parseInt(v));
 
-        const {fieldId, ...props} = this.props;
+        const {fieldId, metaItem, ...props} = this.props;
         const ScheduleFieldView = types.getViewComponent('ScheduleFieldView');
         return (
             <ScheduleFieldView
@@ -50,6 +47,7 @@ export default class ScheduleField extends React.Component {
                 }}
                 onEverydayClick={() => daysInput.onChange('1,2,3,4,5,6,7')}
                 sinceHourProps={{
+                    metaItem,
                     placeholder: '',
                     fieldId: `${fieldId}_sinceHour`,
                     input: {
@@ -60,6 +58,7 @@ export default class ScheduleField extends React.Component {
                     items: ScheduleField.hours,
                 }}
                 sinceMinuteProps={{
+                    metaItem,
                     placeholder: '',
                     fieldId: `${fieldId}_sinceMinute`,
                     input: {
@@ -70,6 +69,7 @@ export default class ScheduleField extends React.Component {
                     items: ScheduleField.minutes,
                 }}
                 tillHourProps={{
+                    metaItem,
                     placeholder: '',
                     fieldId: `${fieldId}_tillHour`,
                     input: {
@@ -80,6 +80,7 @@ export default class ScheduleField extends React.Component {
                     items: ScheduleField.hours,
                 }}
                 tillMinuteProps={{
+                    metaItem,
                     placeholder: '',
                     fieldId: `${fieldId}_tillMinute`,
                     input: {
@@ -107,14 +108,14 @@ export default class ScheduleField extends React.Component {
     }
 
     setSincePartTime(index, partValue) {
-        const timeSinceInput = _get(this.props, this.props.refNames.sinceTimeAttribute).input;
+        const timeSinceInput = _get(this.props, this.props.attributesMap[this.props.metaItem.sinceTimeAttribute]).input;
         const value = (timeSinceInput.value || '').split(':') || ['00', '00'];
         value[index] = partValue;
         timeSinceInput.onChange(value.join(':'));
     }
 
     setTillPartTime(index, partValue) {
-        const timeTillInput = _get(this.props, this.props.refNames.tillTimeAttribute).input;
+        const timeTillInput = _get(this.props, this.props.attributesMap[this.props.metaItem.tillTimeAttribute]).input;
         const value = (timeTillInput.value || '').split(':') || ['00', '00'];
         value[index] = partValue;
         timeTillInput.onChange(value.join(':'));

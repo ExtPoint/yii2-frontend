@@ -8,14 +8,12 @@ export default class PeriodField extends React.Component {
 
     static propTypes = {
         metaItem: PropTypes.object.isRequired,
-        refNames: PropTypes.shape({
-            refAttribute: PropTypes.string,
-        }),
+        attributesMap: PropTypes.object,
     };
 
     render() {
-        const fromInput = _get(this.props, this.props.name).input;
-        const toInput = _get(this.props, this.props.refNames.refAttribute).input;
+        const fromInput = _get(this.props, this.props.attributesMap[this.props.attribute]).input;
+        const toInput = _get(this.props, this.props.attributesMap[this.props.metaItem.refAttribute]).input;
         const {metaItem, ...props} = this.props;
         const PeriodFieldView = types.getViewComponent('PeriodFieldView');
         return (

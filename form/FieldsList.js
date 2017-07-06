@@ -53,14 +53,24 @@ class FieldsListArrayComponent extends React.Component {
                     rows={fields.map(prefix => ({
                         renderField: (column) => this.renderField(column, prefix),
                     }))}
-                    columns={this.columns.map(column => {
-                        const metaItem = this.getItem(column);
-                        return {
-                            label: column.label || metaItem.label,
-                            hint: column.hint || metaItem.hint,
-                            required: metaItem.required,
-                        };
-                    })}
+                    columns={this.props.columns
+                        .map(column => {
+                            const metaItem = this.getItem(column);
+                            console.log(345, metaItem.appType);
+                            if (metaItem.appType === 'primaryKey') {
+                                return null;
+                            }
+                            return {
+                                ...column,
+                                labelProps: {
+                                    label:  column.label || column.label === false || column.label === '' ? column.label : metaItem.label || '',
+                                    hint:  column.hint || column.hint === false || column.hint === '' ? column.hint : metaItem.hint || '',
+                                    required: metaItem.required,
+                                },
+                            };
+                        })
+                        .filter(Boolean)
+                    }
                     onAdd={() => fields.push()}
                     onRemove={index => fields.remove(index)}
                 />
@@ -83,7 +93,8 @@ class FieldsListArrayComponent extends React.Component {
                 {...column}
                 key={`${rowIndex}_${columnIndex}`}
                 prefix={prefix}
-                label={null}
+                label={false}
+                labelProps={null}
             />
         );
     }
@@ -98,7 +109,8 @@ class FieldsListArrayComponent extends React.Component {
             <Field
                 {...column}
                 prefix={prefix}
-                label={null}
+                label={false}
+                labelProps={null}
             />
         );
     }

@@ -14,7 +14,10 @@ class RadioField extends React.Component {
             value: PropTypes.any,
             onChange: PropTypes.func,
         }),
-        enumClassName: PropTypes.string,
+        enumClassName: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.func,
+        ]),
     };
 
     componentWillMount() {

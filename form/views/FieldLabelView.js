@@ -10,8 +10,16 @@ export default class FieldLabelView extends React.Component {
 
     static propTypes = {
         className: PropTypes.string,
-        label: PropTypes.string,
-        hint: PropTypes.string,
+        label: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.bool,
+            PropTypes.element,
+        ]),
+        hint: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.bool,
+            PropTypes.element,
+        ]),
         required: PropTypes.bool,
         onClick: PropTypes.func,
         layout: PropTypes.string,

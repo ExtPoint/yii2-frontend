@@ -1,3 +1,4 @@
+import AddressField from './AddressField';
 import CategorizedStringField from './CategorizedStringField';
 import CheckboxField from './CheckboxField';
 import DateField from './DateField';
@@ -22,6 +23,7 @@ import SwitcherField from './SwitcherField';
 import TextAreaField from './TextAreaField';
 
 export default {
+    AddressField,
     CategorizedStringField,
     CheckboxField,
     DateField,

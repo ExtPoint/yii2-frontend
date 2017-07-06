@@ -12,10 +12,6 @@ export default class FieldErrorView extends React.Component {
     };
 
     render() {
-        if (!this.props.children) {
-            return null;
-        }
-
         return (
             <div
                 className={bem(
@@ -23,7 +19,7 @@ export default class FieldErrorView extends React.Component {
                     this.props.className,
                 )}
             >
-                {this.props.children}
+                {this.props.error}
             </div>
         );
     }

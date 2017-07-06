@@ -43,6 +43,7 @@ class DropDownField extends React.Component {
         autoSelectFirst: PropTypes.bool,
         onChange: PropTypes.func,
         items: PropTypes.oneOfType([
+            PropTypes.array,
             PropTypes.object,
             PropTypes.arrayOf(PropTypes.shape({
                 id: PropTypes.number,
@@ -77,12 +78,18 @@ class DropDownField extends React.Component {
         }
 
         // Convert to array
-        if (_isObject(allItems)) {
+        if (!_isArray(allItems) && _isObject(allItems)) {
             allItems = Object.keys(allItems).map(key => ({
                 id: key,
                 label: allItems[key],
             }));
         }
+        allItems = allItems.map(item => {
+            return _isObject(item) ? item : {
+                id: item,
+                label: item,
+            };
+        });
 
         this.state = {
             query: '',
@@ -95,9 +102,11 @@ class DropDownField extends React.Component {
     }
 
     componentWillMount() {
+        const values = this.getValues();
+
         // Select first value on mount
         if (this.props.autoSelectFirst) {
-            if (this.getValues().length === 0) {
+            if (values.length === 0) {
                 if (this.state.filteredItems.length > 0) {
                     const id = this.state.filteredItems[0].id;
                     const value = this.props.multiple ? [id] : id;
@@ -105,20 +114,18 @@ class DropDownField extends React.Component {
                 }
             }
         }
-    }
-
-    componentDidMount() {
-        window.addEventListener('keydown', this._onKeyDown);
 
         // Async load selected labels from backend
-        const values = this.getValues();
         if (values.length > 0 && !this.getLabel()) {
-            //const {fieldId, metaItem, input, ...props} = this.props; // eslint-disable-line no-unused-vars
             this.props.dispatch(fetchByIds(this.props.fieldId, values, {
                 model: this.props.modelClass,
                 attribute: this.props.attribute,
             }));
         }
+    }
+
+    componentDidMount() {
+        window.addEventListener('keydown', this._onKeyDown);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -156,7 +163,7 @@ class DropDownField extends React.Component {
 
     getFilteredItems() {
         if (_isString(this.props.autoComplete) || _isObject(this.props.autoComplete)) {
-            return this.props.autoCompleteItems;
+            return this.props.autoCompleteItems || [];
         }
         return this.state.filteredItems;
     }
@@ -185,7 +192,7 @@ class DropDownField extends React.Component {
         const filteredItems = this.getFilteredItems();
 
         values.map(value => {
-            if (this.props.valueLabels[value]) {
+            if (this.props.valueLabels && [value]) {
                 labels.push(this.props.valueLabels[value]);
             } else {
                 const item = _find(filteredItems, item => item.id === value)
@@ -222,7 +229,7 @@ class DropDownField extends React.Component {
                         tabIndex: -1
                     }}
                     searchHint={(
-                        (_isString(this.props.autoComplete) || _isObject(this.props.autoComplete)) && !this.state.query && this.props.autoCompleteItems.length === 0
+                        (_isString(this.props.autoComplete) || _isObject(this.props.autoComplete)) && !this.state.query && this.props.autoCompleteItems && this.props.autoCompleteItems.length === 0
                             ? this.props.searchPlaceholder
                             : null
                     )}

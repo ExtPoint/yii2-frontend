@@ -8,7 +8,7 @@ export default class FieldSet extends React.Component {
             PropTypes.string,
             PropTypes.func,
         ]),
-        prefix: PropTypes.prefix,
+        prefix: PropTypes.string,
         layout: PropTypes.string,
         layoutCols: PropTypes.arrayOf(PropTypes.number),
     };

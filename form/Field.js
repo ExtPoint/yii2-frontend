@@ -22,14 +22,33 @@ class Input extends React.Component {
         const FieldComponent = component;
 
         const values = {};
+        let errors = [];
         if (this.props.input) {
             values[this.props.input.name] = this.props.input.value;
+
+            // Set error
+            if (this.props.meta.touched) {
+                errors = errors.concat(this.props.meta.error || []);
+            }
         } else {
             Object.keys(this.props.attributesMap).forEach(attribute => {
                 const name = this.props.attributesMap[attribute];
-                values[name] = _get(this.props, name).input.value;
+                const fieldProps = _get(this.props, name);
+                values[name] = fieldProps.input.value;
+
+                // Set error
+                if (fieldProps.meta.touched) {
+                    errors = errors.concat(fieldProps.meta.error || []);
+                }
             });
         }
+
+        if (errors.length > 0) {
+            props.errorProps = {
+                error: errors.join(', ')
+            };
+        }
+
         return (
             <span>
                 {Object.keys(values).map(name => this.renderHiddenInput(name, values[name]))}
@@ -73,9 +92,17 @@ class Field extends React.Component {
         prefix: PropTypes.string,
         layout: PropTypes.string,
         layoutCols: PropTypes.arrayOf(PropTypes.number),
-        component: PropTypes.element,
-        label: PropTypes.string,
-        hint: PropTypes.string,
+        component: PropTypes.func,
+        label: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.bool,
+            PropTypes.element,
+        ]),
+        hint: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.bool,
+            PropTypes.element,
+        ]),
         required: PropTypes.bool,
     };
 
@@ -113,6 +140,7 @@ class Field extends React.Component {
         if (!finedModelMeta) {
             throw new Error(`Not found model for attribute '${attribute}'`);
         }
+        props.model = finedModelMeta;
         props.modelClass = _isObject(finedModelMeta) ? finedModelMeta.className : finedModelMeta;
 
         // Get meta item
@@ -134,28 +162,28 @@ class Field extends React.Component {
         }
 
         // Get label, hint, required
-        let resultLabel = label || label === false ? label : metaItem.label || '';
-        let resultHint = hint || hint === false ? hint : metaItem.hint || '';
+        let resultLabel = label || label === false || label === '' ? label : metaItem.label || '';
+        let resultHint = hint || hint === false || hint === '' ? hint : metaItem.hint || '';
         let resultRequired = _isBoolean(required) ? required : metaItem.required || false;
-        props.labelProps = {
-            label: resultLabel,
-            hint: resultHint,
-            required: resultRequired,
-            layout: props.layout,
-            layoutCols: props.layoutCols,
-        };
-        props.hintProps = {
-            hint: resultHint,
-            layout: props.layout,
-            layoutCols: props.layoutCols,
-        };
+        if (resultLabel !== false) {
+            props.labelProps = {
+                label: resultLabel,
+                hint: resultHint,
+                required: resultRequired,
+                layout: props.layout,
+                layoutCols: props.layoutCols,
+            };
+        }
+        if (resultHint !== false) {
+            props.hintProps = {
+                hint: resultHint,
+                layout: props.layout,
+                layoutCols: props.layoutCols,
+            };
+        }
 
         // Generate unique field id
         props.fieldId = `${props.formId}_${props.attribute}`;
-
-        // Set error
-        // TODO
-        props.errorProps = {};
 
         // Render redux field component
         if (fieldConfig.refAttributeOptions.length > 0) {

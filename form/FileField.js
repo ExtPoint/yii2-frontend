@@ -99,7 +99,6 @@ class FileField extends React.Component {
                 {...props}
                 buttonProps={{
                     size: 'sm',
-                    color: 'white',
                     onClick: this._onBrowseClick,
                 }}
                 buttonLabel={buttonLabel || (this.props.multiple ? 'Прикрепить файлы' : 'Прикрепить файл')}

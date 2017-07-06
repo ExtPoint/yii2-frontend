@@ -2,7 +2,8 @@ import React from 'react';
 import { Provider} from 'react-redux';
 import {reduxForm} from 'redux-form';
 import ReactDOM from 'react-dom';
-import _isObject from 'lodash/isObject';
+import _isFunction from 'lodash/isFunction';
+import _isArray from 'lodash/isArray';
 
 export default class TypesComponent {
 
@@ -60,7 +61,7 @@ export default class TypesComponent {
      * @return {object}
      */
     getModelMeta(metaClass) {
-        if (_isObject(metaClass)) {
+        if (_isFunction(metaClass)) {
             return metaClass.meta();
         }
         if (!this.metas[metaClass]) {
@@ -73,7 +74,7 @@ export default class TypesComponent {
         const meta = this.getModelMeta(metaClass);
         const metaItem = meta[attribute];
         if (!metaItem) {
-            const metaClassName = _isObject(metaClass) ? metaClass.constructor.name : metaClass;
+            const metaClassName = _isFunction(metaClass) ? metaClass.constructor.name : metaClass;
             throw new Error(`Not found meta item for attribute '${attribute}', model '${metaClassName}'`);
         }
 
@@ -84,8 +85,12 @@ export default class TypesComponent {
         this.enums[enumClass] = data;
     }
 
+    getEnum(enumClass) {
+        return this.enums[enumClass];
+    }
+
     getEnumLabels(enumClass) {
-        if (_isObject(enumClass) && enumClass.getLabels) {
+        if (_isFunction(enumClass) && enumClass.getLabels) {
             return enumClass.getLabels();
         }
 
@@ -94,6 +99,16 @@ export default class TypesComponent {
         }
 
         return this.enums[enumClass].labels || {};
+    }
+
+    getEnumLabel(enumClass, id) {
+        const labels = this.getEnumLabels(enumClass);
+        if (_isArray(labels)) {
+            const labelsItem = labels.find(item => item.id === id);
+            return labelsItem ? labelsItem.label : '';
+        } else {
+            return labels[id] || '';
+        }
     }
 
     /**

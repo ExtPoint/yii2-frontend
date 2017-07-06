@@ -35,7 +35,7 @@ class FileButtonField extends React.Component {
 
     static defaultProps = {
         size: 'md',
-        color: 'yellow',
+        color: 'primary',
     };
 
     constructor(props) {
@@ -71,6 +71,7 @@ class FileButtonField extends React.Component {
         return (
             <FileButtonFieldView
                 {...props}
+                labelProps={null}
                 buttonProps={{
                     size,
                     color,

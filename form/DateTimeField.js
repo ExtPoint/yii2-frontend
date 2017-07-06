@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import _isString from 'lodash/isString';
 import _range from 'lodash/range';
 import _padStart from 'lodash/padStart';
-import _keyBy from 'lodash/keyBy';
 
 import {types, locale} from 'components';
 
@@ -26,9 +25,8 @@ export default class DateTimeField extends React.Component {
         valueFormat: 'YYYY-MM-DD HH:mm',
     };
 
-    // The 'x' string is a fix object as array optimization -> wrong keys sort
-    static hours = _keyBy(_range(24).map(n => _padStart(n, 2, '0')), v => 'x' + v);
-    static minutes = _keyBy(_range(4).map(n => _padStart(n * 15, 2, '0')), v => 'x' + v);
+    static hours = _range(24).map(n => _padStart(n, 2, '0'));
+    static minutes = _range(4).map(n => _padStart(n * 15, 2, '0'));
 
     constructor() {
         super(...arguments);
@@ -68,7 +66,7 @@ export default class DateTimeField extends React.Component {
                     layout: 'inline',
                     input: {
                         name: '',
-                        value: hour ? 'x' + hour : null,
+                        value: hour,
                         onChange: this._onChangeHours,
                     },
                     placeholder: 'ЧЧ',
@@ -80,7 +78,7 @@ export default class DateTimeField extends React.Component {
                     layout: 'inline',
                     input: {
                         name: '',
-                        value: minute ? 'x' + minute : null,
+                        value: minute,
                         onChange: this._onChangeMinutes,
                     },
                     placeholder: 'ММ',

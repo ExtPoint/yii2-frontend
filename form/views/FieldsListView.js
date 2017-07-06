@@ -43,7 +43,7 @@ export default class FieldsListView extends React.Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.props.fields.map((row, rowIndex) => (
+                    {this.props.rows.map((row, rowIndex) => (
                         <tr
                             key={rowIndex}
                             className={bem.element('table-row')}

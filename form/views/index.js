@@ -1,3 +1,4 @@
+import AddressFieldView from './AddressFieldView';
 import ButtonView from './ButtonView';
 import CategorizedStringFieldView from './CategorizedStringFieldView';
 import CheckboxFieldView from './CheckboxFieldView';
@@ -24,6 +25,7 @@ import SwitcherFieldView from './SwitcherFieldView';
 import TextAreaFieldView from './TextAreaFieldView';
 
 export default {
+    AddressFieldView,
     ButtonView,
     CategorizedStringFieldView,
     CheckboxFieldView,

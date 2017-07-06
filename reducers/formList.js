@@ -2,6 +2,7 @@ import _get from 'lodash/get';
 import _pick from 'lodash/pick';
 import _keyBy from 'lodash/keyBy';
 import _find from 'lodash/find';
+import _filter from 'lodash/filter';
 import _values from 'lodash/values';
 
 import {
@@ -10,6 +11,7 @@ import {
     FORM_LIST_CLEAR_CACHE,
     FORM_LIST_BEFORE_AUTO_COMPLETE,
     FORM_LIST_AFTER_AUTO_COMPLETE,
+    FORM_LIST_SAVE_TO_CACHE,
     FORM_LIST_CACHE_ENTRIES,
 } from '../actions/formList';
 
@@ -92,9 +94,23 @@ export default (state = initialState, action) => {
                 }
             };
 
+        case FORM_LIST_SAVE_TO_CACHE:
+            return {
+                ...state,
+                cache: {
+                    ...state.cache,
+                    [action.fieldId]: {
+                        entries: {
+                            ...(state.cache[action.fieldId] && state.cache[action.fieldId].entries || {}),
+                            ...action.entries,
+                        },
+                    }
+                }
+            };
+
         case FORM_LIST_CACHE_ENTRIES:
-            const autoCompleteList = getAutoComplete(state, action.fieldId);
-            const entries = _find(autoCompleteList, entry => action.entryIds.indexOf(entry.id) !== -1);
+            const autoCompleteList = _get(state, `autoComplete.${action.fieldId}.entries`);
+            const entries = _filter(autoCompleteList, entry => action.entryIds.indexOf(entry.id) !== -1);
             return {
                 ...state,
                 cache: {
@@ -112,9 +128,16 @@ export default (state = initialState, action) => {
     return state;
 };
 
-export const getAutoComplete = (state, fieldId) => _get(state, `formList.autoComplete.${fieldId}.entries`, []);
+export const getAutoComplete = (state, fieldId) => _get(state, `formList.autoComplete.${fieldId}.entries`);
 export const getEntries = (state, fieldId, entryIds) => _values(_pick(_get(state, `formList.cache.${fieldId}.entries`), entryIds));
-export const getLabels = (state, fieldId, entryIds) => getEntries(state, fieldId, entryIds).reduce((obj, entry) => {
-    obj[entry.id] = entry.label;
-    return obj;
-}, {});
+export const getLabels = (state, fieldId, entryIds) => {
+    const entries = getEntries(state, fieldId, entryIds);
+    if (entries.length === 0) {
+        return null;
+    }
+    return entries.reduce((obj, entry) => {
+        obj[entry.id] = entry.label;
+        return obj;
+    }, {})
+
+};

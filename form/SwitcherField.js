@@ -15,6 +15,10 @@ class SwitcherField extends React.Component {
             onChange: PropTypes.func,
         }),
         autoSelectFirst: PropTypes.bool,
+        enumClassName: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.func,
+        ]),
     };
 
     static defaultProps = {
@@ -25,7 +29,7 @@ class SwitcherField extends React.Component {
         if (this.props.autoSelectFirst) {
             const value = this.props.input.value;
             if (!value) {
-                const keys = Object.keys(types.getEnumLabels(this.props.metaItem.enumClassName));
+                const keys = Object.keys(types.getEnumLabels(this.props.enumClassName || this.props.metaItem.enumClassName));
                 if (keys.length > 0) {
                     this.props.dispatch(change(this.props.formId, this.props.input.name, keys[0]));
                 }
@@ -34,7 +38,7 @@ class SwitcherField extends React.Component {
     }
 
     render() {
-        const items = types.getEnumLabels(this.props.metaItem.enumClassName);
+        const items = types.getEnumLabels(this.props.enumClassName || this.props.metaItem.enumClassName);
         const {input, ...props} = this.props;
         const SwitcherFieldView = types.getViewComponent('SwitcherFieldView');
         return (
