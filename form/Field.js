@@ -204,8 +204,8 @@ class Field extends React.Component {
                     names={names}
                     component={Input}
                     props={{
-                        ...props,
                         ...fieldConfig,
+                        ...props,
                     }}
                 />
             );
@@ -215,8 +215,8 @@ class Field extends React.Component {
                     name={fullPrefix + attribute}
                     component={Input}
                     props={{
-                        ...props,
                         ...fieldConfig,
+                        ...props,
                     }}
                 />
             );

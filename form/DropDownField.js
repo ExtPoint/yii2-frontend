@@ -10,6 +10,7 @@ import _filter from 'lodash/filter';
 import _isArray from 'lodash/isArray';
 import _isString from 'lodash/isString';
 import _isObject from 'lodash/isObject';
+import _isUndefined from 'lodash/isUndefined';
 import _find from 'lodash/find';
 
 import {types} from 'components';
@@ -372,8 +373,8 @@ class DropDownField extends React.Component {
 export default connect(
     (state, props) => ({
         multiple: props.multiple || props.metaItem.multiple,
-        enumClassName: props.enumClassName || props.metaItem.enumClassName,
-        autoComplete: props.autoComplete || props.metaItem.autoComplete,
+        enumClassName: !_isUndefined(props.enumClassName) ? props.enumClassName : props.metaItem.enumClassName,
+        autoComplete: !_isUndefined(props.autoComplete) ? props.autoComplete : props.metaItem.autoComplete,
         autoCompleteItems: getAutoComplete(state, props.fieldId),
         valueLabels: getLabels(state, props.fieldId, [].concat(props.input.value || [])),
     })
