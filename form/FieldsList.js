@@ -19,10 +19,23 @@ class FieldsListArrayComponent extends React.Component {
                 PropTypes.string,
                 PropTypes.func,
             ]),
-            label: PropTypes.string,
-            hint: PropTypes.string,
+            label: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.bool,
+                PropTypes.element,
+            ]),
+            hint: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.bool,
+                PropTypes.element,
+            ]),
             component: PropTypes.any,
         })),
+        initialRowsCount: PropTypes.number,
+    };
+
+    static defaultProps = {
+        initialRowsCount: 1,
     };
 
     static contextTypes = {
@@ -34,13 +47,17 @@ class FieldsListArrayComponent extends React.Component {
 
     componentWillMount() {
         if (this.props.fields.length === 0) {
-            this.props.fields.push();
+            for (let i = 0; i <= this.props.initialRowsCount; i++) {
+                this.props.fields.push();
+            }
         }
     }
 
     render() {
         const {fields, columns, ...props} = this.props;
         const FieldsListView = types.getViewComponent('FieldsListView');
+        const errors = [].concat(this.props.meta && this.props.meta.error || []);
+
         return (
             <span>
                 {fields.map(
@@ -50,20 +67,24 @@ class FieldsListArrayComponent extends React.Component {
                 )}
                 <FieldsListView
                     {...props}
+                    errorProps={errors.length === 0 ? null :{
+                        error: errors.join(', ')
+                    }}
                     rows={fields.map(prefix => ({
                         renderField: (column) => this.renderField(column, prefix),
                     }))}
                     columns={this.props.columns
                         .map(column => {
                             const metaItem = this.getItem(column);
-                            console.log(345, metaItem.appType);
                             if (metaItem.appType === 'primaryKey') {
                                 return null;
                             }
+                            const label = column.label || column.label === false || column.label === '' ? column.label : metaItem.label || '';
+
                             return {
                                 ...column,
-                                labelProps: {
-                                    label:  column.label || column.label === false || column.label === '' ? column.label : metaItem.label || '',
+                                labelProps: label === false ? null : {
+                                    label,
                                     hint:  column.hint || column.hint === false || column.hint === '' ? column.hint : metaItem.hint || '',
                                     required: metaItem.required,
                                 },

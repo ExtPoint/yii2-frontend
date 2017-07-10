@@ -20,7 +20,10 @@ export default class DropDownFieldView extends React.Component {
                 PropTypes.number,
                 PropTypes.string,
             ]),
-            label: PropTypes.string,
+            label: PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.string,
+            ]),
             isChecked: PropTypes.bool,
             isHovered: PropTypes.bool,
             isShowCheckbox: PropTypes.bool,

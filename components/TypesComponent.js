@@ -86,6 +86,9 @@ export default class TypesComponent {
     }
 
     getEnum(enumClass) {
+        if (_isFunction(enumClass)) {
+            return enumClass;
+        }
         return this.enums[enumClass];
     }
 

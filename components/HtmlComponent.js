@@ -51,6 +51,8 @@ export default class HtmlHelper {
 
     _applyModifiers(entity, modifiers) {
         let result = [];
+        result.push(entity);
+
         if (typeof modifiers === 'string') {
             result.push(entity + (modifiers ? '_' + modifiers : ''));
         } else if (modifiers) {
@@ -66,8 +68,6 @@ export default class HtmlHelper {
                     result.push(entity + '_' + key + '_' + value);
                 }
             });
-        } else {
-            result.push(entity);
         }
 
         // Append namespace

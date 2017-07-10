@@ -83,7 +83,7 @@ const fetchByIdsInternal = (state, fieldId, ids, params) => {
 
     const {getLabels} = require('../reducers/formList');
     const labels = getLabels(state, fieldId, ids);
-    if (labels.length === ids.length) {
+    if (labels && labels.length === ids.length) {
         // No new data
         return Promise.resolve(null);
     }

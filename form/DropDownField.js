@@ -47,7 +47,10 @@ class DropDownField extends React.Component {
             PropTypes.object,
             PropTypes.arrayOf(PropTypes.shape({
                 id: PropTypes.number,
-                label: PropTypes.string,
+                label: PropTypes.oneOfType([
+                    PropTypes.number,
+                    PropTypes.string,
+                ]),
             })),
         ]),
         attribute: PropTypes.string,

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import {html} from 'components';
 import FieldLabelView from './FieldLabelView';
+import FieldErrorView from './FieldErrorView';
 
 const bem = html.bem('FieldsListView');
 
@@ -10,6 +11,7 @@ export default class FieldsListView extends React.Component {
 
     static propTypes = {
         className: PropTypes.string,
+        errorProps: PropTypes.object,
         rows: PropTypes.arrayOf(PropTypes.shape({
             renderField: PropTypes.func,
         })),
@@ -36,7 +38,9 @@ export default class FieldsListView extends React.Component {
                                 key={index}
                                 className={bem.element('table-header-row')}
                             >
-                                <FieldLabelView {...column.labelProps} />
+                                {column.labelProps && (
+                                    <FieldLabelView {...column.labelProps} />
+                                )}
                             </th>
                         ))}
                         <th />
@@ -71,6 +75,7 @@ export default class FieldsListView extends React.Component {
                     ))}
                     </tbody>
                 </table>
+                <FieldErrorView {...this.props.errorProps} />
                 <a
                     href='javascript:void(0)'
                     className={bem.element('link-add')}
