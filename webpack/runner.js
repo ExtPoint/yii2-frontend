@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 const webpackEasy = require('webpack-easy');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -9,9 +10,9 @@ module.exports = (entry, stands, standsPath) => {
         .entry(entry)
         .config({
             resolve: {
-                root: `${process.cwd()}/app`,
+                root: path.resolve(process.cwd(), 'app'),
                 alias: {
-                    app: `${process.cwd()}/app`,
+                    app: path.resolve(process.cwd(), 'app'),
                     actions: 'core/frontend/actions',
                     components: 'core/frontend/components',
                     reducers: 'core/frontend/reducers',
@@ -21,7 +22,7 @@ module.exports = (entry, stands, standsPath) => {
             },
         })
         .output({
-            path: `${process.cwd()}/public/`,
+            path: path.resolve(process.cwd(), 'public'),
             filename: `${staticPath}assets/bundle-[name].js`,
             chunkFilename: `${staticPath}assets/bundle-[name].js`,
         })

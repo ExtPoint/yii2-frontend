@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {reduxForm, SubmissionError} from 'redux-form';
+import {reduxForm, SubmissionError, getFormValues, initialize} from 'redux-form';
+import _isEqual from 'lodash/isEqual';
 
-import {http, types} from 'components';
+import {http, types, clientStorage} from 'components';
 
 class Form extends React.Component {
+
+    static STORAGE_KEY_PREFIX = 'Form';
 
     static propTypes = {
         formId: PropTypes.string.isRequired,
@@ -17,8 +20,11 @@ class Form extends React.Component {
         layout: PropTypes.string,
         layoutCols: PropTypes.arrayOf(PropTypes.number),
         onSubmit: PropTypes.func,
+        onChange: PropTypes.func,
         onComplete: PropTypes.func,
         contentId: PropTypes.string,
+        formValues: PropTypes.object,
+        autoSave: PropTypes.bool,
     };
 
     static childContextTypes = {
@@ -47,6 +53,16 @@ class Form extends React.Component {
         };
     }
 
+    componentWillMount() {
+        if (this.props.autoSave) {
+            const values = clientStorage.get(`${Form.STORAGE_KEY_PREFIX}_${this.props.formId}`);
+            if (values) {
+                this.props.dispatch(initialize(this.props.formId, JSON.parse(values)));
+            }
+
+        }
+    }
+
     componentDidMount() {
         if (this.props.contentId) {
             const node = document.getElementById(this.props.contentId);
@@ -58,6 +74,12 @@ class Form extends React.Component {
     componentWillUnmount() {
         if (this.props.contentId) {
             this.refs.content.appendChild(this._previousNodeParent);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!_isEqual(this.props.formValues, nextProps.formValues)) {
+            this._onChange(nextProps.formValues);
         }
     }
 
@@ -75,6 +97,16 @@ class Form extends React.Component {
         );
     }
 
+    _onChange(values) {
+        if (this.props.onChange) {
+            this.props.onChange(values);
+        }
+
+        if (this.props.autoSave) {
+            clientStorage.set(`${Form.STORAGE_KEY_PREFIX}_${this.props.formId}`, JSON.stringify(values));
+        }
+    }
+
     _onSubmit(values) {
         if (this.props.onSubmit) {
             return this.props.onSubmit(values);
@@ -84,6 +116,10 @@ class Form extends React.Component {
             .then(response => {
                 if (response.errors) {
                     throw new SubmissionError(response.errors);
+                }
+
+                if (this.props.autoSave) {
+                    clientStorage.remove(`${Form.STORAGE_KEY_PREFIX}_${this.props.formId}`);
                 }
 
                 if (this.props.onComplete) {
@@ -97,5 +133,6 @@ class Form extends React.Component {
 export default connect(
     (state, props) => ({
         form: props.formId,
+        formValues: getFormValues(props.formId)(state),
     })
 )(reduxForm({})(Form));
