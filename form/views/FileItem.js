@@ -78,7 +78,7 @@ export default class FileItem extends React.Component {
                     overlay={(
                         <Tooltip id={`tooltip-progress-${this.props.fileId}`}>
                             <span>
-                                {FileItem.asHumanFileSize(this.props.progress.uploaded)}
+                                {this.props.progress.uploaded}
                                 &nbsp;
                                 из
                             </span>

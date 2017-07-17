@@ -11,8 +11,16 @@ export default class BackendWidgetComponent {
     }
 
     register(name, func) {
-        this._widgets[_trimStart(name, '\\')] = func;
-        return func;
+        name = _trimStart(name, '\\');
+        if (arguments.length === 1) {
+            // Decorator
+            return func => {
+                this._widgets[name] = func;
+            };
+        } else {
+            this._widgets[name] = func;
+            return func;
+        }
     }
 
     render(elementId, name, props) {

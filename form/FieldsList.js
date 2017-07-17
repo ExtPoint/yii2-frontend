@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FieldArray} from 'redux-form';
+import _isBoolean from 'lodash/isBoolean';
 
 import {types} from 'components';
 import Field from './Field';
@@ -15,6 +16,7 @@ class FieldsListArrayComponent extends React.Component {
         }),
         columns: PropTypes.arrayOf(PropTypes.shape({
             attribute: PropTypes.string,
+            prefix: PropTypes.string,
             model: PropTypes.oneOfType([
                 PropTypes.string,
                 PropTypes.func,
@@ -32,10 +34,12 @@ class FieldsListArrayComponent extends React.Component {
             component: PropTypes.any,
         })),
         initialRowsCount: PropTypes.number,
+        editable: PropTypes.bool,
     };
 
     static defaultProps = {
         initialRowsCount: 1,
+        editable: true,
     };
 
     static contextTypes = {
@@ -47,7 +51,7 @@ class FieldsListArrayComponent extends React.Component {
 
     componentWillMount() {
         if (this.props.fields.length === 0) {
-            for (let i = 0; i <= this.props.initialRowsCount; i++) {
+            for (let i = 0; i < this.props.initialRowsCount; i++) {
                 this.props.fields.push();
             }
         }
@@ -86,7 +90,7 @@ class FieldsListArrayComponent extends React.Component {
                                 labelProps: label === false ? null : {
                                     label,
                                     hint:  column.hint || column.hint === false || column.hint === '' ? column.hint : metaItem.hint || '',
-                                    required: metaItem.required,
+                                    required: _isBoolean(column.required) ? column.required : metaItem.required || false,
                                 },
                             };
                         })
@@ -109,6 +113,10 @@ class FieldsListArrayComponent extends React.Component {
             return null;
         }
 
+        if (column.prefix) {
+            prefix = prefix + '.' + column.prefix;
+        }
+
         return (
             <Field
                 {...column}
@@ -124,6 +132,10 @@ class FieldsListArrayComponent extends React.Component {
         const item = this.getItem(column);
         if (item.appType === 'primaryKey') {
             return null;
+        }
+
+        if (column.prefix) {
+            prefix = prefix + '.' + column.prefix;
         }
 
         return (
@@ -147,6 +159,7 @@ export default class FieldsList extends React.Component {
         ]),
         columns: PropTypes.arrayOf(PropTypes.shape({
             attribute: PropTypes.string,
+            prefix: PropTypes.string,
             model: PropTypes.oneOfType([
                 PropTypes.string,
                 PropTypes.func,
@@ -179,6 +192,7 @@ export default class FieldsList extends React.Component {
         const name = (this.context.prefix ? this.context.prefix + '.' : '') + this.props.attribute;
         return (
             <FieldArray
+                {...this.props}
                 name={name}
                 component={FieldsListArrayComponent}
                 columns={this.props.columns}

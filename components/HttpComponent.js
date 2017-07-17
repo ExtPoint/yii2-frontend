@@ -1,5 +1,7 @@
+import React from 'react';
 import _trimStart from 'lodash/trimStart';
 import _trimEnd from 'lodash/trimEnd';
+import _isFunction from 'lodash/isFunction';
 import axios from 'axios';
 
 export default class HttpComponent {
@@ -35,6 +37,35 @@ export default class HttpComponent {
             method: 'delete',
             data: params,
         }, options);
+    }
+
+    hoc(requestFunc) {
+        const http = this;
+        return WrappedComponent => class HttpHOC extends React.Component {
+
+            static WrappedComponent = WrappedComponent;
+
+            constructor() {
+                super(...arguments);
+                this.state = {
+                    data: null,
+                };
+            }
+
+            componentDidMount() {
+                requestFunc(this.props).then(data => this.setState({data}));
+            }
+
+            render() {
+                return (
+                    <WrappedComponent
+                        {...this.props}
+                        {...this.state.data}
+                    />
+                );
+            }
+
+        };
     }
 
     _send(method, config, options) {

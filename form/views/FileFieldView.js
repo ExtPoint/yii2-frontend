@@ -53,9 +53,9 @@ export default class FileFieldView extends React.Component {
                 </div>
                 <div className={bem.element('button-container')}>
                     <Button
-                        {...this.props.buttonProps}
                         size='sm'
                         color='default'
+                        {...this.props.buttonProps}
                     >
                         <span className='glyphicon glyphicon-file' />
                         &nbsp;

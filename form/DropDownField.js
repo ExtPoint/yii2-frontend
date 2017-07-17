@@ -30,6 +30,7 @@ class DropDownField extends React.Component {
             onChange: PropTypes.func,
         }),
         multiple: PropTypes.bool,
+        disabled: PropTypes.bool,
         enumClassName: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.func,
@@ -74,11 +75,22 @@ class DropDownField extends React.Component {
 
         this._onKeyDown = this._onKeyDown.bind(this);
 
+        this.state = {
+            query: '',
+            isOpened: false,
+            isFocused: false,
+            hoveredValue: null,
+        };
+
+        this.initItems(this.props);
+    }
+
+    initItems(props) {
         let allItems = {};
-        if (this.props.items) {
-            allItems = this.props.items;
-        } else if (this.props.enumClassName) {
-            allItems = types.getEnumLabels(this.props.enumClassName);
+        if (props.items) {
+            allItems = props.items;
+        } else if (props.enumClassName) {
+            allItems = types.getEnumLabels(props.enumClassName);
         }
 
         // Convert to array
@@ -95,14 +107,8 @@ class DropDownField extends React.Component {
             };
         });
 
-        this.state = {
-            query: '',
-            isOpened: false,
-            isFocused: false,
-            filteredItems: allItems,
-            allItems: allItems,
-            hoveredValue: null,
-        };
+        this.state.allItems = allItems;
+        this.state.filteredItems = allItems;
     }
 
     componentWillMount() {
@@ -130,6 +136,12 @@ class DropDownField extends React.Component {
 
     componentDidMount() {
         window.addEventListener('keydown', this._onKeyDown);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.items !== nextProps.items) {
+            this.initItems(nextProps);
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -212,7 +224,7 @@ class DropDownField extends React.Component {
 
     render() {
         const values = this.getValues();
-        const {input, onChange, ...props} = this.props; // eslint-disable-line no-unused-vars
+        const {input, disabled, onChange, ...props} = this.props; // eslint-disable-line no-unused-vars
         const DropDownFieldView = types.getViewComponent('DropDownFieldView');
         return (
             <span>
@@ -224,7 +236,8 @@ class DropDownField extends React.Component {
                         value: this.getLabel(),
                         placeholder: this.props.placeholder,
                         readOnly: true,
-                        onClick: () => this.setState({isOpened: !this.state.isOpened})
+                        disabled,
+                        onClick: () => !disabled && this.setState({isOpened: !this.state.isOpened})
                     }}
                     searchInputProps={{
                         type: 'search',

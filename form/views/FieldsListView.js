@@ -20,6 +20,7 @@ export default class FieldsListView extends React.Component {
         })),
         onAdd: PropTypes.func,
         onRemove: PropTypes.func,
+        editable: PropTypes.bool,
     };
 
     render() {
@@ -43,7 +44,9 @@ export default class FieldsListView extends React.Component {
                                 )}
                             </th>
                         ))}
-                        <th />
+                        {this.props.editable && (
+                            <th />
+                        )}
                     </tr>
                     </thead>
                     <tbody>
@@ -60,29 +63,33 @@ export default class FieldsListView extends React.Component {
                                     {row.renderField(column)}
                                 </td>
                             ))}
-                            <td>
-                                {rowIndex > 0 && (
-                                    <a
-                                        href='javascript:void(0)'
-                                        className={bem.element('remove')}
-                                        onClick={this.props.onRemove(rowIndex)}
-                                    >
-                                        &times;
-                                    </a>
-                                )}
-                            </td>
+                            {this.props.editable && (
+                                <td>
+                                    {rowIndex > 0 && (
+                                        <a
+                                            href='javascript:void(0)'
+                                            className={bem.element('remove')}
+                                            onClick={this.props.onRemove(rowIndex)}
+                                        >
+                                            &times;
+                                        </a>
+                                    )}
+                                </td>
+                            )}
                         </tr>
                     ))}
                     </tbody>
                 </table>
                 <FieldErrorView {...this.props.errorProps} />
-                <a
-                    href='javascript:void(0)'
-                    className={bem.element('link-add')}
-                    onClick={this.props.onAdd}
-                >
-                    Добавить ещё
-                </a>
+                {this.props.editable && (
+                    <a
+                        href='javascript:void(0)'
+                        className={bem.element('link-add')}
+                        onClick={this.props.onAdd}
+                    >
+                        Добавить ещё
+                    </a>
+                )}
             </div>
         );
     }

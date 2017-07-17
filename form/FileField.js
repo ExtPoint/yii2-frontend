@@ -19,7 +19,9 @@ class FileField extends React.Component {
         attribute: PropTypes.string,
         metaItem: PropTypes.object.isRequired,
         multiple: PropTypes.bool,
+        disabled: PropTypes.bool,
         buttonLabel: PropTypes.any,
+        buttonProps: PropTypes.object,
         remove: PropTypes.func,
         files: PropTypes.arrayOf(FilePropType),
         thumbnailProcessor: PropTypes.string,
@@ -92,13 +94,15 @@ class FileField extends React.Component {
     }
 
     render() {
-        const {buttonLabel, files, remove, thumbnailProcessor, uploader, ...props} = this.props; // eslint-disable-line no-unused-vars
+        const {buttonLabel, buttonProps, disabled, files, remove, thumbnailProcessor, uploader, ...props} = this.props; // eslint-disable-line no-unused-vars
         const FileFieldView = types.getViewComponent('FileFieldView');
         return (
             <FileFieldView
                 {...props}
                 buttonProps={{
                     size: 'sm',
+                    ...buttonProps,
+                    disabled,
                     onClick: this._onBrowseClick,
                 }}
                 buttonLabel={buttonLabel || (this.props.multiple ? 'Прикрепить файлы' : 'Прикрепить файл')}
@@ -143,11 +147,11 @@ class FileField extends React.Component {
         if (id) {
             if (this.props.multiple) {
                 this.props.input.onChange([].concat(this.props.input.value || []).filter(i => i !== id));
-            } else if (this.props.input.value === id) {
+            } else if (parseInt(this.props.input.value) === parseInt(id)) {
                 this.props.input.onChange(null);
             }
         } else {
-            this.props.remove(id);
+            this.props.remove(uid);
         }
     }
 
