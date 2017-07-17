@@ -59,20 +59,31 @@ class Input extends React.Component {
         );
     }
 
-    renderHiddenInput(name, value) {
-        if (_isArray(value)) {
-            return value.map((valueItem, index) => (
+    renderHiddenInput(reduxName, value) {
+        const inputName = reduxName.replace(/\.([^\.]+)/g, '[$1]');
+
+        if (!this.props.input && this.props.attributesMap && Object.keys(this.props.attributesMap).length > 1) {
+            return [].concat(value || []).map((valueItem, index) => (
                 <span key={index}>
-                    {this.renderHiddenInput(name + '[]', valueItem)}
+                    <input
+                        key={`${reduxName}[]`}
+                        type='hidden'
+                        name={inputName}
+                        value={valueItem}
+                    />
                 </span>
             ));
         }
 
+        if (_isArray(value)) {
+            value = value[0] || '';
+        }
+
         return (
             <input
-                key={name}
+                key={reduxName}
                 type='hidden'
-                name={name.replace(/\.([^\.]+)/g, '[$1]')}
+                name={inputName}
                 value={value}
             />
         );
@@ -232,7 +243,6 @@ export default class FieldHocWrapper extends React.Component {
     static contextTypes = {
         formId: PropTypes.string,
     };
-
 
     render() {
         return (

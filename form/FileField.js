@@ -115,11 +115,11 @@ class FileField extends React.Component {
                         error: file.result === File.RESULT_ERROR
                             ? file.resultHttpMessage.error
                             : null,
-                        image: data.previewImageUrl
+                        image: data.images && data.images[this.props.thumbnailProcessor]
                             ? {
-                                src: data.previewImageUrl,
-                                width: data.previewImageWidth,
-                                height: data.previewImageHeighth,
+                                src: data.images[this.props.thumbnailProcessor].url,
+                                width: data.images[this.props.thumbnailProcessor].width,
+                                height: data.images[this.props.thumbnailProcessor].height,
                                 alt: file.name,
                             }
                             : null,

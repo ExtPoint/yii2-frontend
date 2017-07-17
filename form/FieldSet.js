@@ -25,7 +25,7 @@ export default class FieldSet extends React.Component {
 
     getChildContext() {
         return {
-            model: this.props.model,
+            model: this.props.model || this.context.model,
             prefix: (this.context.prefix || '') + (this.props.prefix || ''),
             layout: this.context.layout || this.props.layout,
             layoutCols: this.context.layoutCols || this.props.layoutCols,

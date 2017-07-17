@@ -8,7 +8,6 @@ import {types} from 'components';
 class CheckboxField extends React.Component {
 
     static propTypes = {
-        metaItem: PropTypes.object.isRequired,
         input: PropTypes.shape({
             name: PropTypes.string,
             value: PropTypes.any,
@@ -35,9 +34,7 @@ class CheckboxField extends React.Component {
         return (
             <CheckboxFieldView
                 {...props}
-                labelProps={{
-                    ...labelProps,
-                }}
+                labelProps={labelProps}
                 inputProps={{
                     name: input.name,
                     type: 'checkbox',

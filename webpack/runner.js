@@ -41,7 +41,7 @@ module.exports = (entry, stands, standsPath) => {
             exclude: /node_modules(\/|\\+)(?!jii)(?!extpoint-yii2)/
         })
         .loader({
-            test: /\.(jpe?g|gif|png)$/,
+            test: /\.(jpe?g|gif|png|svg)$/,
             loader: 'file'
         })
         .serverConfig({
