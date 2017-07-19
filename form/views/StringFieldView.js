@@ -28,7 +28,7 @@ export default class StringFieldView extends React.Component {
                         {...this.props.inputProps}
                         className={bem(bem.element('input'), 'form-control')}
                     />
-                    {this.props.readonly && (
+                    {this.props.readOnly && (
                         <span
                             className={bem.element('icon-readonly')}
                             onClick={this.props.onEdit}

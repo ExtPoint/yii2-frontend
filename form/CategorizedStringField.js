@@ -21,19 +21,21 @@ export default class CategorizedStringField extends React.Component {
     };
 
     render() {
-        const {fieldId, metaItem, disabled, stringProps, dropDownProps, ...props} = this.props;
+        const {fieldId, formId, metaItem, disabled, stringProps, dropDownProps, ...props} = this.props;
         const CategorizedStringFieldView = types.getViewComponent('CategorizedStringFieldView');
         return (
             <CategorizedStringFieldView
                 {...props}
                 stringProps={{
                     input: _get(this.props, this.props.attributesMap[this.props.attribute]).input,
+                    formId,
                     metaItem,
                     disabled,
                     ...stringProps,
                 }}
                 dropDownProps={{
                     input: _get(this.props, this.props.attributesMap[metaItem.refAttribute]).input,
+                    formId,
                     fieldId,
                     metaItem,
                     disabled,

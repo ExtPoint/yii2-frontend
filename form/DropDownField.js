@@ -250,6 +250,7 @@ class DropDownField extends React.Component {
                             ? this.props.searchPlaceholder
                             : null
                     )}
+                    onReset={() => this.props.input.onChange(null)}
                     isOpened={this.state.isOpened}
                     isShowSearch={!!this.props.autoComplete}
                     items={this.getFilteredItems().map(item => ({

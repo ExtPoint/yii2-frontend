@@ -12,7 +12,7 @@ export default class PasswordField extends React.Component {
             value: PropTypes.any,
             onChange: PropTypes.func,
         }),
-        readonly: PropTypes.bool,
+        readOnly: PropTypes.bool,
         securityLevel: PropTypes.bool,
         onChange: PropTypes.func,
     };

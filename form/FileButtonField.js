@@ -13,15 +13,15 @@ import {types} from 'components';
 class FileButtonField extends React.Component {
 
     static propTypes = {
-        metaItem: PropTypes.object.isRequired,
+        metaItem: PropTypes.object,
         input: PropTypes.shape({
             name: PropTypes.string,
             value: PropTypes.any,
             onChange: PropTypes.func,
         }),
         multiple: PropTypes.bool,
-        color: PropTypes.oneOf(['white', 'green', 'yellow']),
-        size: PropTypes.oneOf(['xs', 'sm', 'md']),
+        color: PropTypes.oneOf(['default', 'primary', 'success', 'info', 'warning', 'danger']),
+        size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg']),
         backendUrl: PropTypes.string,
         files: PropTypes.arrayOf(FilePropType),
         uploader: PropTypes.shape({

@@ -37,7 +37,10 @@ export default class FieldsListView extends React.Component {
                         {this.props.columns.map((column, index) => (
                             <th
                                 key={index}
-                                className={bem.element('table-header-row')}
+                                className={bem(
+                                    bem.element('table-header-row'),
+                                    column.className
+                                )}
                             >
                                 {column.labelProps && (
                                     <FieldLabelView {...column.labelProps} />
@@ -58,7 +61,10 @@ export default class FieldsListView extends React.Component {
                             {this.props.columns.map((column, columnIndex) => (
                                 <td
                                     key={`${rowIndex}_${columnIndex}`}
-                                    className={bem.element('table-cell')}
+                                    className={bem(
+                                        bem.element('table-cell'),
+                                        column.className,
+                                    )}
                                 >
                                     {row.renderField(column)}
                                 </td>

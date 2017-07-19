@@ -12,7 +12,7 @@ export default class StringField extends React.Component {
             value: PropTypes.any,
             onChange: PropTypes.func,
         }),
-        readonly: PropTypes.bool,
+        readOnly: PropTypes.bool,
         securityLevel: PropTypes.bool,
         onChange: PropTypes.func,
     };
@@ -25,7 +25,7 @@ export default class StringField extends React.Component {
         this.state = {
             level: '',
             error: '',
-            readonly: this.props.readonly,
+            readOnly: this.props.readOnly,
         };
     }
 
@@ -39,7 +39,7 @@ export default class StringField extends React.Component {
                     name: input.name,
                     type: 'text',
                     disabled,
-                    readOnly: this.state.readonly,
+                    readOnly: this.state.readOnly,
                     placeholder,
                     onChange: this._onChange,
                     value: input.value,
