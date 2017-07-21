@@ -250,7 +250,7 @@ class DropDownField extends React.Component {
                             ? this.props.searchPlaceholder
                             : null
                     )}
-                    onReset={() => this.props.input.onChange(null)}
+                    onReset={values.length > 0 ? () => this._onChange(null) : null}
                     isOpened={this.state.isOpened}
                     isShowSearch={!!this.props.autoComplete}
                     items={this.getFilteredItems().map(item => ({
@@ -285,11 +285,15 @@ class DropDownField extends React.Component {
 
 
         const value = this.props.multiple ? values : values[0];
-        this.props.input.onChange(value);
-        this.props.onChange && this.props.onChange(value);
+        this._onChange(value);
         this.setState({
             isOpened: this.props.multiple ? this.state.isOpened : false,
         });
+    }
+
+    _onChange(value) {
+        this.props.input.onChange(value);
+        this.props.onChange && this.props.onChange(value);
     }
 
     /**
