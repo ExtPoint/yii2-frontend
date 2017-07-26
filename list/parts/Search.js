@@ -45,7 +45,7 @@ export default class Search extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.list.isFetched && !_isEqual(this.props.formValues, nextProps.formValues)) {
+        if (this.props.list && this.props.list.isFetched && !_isEqual(this.props.formValues, nextProps.formValues)) {
             this.props.dispatch(fetch(this.props.id, {
                 page: 1,
                 params: nextProps.formValues,
@@ -54,7 +54,7 @@ export default class Search extends React.Component {
     }
 
     render() {
-        const {fields, columnsCount, list, ...props} = this.props.search;
+        const {fields, columnsCount, ...props} = this.props.search;
 
         const rows = [];
         let columns = [];
@@ -68,7 +68,7 @@ export default class Search extends React.Component {
                 field: (
                     <Field
                         {...field}
-                        {..._get(list, 'meta.formMeta.' + field.attribute)}
+                        {..._get(this.props.list, 'meta.formMeta.' + field.attribute)}
                     />
                 ),
             });
@@ -79,7 +79,7 @@ export default class Search extends React.Component {
         return (
             <Form
                 {...props}
-                initialValues={list && list.query || null}
+                initialValues={this.props.list && this.props.list.query || null}
                 formId={Search.getFormId(this.props)}
             >
                 <SearchView

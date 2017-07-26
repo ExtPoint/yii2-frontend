@@ -16,6 +16,10 @@ export default class SearchView extends React.Component {
         onReset: PropTypes.func,
     };
 
+    static defaultProps = {
+        columnsCount: 4,
+    };
+
     constructor() {
         super(...arguments);
 

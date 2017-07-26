@@ -4,7 +4,6 @@ import _get from 'lodash/get';
 import _isFunction from 'lodash/isFunction';
 
 import {view} from 'components';
-import Controls from 'shared/tooltip/Controls';
 
 export default class GridRow extends React.Component {
 
@@ -32,26 +31,6 @@ export default class GridRow extends React.Component {
             ...column,
             value: this.renderValue(column, index),
         }));
-
-        if (this.props.actions) {
-            const actions = Object.keys(this.props.actions).map(key => {
-                const action = this.props.actions[key];
-                return {
-                    ...GridRow.defaultActions[key],
-                    ...(_isFunction(action) ? {onClick: action} : action),
-                    componentProps: _isFunction(action.componentProps) ? action.componentProps(this.props.item) : action.componentProps,
-                };
-            });
-            rowColumns.push({
-                value: (
-                    <Controls
-                        items={actions}
-                        handlerProps={this.props.item}
-                    />
-                ),
-            });
-        }
-
         const GridRowView = this.props.itemComponent || view.getListView('GridRowView');
         return (
             <GridRowView

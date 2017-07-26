@@ -11,7 +11,6 @@ export default class TypesComponent {
         this.store = store || null;
         this.config = {};
         this.fields = null;
-        this.views = {};
         this.metas = {};
         this.enums = {};
         this.fetchUrl = null;
@@ -30,20 +29,6 @@ export default class TypesComponent {
             throw new Error(`Not found form field component '${name}'`);
         }
         return this.fields[name];
-    }
-
-    addViewComponents(views) {
-        this.views = {
-            ...this.views,
-            ...views,
-        };
-    }
-
-    getViewComponent(name) {
-        if (!this.views[name]) {
-            throw new Error(`Not found form field view '${name}'`);
-        }
-        return this.views[name];
     }
 
     addModelMeta(modelClass, meta) {

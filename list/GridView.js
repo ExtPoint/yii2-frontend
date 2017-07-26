@@ -87,7 +87,6 @@ export default class GridView extends React.Component {
                 valueComponentProps: PropTypes.object,
             }),
         ])),
-        actions: PropTypes.object,
         tableView: PropTypes.func,
         tableViewProps: PropTypes.object,
     };
@@ -97,17 +96,17 @@ export default class GridView extends React.Component {
     };
 
     render() {
-        const {columns, actions, tableView, tableViewProps, ...props} = this.props; // eslint-disable-line no-unused-vars
+        const {columns, tableView, tableViewProps, ...props} = this.props; // eslint-disable-line no-unused-vars
         return (
             <ListView
                 ref='list'
+                {...props}
                 wrapperView={GridWrapper}
                 wrapperViewProps={this.props}
                 emptyView={GridEmpty}
                 emptyViewProps={this.props}
                 itemComponent={GridRow}
                 itemComponentProps={this.props}
-                {...props}
             />
         );
     }

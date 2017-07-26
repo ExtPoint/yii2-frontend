@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {FieldArray} from 'redux-form';
 import _isBoolean from 'lodash/isBoolean';
+import _get from 'lodash/get';
 
 import {types, view} from 'components';
 import Field from './Field';
@@ -60,7 +61,7 @@ class FieldsListArrayComponent extends React.Component {
     render() {
         const {fields, columns, ...props} = this.props;
         const FieldsListView = view.getFormView('FieldsListView');
-        const errors = [].concat(this.props.meta && this.props.meta.error || []);
+        const errors = [].concat(_get(this.props, 'meta.error.' + this.props.attribute, []));
 
         return (
             <span>

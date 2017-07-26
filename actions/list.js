@@ -32,7 +32,7 @@ export const fetch = (id, options) => (dispatch, getState) => {
     if (state.method) {
         toDispatch.push(
             http.post(state.method, {
-                ...state.params,
+                ...state.query,
                 page: state.page,
                 pageSize: state.size,
                 sort: state.sort,
