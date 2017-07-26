@@ -40,6 +40,7 @@ export default class FieldWrapper extends React.Component {
                     bem.block({layout: this.props.layout}),
                     this.props.className,
                     'form-group',
+                    this.props.errorProps && 'has-error',
                 )}
             >
                 {this.props.labelProps && (
@@ -53,13 +54,13 @@ export default class FieldWrapper extends React.Component {
                     )}
                 >
                     {this.props.children}
+                    {this.props.hintProps && (
+                        <FieldHintView {...this.props.hintProps} />
+                    )}
+                    {this.props.errorProps && (
+                        <FieldErrorView {...this.props.errorProps} />
+                    )}
                 </div>
-                {this.props.hintProps && (
-                    <FieldHintView {...this.props.hintProps} />
-                )}
-                {this.props.errorProps && (
-                    <FieldErrorView {...this.props.errorProps} />
-                )}
             </div>
         );
     }

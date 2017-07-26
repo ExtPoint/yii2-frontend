@@ -182,7 +182,7 @@ class Field extends React.Component {
                 layoutCols: props.layoutCols,
             };
         }
-        if (resultHint !== false) {
+        if (resultHint) {
             props.hintProps = {
                 hint: resultHint,
                 layout: props.layout,

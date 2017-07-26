@@ -1,12 +1,14 @@
 import React from 'react';
 import _trimStart from 'lodash/trimStart';
 import _trimEnd from 'lodash/trimEnd';
+import {setFlashes} from 'actions/notifications';
 import axios from 'axios';
 
 export default class HttpComponent {
 
-    constructor() {
+    constructor(store) {
         this.apiUrl = '//' + location.host;
+        this.store = store;
         this._lazyRequests = {};
 
         axios.interceptors.request.use((config) => {
@@ -108,7 +110,21 @@ export default class HttpComponent {
     }
 
     _sendAxios(config) {
-        return axios(config).then(response => response.data);
+        return axios(config)
+            .then(response => response.data)
+            .then(response => {
+                // Flash
+                if (response.flashes) {
+                    this.store.dispatch(setFlashes(response.flashes));
+                }
+
+                // Ajax redirect
+                if (response.redirectUrl) {
+                    window.location.href = response.redirectUrl;
+                }
+
+                return response;
+            });
     }
 
 }

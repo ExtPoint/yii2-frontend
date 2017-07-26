@@ -13,14 +13,15 @@ export default class FieldErrorView extends React.Component {
 
     render() {
         return (
-            <div
+            <p
                 className={bem(
                     bem.block(),
+                    'help-block help-block-error',
                     this.props.className,
                 )}
             >
                 {this.props.error}
-            </div>
+            </p>
         );
     }
 
