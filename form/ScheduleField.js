@@ -5,7 +5,7 @@ import _uniq from 'lodash/uniq';
 import _range from 'lodash/range';
 import _padStart from 'lodash/padStart';
 
-import {types} from 'components';
+import {view} from 'components';
 
 export default class ScheduleField extends React.Component {
 
@@ -31,7 +31,7 @@ export default class ScheduleField extends React.Component {
         const selectedDays = (daysInput.value || '').split(',').filter(Boolean).map(v => parseInt(v));
 
         const {fieldId, metaItem, ...props} = this.props;
-        const ScheduleFieldView = types.getViewComponent('ScheduleFieldView');
+        const ScheduleFieldView = view.getFormView('ScheduleFieldView');
         return (
             <ScheduleFieldView
                 {...props}

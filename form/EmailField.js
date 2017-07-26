@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {types} from 'components';
+import {view} from 'components';
 
 export default class EmailField extends React.Component {
 
@@ -28,7 +28,7 @@ export default class EmailField extends React.Component {
 
     render() {
         const {input, disabled, placeholder, ...props} = this.props;
-        const EmailFieldView = types.getViewComponent('EmailFieldView');
+        const EmailFieldView = view.getFormView('EmailFieldView');
         return (
             <EmailFieldView
                 {...props}

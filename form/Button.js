@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {types} from 'components';
+import {view} from 'components';
 
 export default class Button extends React.Component {
 
@@ -27,7 +27,7 @@ export default class Button extends React.Component {
 
     render() {
         const {type, label, children, onClick, ...props} = this.props;
-        const ButtonView = types.getViewComponent('ButtonView');
+        const ButtonView = view.getFormView('ButtonView');
 
         return (
             <ButtonView

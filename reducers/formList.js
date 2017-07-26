@@ -1,7 +1,6 @@
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
 import _keyBy from 'lodash/keyBy';
-import _find from 'lodash/find';
 import _filter from 'lodash/filter';
 import _values from 'lodash/values';
 
@@ -138,6 +137,5 @@ export const getLabels = (state, fieldId, entryIds) => {
     return entries.reduce((obj, entry) => {
         obj[entry.id] = entry.label;
         return obj;
-    }, {})
-
+    }, {});
 };

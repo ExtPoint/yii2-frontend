@@ -148,18 +148,15 @@ class Field extends React.Component {
 
         // Model meta
         const finedModelMeta = model || this.context.model;
-        if (!finedModelMeta) {
-            throw new Error(`Not found model for attribute '${attribute}'`);
-        }
         props.model = finedModelMeta;
         props.modelClass = _isObject(finedModelMeta) ? finedModelMeta.className : finedModelMeta;
 
         // Get meta item
-        const metaItem = types.getMetaItem(finedModelMeta, attribute);
+        const metaItem = finedModelMeta ? types.getMetaItem(finedModelMeta, attribute) : {};
         props.metaItem = metaItem;
 
         // Get input field config
-        const fieldConfig = types.getFieldConfig(metaItem.appType);
+        const fieldConfig = types.getFieldConfig(metaItem.appType || this.props.appType);
 
         // Get input component
         props.component = component || types.getFieldComponent(fieldConfig.component || 'StringField');

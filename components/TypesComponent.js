@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider} from 'react-redux';
+import {Provider} from 'react-redux';
 import {reduxForm} from 'redux-form';
 import ReactDOM from 'react-dom';
 import _isFunction from 'lodash/isFunction';
@@ -19,9 +19,6 @@ export default class TypesComponent {
     }
 
     addFieldComponents(fields) {
-        if (!this.fields) {
-            this.fields = require('../form/index').default;
-        }
         this.fields = {
             ...this.fields,
             ...fields,
@@ -29,9 +26,6 @@ export default class TypesComponent {
     }
 
     getFieldComponent(name) {
-        if (!this.fields) {
-            this.fields = require('../form/index').default;
-        }
         if (!this.fields[name]) {
             throw new Error(`Not found form field component '${name}'`);
         }

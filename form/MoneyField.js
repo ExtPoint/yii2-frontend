@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {types} from 'components';
+import {view} from 'components';
 
 export default class MoneyField extends React.Component {
 
@@ -22,7 +22,7 @@ export default class MoneyField extends React.Component {
 
     render() {
         const {input, disabled, placeholder, ...props} = this.props;
-        const MoneyFieldView = types.getViewComponent('MoneyFieldView');
+        const MoneyFieldView = view.getFormView('MoneyFieldView');
         return (
             <MoneyFieldView
                 {...props}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {change} from 'redux-form';
 
-import {types} from 'components';
+import {types, view} from 'components';
 
 class RadioField extends React.Component {
 
@@ -36,7 +36,7 @@ class RadioField extends React.Component {
     render() {
         const items = this.getItems();
         const {input, ...props} = this.props;
-        const RadioFieldView = types.getViewComponent('RadioFieldView');
+        const RadioFieldView = view.getFormView('RadioFieldView');
         return (
             <RadioFieldView
                 {...props}

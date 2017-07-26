@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
-import {locale, types} from 'components';
+import {locale, view} from 'components';
 
 export default class PeriodField extends React.Component {
 
@@ -15,7 +15,7 @@ export default class PeriodField extends React.Component {
         const fromInput = _get(this.props, this.props.attributesMap[this.props.attribute]).input;
         const toInput = _get(this.props, this.props.attributesMap[this.props.metaItem.refAttribute]).input;
         const {metaItem, ...props} = this.props;
-        const PeriodFieldView = types.getViewComponent('PeriodFieldView');
+        const PeriodFieldView = view.getFormView('PeriodFieldView');
         return (
             <PeriodFieldView
                 {...props}

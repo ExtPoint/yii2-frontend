@@ -13,8 +13,8 @@ import _isObject from 'lodash/isObject';
 import _isUndefined from 'lodash/isUndefined';
 import _find from 'lodash/find';
 
-import {types} from 'components';
-import {fetchByIds, fetchAutoComplete, cacheEntries} from '../actions/formList';
+import {types, view} from 'components';
+import {fetchByIds, fetchAutoComplete, cacheEntries} from 'actions/formList';
 import {getLabels, getAutoComplete} from '../reducers/formList';
 
 class DropDownField extends React.Component {
@@ -225,7 +225,7 @@ class DropDownField extends React.Component {
     render() {
         const values = this.getValues();
         const {input, disabled, onChange, ...props} = this.props; // eslint-disable-line no-unused-vars
-        const DropDownFieldView = types.getViewComponent('DropDownFieldView');
+        const DropDownFieldView = view.getFormView('DropDownFieldView');
         return (
             <span>
                 <DropDownFieldView

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 
-import {types} from 'components';
+import {types, view} from 'components';
 
 export default class RangeField extends React.Component {
 
@@ -27,7 +27,7 @@ export default class RangeField extends React.Component {
 
     render() {
         const {fromProps, toProps, attributesMap, labelProps, errorProps, hintProps, ...props} = this.props;
-        const RangeFieldView = types.getViewComponent('RangeFieldView');
+        const RangeFieldView = view.getFormView('RangeFieldView');
         return (
             <RangeFieldView
                 {...props}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {change} from 'redux-form';
 
-import {types} from 'components';
+import {types, view} from 'components';
 
 class SwitcherField extends React.Component {
 
@@ -40,7 +40,7 @@ class SwitcherField extends React.Component {
     render() {
         const items = types.getEnumLabels(this.props.enumClassName || this.props.metaItem.enumClassName);
         const {input, ...props} = this.props;
-        const SwitcherFieldView = types.getViewComponent('SwitcherFieldView');
+        const SwitcherFieldView = view.getFormView('SwitcherFieldView');
         return (
             <SwitcherFieldView
                 {...props}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {change, getFormInitialValues} from 'redux-form';
 
-import {types, resource} from 'components';
+import {view, resource} from 'components';
 import AddressHelper from './AddressHelper';
 
 class AddressField extends React.Component {
@@ -119,7 +119,7 @@ class AddressField extends React.Component {
                 break;
         }
 
-        const AddressFieldView = types.getViewComponent('AddressFieldView');
+        const AddressFieldView = view.getFormView('AddressFieldView');
         return (
             <AddressFieldView {...props}/>
         );

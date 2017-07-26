@@ -16,7 +16,7 @@ import 'ckeditor/plugins/link/dialogs/link';
 import FileUp from 'fileup-core';
 import QueueCollection from 'fileup-core/lib/models/QueueCollection';
 
-import {types} from 'components';
+import {view} from 'components';
 import iconsPath from './images/icons.png';
 const CKEDITOR = window.CKEDITOR;
 
@@ -173,7 +173,7 @@ export default class HtmlField extends React.Component {
 
     render() {
         const {input, ...props} = this.props;
-        const HtmlFieldView = types.getViewComponent('HtmlFieldView');
+        const HtmlFieldView = view.getFormView('HtmlFieldView');
         return (
             <HtmlFieldView
                 {...props}

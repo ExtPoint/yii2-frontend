@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {resource, types} from 'components';
+import {resource, view} from 'components';
 
 export default class ReCaptchaField extends React.Component {
 
@@ -16,7 +16,7 @@ export default class ReCaptchaField extends React.Component {
 
     render() {
         const {input, ...props} = this.props;
-        const ReCaptchaFieldView = types.getViewComponent('ReCaptchaFieldView');
+        const ReCaptchaFieldView = view.getFormView('ReCaptchaFieldView');
         return (
             <ReCaptchaFieldView
                 {...props}

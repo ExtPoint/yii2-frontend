@@ -1,0 +1,145 @@
+.@{bem-namespace}GridView {
+
+  &__table {
+    font-size: 15px;
+    width: 100%;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  &__table-head {
+    font-size: 13px;
+  }
+  &__table-head &__cell {
+    color: #896c1f;
+    padding: 10px;
+    border-bottom: 1px solid #896c1f;
+    font-weight: normal;
+  }
+  &__table-row {
+    &_head {
+      height: 35px;
+    }
+    &_body {
+      height: 37px;
+
+      background: #f2eee5;
+      &:nth-child(odd) {
+        background: #fff;
+      }
+    }
+  }
+  &__sortable-column {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__sort-actions {
+    margin: 0 0 0 5px;
+    position: relative;
+    top: 4px;
+    white-space: nowrap;
+  }
+  &__sort-icon-asc, &__sort-icon-desc {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #9dbf16;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    &_active {
+      background-color: #ffc733;
+    }
+
+    &:hover {
+      opacity: .5;
+    }
+  }
+  &__sort-icon-asc {
+    //background-image: url(/images/cat_img/catalog_img/array_top.png);
+  }
+  &__sort-icon-desc {
+    margin-left: 3px;
+    //background-image: url(/images/cat_img/catalog_img/array_bottom.png);
+  }
+  &__checkbox-container {
+    display: inline-block;
+    padding: 0 10px;
+    margin: 0 -15px;
+  }
+  &__checkbox-container,
+  &__checkbox-icon {
+    margin-bottom: 0;
+  }
+  &__cell {
+    padding: 10px;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #4f4f4f;
+    text-align: left;
+
+    &_center {
+      text-align: center;
+    }
+
+    &:nth-of-type(2) {
+      padding-left: 0;
+    }
+  }
+  &__status {
+    &_success {
+      color: #3b9d4a;
+    }
+    &_danger {
+      color: #cb3c3c;
+    }
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  dl {
+    dt {
+      display: inline-block;
+      margin-right: 5px;
+      color: @brand-primary-dark;
+    }
+    dd {
+      display: inline-block;
+    }
+  }
+
+  &__actions {
+    text-align: right;
+
+    .@{bem-namespace}Button {
+      margin: 0 7px 0 0;
+    }
+
+    .@{bem-namespace}Controls__container {
+      margin-bottom: 0;
+    }
+    .@{bem-namespace}Controls__item {
+      margin-left: 7px;
+      margin-right: 0;
+    }
+  }
+
+  &__hint {
+    position: relative;
+    top: 5px;
+    left: 5px;
+    display: inline-block;
+  }
+
+  &__empty {
+    padding: 50px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}

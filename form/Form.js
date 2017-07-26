@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {reduxForm, SubmissionError, getFormValues, initialize} from 'redux-form';
 import _isEqual from 'lodash/isEqual';
 
-import {http, types, clientStorage} from 'components';
+import {http, view, clientStorage} from 'components';
 
 class Form extends React.Component {
 
@@ -85,7 +85,7 @@ class Form extends React.Component {
 
     render() {
         const {handleSubmit, model, formId, children, action, onSubmit, onComplete, ...props} = this.props; // eslint-disable-line no-unused-vars
-        const FormView = types.getViewComponent('FormView');
+        const FormView = view.getFormView('FormView');
         return (
             <FormView
                 {...props}

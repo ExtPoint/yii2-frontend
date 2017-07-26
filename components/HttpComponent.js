@@ -1,7 +1,6 @@
 import React from 'react';
 import _trimStart from 'lodash/trimStart';
 import _trimEnd from 'lodash/trimEnd';
-import _isFunction from 'lodash/isFunction';
 import axios from 'axios';
 
 export default class HttpComponent {
@@ -9,6 +8,19 @@ export default class HttpComponent {
     constructor() {
         this.apiUrl = '//' + location.host;
         this._lazyRequests = {};
+
+        axios.interceptors.request.use((config) => {
+            // Add CSRF header
+            const metaToken = document.querySelector('meta[name=csrf-token]');
+            if (metaToken) {
+                config.headers['X-CSRF-Token'] = metaToken.getAttribute('content');
+            }
+
+            // Add XMLHttpRequest header for detect ajax requests
+            config.headers['X-Requested-With'] = 'XMLHttpRequest';
+
+            return config;
+        });
     }
 
     get(method, params = {}, options = {}) {
@@ -40,7 +52,6 @@ export default class HttpComponent {
     }
 
     hoc(requestFunc) {
-        const http = this;
         return WrappedComponent => class HttpHOC extends React.Component {
 
             static WrappedComponent = WrappedComponent;

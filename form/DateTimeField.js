@@ -4,7 +4,7 @@ import _isString from 'lodash/isString';
 import _range from 'lodash/range';
 import _padStart from 'lodash/padStart';
 
-import {types, locale} from 'components';
+import {view, locale} from 'components';
 
 export default class DateTimeField extends React.Component {
 
@@ -39,7 +39,7 @@ export default class DateTimeField extends React.Component {
 
     render() {
         const {fieldId, metaItem, input, ...props} = this.props; // eslint-disable-line no-unused-vars
-        const DateTimeFieldView = types.getViewComponent('DateTimeFieldView');
+        const DateTimeFieldView = view.getFormView('DateTimeFieldView');
 
         const hour = this.getDate('HH');
         const minute = this.getDate('mm');
