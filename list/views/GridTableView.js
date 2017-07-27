@@ -29,7 +29,7 @@ export default class GridTableView extends React.Component {
     render() {
         return (
             <div className='table-responsive'>
-                <table className={bem.element('table')}>
+                <table className={bem(bem.element('table'), 'table', 'table-striped')}>
                     <thead className={bem.element('table-head')}>
                     <tr className={bem(bem.element('table-row', 'head'), bem.element('table-row'))}>
                         {this.props.headerColumns.map((column, index) => (
