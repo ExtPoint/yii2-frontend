@@ -25,6 +25,8 @@ class FileField extends React.Component {
         remove: PropTypes.func,
         files: PropTypes.arrayOf(FilePropType),
         thumbnailProcessor: PropTypes.string,
+        onlyImages: PropTypes.bool,
+        mimeTypes: PropTypes.arrayOf(PropTypes.string),
     };
 
     static defaultProps = {
@@ -185,7 +187,7 @@ class FileField extends React.Component {
             }
         });
         if (this.props.input && hasChanges) {
-            this.props.input.onChange(inputIds);
+            this.props.input.onChange(this.props.multiple ? inputIds : inputIds[0] || null);
         }
     }
 
@@ -227,10 +229,27 @@ class FileFieldWrapper extends React.Component {
             reduxStateId = this._id;
         }
 
+        const mimeTypes = this.props.onlyImages
+            ? [
+                'image/gif',
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png'
+            ]
+            : this.props.mimeTypes;
+        const params = {
+            processor: this.props.thumbnailProcessor,
+            mimeTypes: (mimeTypes || []).join(','),
+        };
+        const query = Object.keys(params)
+            .filter(key => !!params[key])
+            .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
+            .join('&');
+
         return (
             <FileFieldHoc
                 reduxStateId={reduxStateId}
-                backendUrl={'/file/upload/' + (this.props.thumbnailProcessor ? '?processor=' + this.props.thumbnailProcessor : '')}
+                backendUrl={'/file/upload/' + (query ? '?' + query : '')}
                 {...this.props}
             />
         );
