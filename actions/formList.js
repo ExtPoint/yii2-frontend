@@ -7,6 +7,7 @@ export const FORM_LIST_BEFORE_AUTO_COMPLETE = 'FORM_LIST_BEFORE_AUTO_COMPLETE';
 export const FORM_LIST_AFTER_AUTO_COMPLETE = 'FORM_LIST_AFTER_AUTO_COMPLETE';
 export const FORM_LIST_SAVE_TO_CACHE = 'FORM_LIST_SAVE_TO_CACHE';
 export const FORM_LIST_CACHE_ENTRIES = 'FORM_LIST_CACHE_ENTRIES';
+export const FORM_LIST_COPY = 'FORM_LIST_COPY';
 
 export const fetchByIds = (fieldId, ids, params = {}) => (dispatch, getState) => {
     const state = getState().formList;
@@ -67,6 +68,13 @@ export const saveToCache = (fieldId, entries) => ({
     fieldId,
     entries,
     type: FORM_LIST_SAVE_TO_CACHE,
+});
+
+export const copy = (fromFieldId, toFieldId, entryIds) => ({
+    fromFieldId,
+    toFieldId,
+    entryIds,
+    type: FORM_LIST_COPY,
 });
 
 export const cacheEntries = (fieldId, entryIds) => ({

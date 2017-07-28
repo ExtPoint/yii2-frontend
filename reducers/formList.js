@@ -1,6 +1,7 @@
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
 import _keyBy from 'lodash/keyBy';
+import _find from 'lodash/find';
 import _filter from 'lodash/filter';
 import _values from 'lodash/values';
 
@@ -12,6 +13,7 @@ import {
     FORM_LIST_AFTER_AUTO_COMPLETE,
     FORM_LIST_SAVE_TO_CACHE,
     FORM_LIST_CACHE_ENTRIES,
+    FORM_LIST_COPY,
 } from '../actions/formList';
 
 const initialState = {
@@ -118,6 +120,26 @@ export default (state = initialState, action) => {
                         entries: {
                             ...(state.cache[action.fieldId] && state.cache[action.fieldId].entries || {}),
                             ..._keyBy(entries, 'id'),
+                        },
+                    }
+                }
+            };
+
+        case FORM_LIST_COPY:
+            const fromEntries = _get(state, `cache.${action.fromFieldId}.entries`);
+            const fromAutoCompleteList = _get(state, `autoComplete.${action.fromFieldId}.entries`);
+            const entries3 = {};
+            [].concat(action.entryIds || []).forEach(id => {
+                entries3[id] = fromEntries[id] || _find(fromAutoCompleteList, entry => entry.id === id);
+            });
+            return {
+                ...state,
+                cache: {
+                    ...state.cache,
+                    [action.toFieldId]: {
+                        entries: {
+                            ..._get(state, `cache.${action.toFieldId}.entries`),
+                            ...entries3,
                         },
                     }
                 }
