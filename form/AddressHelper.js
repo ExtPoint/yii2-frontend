@@ -1,7 +1,8 @@
 import {formValueSelector} from 'redux-form';
 import _values from 'lodash/values';
+import _findLast from 'lodash/findLast';
 
-import {types} from 'components';
+import {http, types} from 'components';
 import {getLabels} from '../reducers/formList';
 
 export default class AddressHelper {
@@ -13,6 +14,48 @@ export default class AddressHelper {
     static TYPE_ADDRESS = 'address';
     static TYPE_LONGITUDE = 'longitude';
     static TYPE_LATITUDE = 'latitude';
+
+    static _detectCallbacks = null;
+    static _detectedAddress = null;
+
+    static detectAddress(ymaps) {
+        if (this._detectedAddress) {
+            return Promise.resolve(this._detectedAddress);
+        }
+
+        if (this._detectCallbacks === null) {
+            ymaps.geolocation.get({
+                provider: 'yandex',
+                mapStateAutoApply: true
+            })
+                .then(result => {
+                    const geoObject = result.geoObjects.get(0);
+
+                    // Get ids for country, city and metro
+                    return http.post('/address/auto-complete/ids/', {
+                        country: this._getAddressComponent(geoObject, 'country'),
+                        city: this._getAddressComponent(geoObject, 'locality'),
+                        region: this._getAddressComponent(geoObject, 'province'),
+                    });
+                })
+                .then(result => {
+                    this._detectCallbacks.forEach(callback => callback(result));
+                })
+                .catch(e => console.error(e));
+
+            this._detectCallbacks = [];
+        }
+
+        return new Promise(resolve => {
+            this._detectCallbacks.push(resolve)
+        });
+    }
+
+    static _getAddressComponent(geoObject, kind) {
+        const components = geoObject.properties.get('metaDataProperty').GeocoderMetaData.Address.Components;
+        const component = _findLast(components, com => com.kind === kind);
+        return component && component.name || '';
+    }
 
     static getParentMap() {
         return {
