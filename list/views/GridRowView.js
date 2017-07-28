@@ -22,13 +22,11 @@ export default class GridRowView extends React.Component {
 
     render() {
         return (
-            <tr
-                colSpan={this.props.colSpan}
-                className={bem.element('table-row', 'body')}
-            >
+            <tr className={bem.element('table-row', 'body')}>
                 {this.props.rowColumns.map((column, index) => (
                     <td
                         key={index}
+                        colSpan={this.props.colSpan}
                         className={bem(
                             bem.element('cell', {center: column.textCenter}),
                             column.className,
