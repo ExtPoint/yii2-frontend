@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {change, getFormInitialValues} from 'redux-form';
+import {saveToCache} from 'extpoint-yii2/actions/formList';
 
 import {view, resource} from 'components';
 import AddressHelper from './AddressHelper';
@@ -59,6 +60,7 @@ class AddressField extends React.Component {
         onChange: PropTypes.func,
         countryModelClass: PropTypes.string,
         autoCompleteUrl: PropTypes.string,
+        autoDetect: PropTypes.bool,
         addressNames: PropTypes.object,
     };
 
@@ -66,18 +68,26 @@ class AddressField extends React.Component {
         super(...arguments);
 
         this._api = null;
+        this._isSentDetect = false;
+        this.state = {
+            isDetecting: this.props.autoDetect,
+        };
 
         this._onChange = this._onChange.bind(this);
     }
 
     componentDidMount() {
-        if (this.props.metaItem.addressType === AddressHelper.TYPE_ADDRESS) {
-            resource.loadYandexMap()
-                .then(ymaps => {
-                    this._api = ymaps;
+        resource.loadYandexMap()
+            .then(ymaps => {
+                this._api = ymaps;
+
+                if (this.props.metaItem.addressType === AddressHelper.TYPE_ADDRESS) {
                     this._initSuggest();
-                });
-        }
+                }
+                if (this.props.autoDetect && [AddressHelper.TYPE_COUNTRY, AddressHelper.TYPE_REGION, AddressHelper.TYPE_CITY].indexOf(this.props.metaItem.addressType) !== -1) {
+                    this._detectAddress();
+                }
+            });
     }
 
     render() {
@@ -95,6 +105,9 @@ class AddressField extends React.Component {
                     hintProps: null,
                     errorProps: null,
                 };
+                if ([AddressHelper.TYPE_COUNTRY, AddressHelper.TYPE_REGION, AddressHelper.TYPE_CITY].indexOf(this.props.metaItem.addressType) !== -1) {
+                    props.dropDownProps.placeholder = this.state.isDetecting ? 'Определение...' : undefined;
+                }
                 if (this.props.metaItem.addressType === AddressHelper.TYPE_COUNTRY) {
                     props.dropDownProps.enumClassName = this.props.countryModelClass;
                 } else {
@@ -142,6 +155,48 @@ class AddressField extends React.Component {
         }
     }
 
+    _detectAddress() {
+        if (!this._api.geolocation || this._isSentDetect) {
+            return;
+        }
+        this._isSentDetect = true;
+
+        this.setState({
+            isDetecting: true,
+        });
+
+        AddressHelper.detectAddress(this._api)
+            .then(data => {
+                const toDispatch = [];
+                Object.keys(data).map(addressType => {
+                    const item = data[addressType];
+                    if (this.props.addressNames[addressType]) {
+                        toDispatch.push(saveToCache(
+                            `${this.props.formId}_${this.props.addressNamesWithoutPrefix[addressType]}`,
+                            {
+                                [item.id]: {
+                                    id: item.id,
+                                    label: item.title,
+                                },
+                            }
+                        ));
+
+                        toDispatch.push(change(
+                            this.props.formId,
+                            this.props.addressNames[addressType],
+                            item.id
+                        ));
+                    }
+                });
+                this.props.dispatch(toDispatch);
+
+                this.setState({
+                    isDetecting: false,
+                });
+            })
+            .catch(e => console.error(e));
+    }
+
     _initSuggest() {
         const input = ReactDOM.findDOMNode(this).querySelector('input[type=text]');
         const suggestView = new this._api.SuggestView(input, {
@@ -177,7 +232,8 @@ class AddressField extends React.Component {
 export default connect(
     (state, props) => ({
         parentId: AddressHelper.getParentId(state, props.formId, props.model, props.prefix, props.attribute),
-        addressNames: AddressHelper.getNames(props.model, props.prefix),
+        addressNames: AddressHelper.getNames(props.model, props.prefix || ''),
+        addressNamesWithoutPrefix: AddressHelper.getNames(props.model, ''),
         addressValues: AddressHelper.getValues(state, props.formId, props.model, props.prefix, props.attribute),
         initialValues: getFormInitialValues(props.formId)(state),
     })
