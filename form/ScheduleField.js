@@ -48,6 +48,7 @@ export default class ScheduleField extends React.Component {
                 onEverydayClick={() => daysInput.onChange('1,2,3,4,5,6,7')}
                 sinceHourProps={{
                     metaItem,
+                    autoSelectFirst: true,
                     placeholder: '',
                     fieldId: `${fieldId}_sinceHour`,
                     input: {
@@ -59,6 +60,7 @@ export default class ScheduleField extends React.Component {
                 }}
                 sinceMinuteProps={{
                     metaItem,
+                    autoSelectFirst: true,
                     placeholder: '',
                     fieldId: `${fieldId}_sinceMinute`,
                     input: {
@@ -70,6 +72,7 @@ export default class ScheduleField extends React.Component {
                 }}
                 tillHourProps={{
                     metaItem,
+                    autoSelectFirst: true,
                     placeholder: '',
                     fieldId: `${fieldId}_tillHour`,
                     input: {
@@ -81,6 +84,7 @@ export default class ScheduleField extends React.Component {
                 }}
                 tillMinuteProps={{
                     metaItem,
+                    autoSelectFirst: true,
                     placeholder: '',
                     fieldId: `${fieldId}_tillMinute`,
                     input: {

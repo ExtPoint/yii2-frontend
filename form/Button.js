@@ -34,8 +34,8 @@ export default class Button extends React.Component {
                 {...props}
                 buttonProps={{
                     type,
-                    disabled: this.props.disabled,
-                    onClick: onClick,
+                    disabled: this.props.submitting || this.props.disabled,
+                    onClick: !this.props.submitting ? onClick : undefined,
                 }}
             >
                 {label || children}

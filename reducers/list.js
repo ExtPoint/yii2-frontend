@@ -13,7 +13,7 @@ export default (state = {}, action) => {
                     hasPagination: false,
                     ...(state[action.id] || {}),
                     ...action,
-                    items: action.items || [],
+                    items: action.items,
                     isFetched: !!action.items || !!state[action.id],
                     isLoading: !action.items,
                 }

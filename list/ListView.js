@@ -125,7 +125,7 @@ export default class ListView extends React.Component {
             return null;
         }
 
-        let items = this.props.list.items;
+        let items = this.props.list.items || [];
         if (this.props.itemsOrder.toLowerCase() !== 'desc') {
             items = [].concat(items).reverse();
         }
