@@ -21,6 +21,7 @@ export default class FieldsListView extends React.Component {
         onAdd: PropTypes.func,
         onRemove: PropTypes.func,
         editable: PropTypes.bool,
+        required: PropTypes.bool,
     };
 
     render() {
@@ -71,7 +72,7 @@ export default class FieldsListView extends React.Component {
                             ))}
                             {this.props.editable && (
                                 <td>
-                                    {rowIndex > 0 && (
+                                    {(!this.props.required || rowIndex > 0) && (
                                         <a
                                             href='javascript:void(0)'
                                             className={bem.element('remove')}

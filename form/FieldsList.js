@@ -36,6 +36,7 @@ class FieldsListArrayComponent extends React.Component {
         })),
         initialRowsCount: PropTypes.number,
         editable: PropTypes.bool,
+        required: PropTypes.bool,
     };
 
     static defaultProps = {
