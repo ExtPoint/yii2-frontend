@@ -5,6 +5,17 @@ const webpackEasy = require('webpack-easy');
 let stands = null;
 let standsPath = '';
 
+let argvStand = null;
+let argvOnlyApp = false;
+process.argv.slice(2).forEach(value => {
+    if (value.indexOf('stands/') === 0) {
+        argvStand = value.substr(7);
+    }
+    if (value === 'app') {
+        argvOnlyApp = true;
+    }
+});
+
 const api = module.exports = {
 
     _entries: [],
@@ -105,6 +116,10 @@ const api = module.exports = {
         stands = {};
         standsPath = path;
 
+        if (argvOnlyApp) {
+            return;
+        }
+
         const entries = {};
         function processDirEntries(name, parentName = null) {
             ['js', 'less', 'html'].forEach(ext => {
@@ -128,6 +143,10 @@ const api = module.exports = {
         }
         fs.readdirSync(path).forEach(name => {
             if (name === 'less' || !fs.lstatSync(`${path}/${name}`).isDirectory()) {
+                return;
+            }
+
+            if (argvStand && argvStand !== name) {
                 return;
             }
 
