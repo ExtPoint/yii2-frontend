@@ -1,6 +1,6 @@
 {
   "name": "extpoint-yii2",
-  "version": "1.8.12",
+  "version": "1.9.0",
   "description": "JavaScript part for projects on ExtPoint Yii2 Boilerplate and yii2-core",
   "main": "index.js",
   "author": "Vladimir Kozhin <affka@affka.ru>",
@@ -44,6 +44,10 @@
     "webpack-dev-server": "=1.16.1",
     "webpack-easy": "^0.2.7",
     "html-webpack-plugin": "^2.28.0",
-    "raw-loader": "^0.5.1"
+    "raw-loader": "^0.5.1",
+    "eslint-plugin-react": "^7.1.0",
+    "stylelint": "^8.0.0",
+    "stylelint-config-standard": "^17.0.0",
+    "stylelint-webpack-plugin": "^0.9.0"
   }
 }

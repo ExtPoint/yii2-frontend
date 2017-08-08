@@ -1,7 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
+const fs = require('fs');
 const webpackEasy = require('webpack-easy');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = (entry, stands, standsPath) => {
     const staticPath = (webpackEasy.isProduction() ? '' : 'static/1.0/');
@@ -57,6 +59,7 @@ module.exports = (entry, stands, standsPath) => {
             'index',
             `${staticPath}assets/bundle-index.js`
         ))
+        .plugin(fs.existsSync(path.resolve(process.cwd(), '.stylelintrc')) &&  new StyleLintPlugin())
         .plugin(stands && new HtmlWebpackPlugin({
             template: `${standsPath}/index.html`,
             filename: 'stands/index.html',
