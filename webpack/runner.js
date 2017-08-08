@@ -59,7 +59,10 @@ module.exports = (entry, stands, standsPath) => {
             'index',
             `${staticPath}assets/bundle-index.js`
         ))
-        .plugin(fs.existsSync(path.resolve(process.cwd(), '.stylelintrc')) &&  new StyleLintPlugin())
+        .plugin(fs.existsSync(path.resolve(process.cwd(), '.stylelintrc')) &&  new StyleLintPlugin({
+            files: ['**/*.less'],
+            syntax: 'less',
+        }))
         .plugin(stands && new HtmlWebpackPlugin({
             template: `${standsPath}/index.html`,
             filename: 'stands/index.html',
