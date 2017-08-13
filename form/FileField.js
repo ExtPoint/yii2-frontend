@@ -160,13 +160,14 @@ class FileField extends React.Component {
     _syncValue(props) {
         const prevInputIds = [].concat(this.props.input.value || []);
         let inputIds = [].concat(props.input.value || []);
+        let removeIds = [];
         const uploaderIds = props.files
             .map(file => file.resultHttpMessage && file.resultHttpMessage.id || null)
             .filter(Boolean);
 
         // Remove files on value change (by form, for example - reset)
         if (prevInputIds.join() !== inputIds.join()) {
-            const removeIds = prevInputIds.filter(id => inputIds.indexOf(id) === -1);
+            removeIds = prevInputIds.filter(id => inputIds.indexOf(id) === -1);
             const removeUids = props.files
                 .filter(file => file.resultHttpMessage && removeIds.indexOf(file.resultHttpMessage.id) !== -1)
                 .map(file => file.uid);
@@ -177,7 +178,7 @@ class FileField extends React.Component {
         // Add new ids from files
         let hasChanges = false;
         uploaderIds.forEach(id => {
-            if (inputIds.indexOf(id) === -1) {
+            if (inputIds.indexOf(id) === -1 && removeIds.indexOf(id) === -1) {
                 if (this.props.multiple) {
                     inputIds.push(id);
                 } else {

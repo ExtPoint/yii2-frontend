@@ -23,24 +23,32 @@ class Input extends React.Component {
 
         const values = {};
         let errors = [];
-        if (this.props.input) {
-            values[this.props.input.name] = this.props.input.value;
-
-            // Set error
-            if (this.props.meta.touched) {
-                errors = errors.concat(this.props.meta.error || []);
-            }
-        } else {
+        if (this.props.attributesMap) {
             Object.keys(this.props.attributesMap).forEach(attribute => {
                 const name = this.props.attributesMap[attribute];
                 const fieldProps = _get(this.props, name);
-                values[name] = fieldProps.input.value;
+                if (fieldProps.input) {
+                    values[name] = fieldProps.input.value;
+                } else {
+                    fieldProps.input = {};
+                }
 
                 // Set error
                 if (fieldProps.meta.touched) {
                     errors = errors.concat(fieldProps.meta.error || []);
                 }
             });
+        } else {
+            if (props.input) {
+                values[props.input.name] = props.input.value;
+            } else {
+                props.input = {};
+            }
+
+            // Set error
+            if (this.props.meta.touched) {
+                errors = errors.concat(this.props.meta.error || []);
+            }
         }
 
         if (errors.length > 0) {
@@ -62,7 +70,7 @@ class Input extends React.Component {
     renderHiddenInput(reduxName, value) {
         const inputName = reduxName.replace(/\.([^\.]+)/g, '[$1]');
 
-        if (!this.props.input && this.props.attributesMap && Object.keys(this.props.attributesMap).length > 1) {
+        if (_isArray(value)) {
             return [].concat(value || []).map((valueItem, index) => (
                 <span key={index}>
                     <input
@@ -73,10 +81,6 @@ class Input extends React.Component {
                     />
                 </span>
             ));
-        }
-
-        if (_isArray(value)) {
-            value = value[0] || '';
         }
 
         return (

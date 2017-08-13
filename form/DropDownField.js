@@ -21,7 +21,6 @@ class DropDownField extends React.Component {
 
     static propTypes = {
         fieldId: PropTypes.string.isRequired,
-        metaItem: PropTypes.object.isRequired,
         placeholder: PropTypes.string,
         searchPlaceholder: PropTypes.string,
         input: PropTypes.shape({
@@ -115,7 +114,7 @@ class DropDownField extends React.Component {
         const values = this.getValues();
 
         // Select first value on mount
-        if (this.props.autoSelectFirst) {
+        if (this.props.autoSelectFirst && this.props.input) {
             if (values.length === 0) {
                 if (this.state.filteredItems.length > 0) {
                     const id = this.state.filteredItems[0].id;
@@ -159,7 +158,7 @@ class DropDownField extends React.Component {
         }
 
         // Store entries in cache for render labels
-        if (prevProps.input.value !== this.props.input.value) {
+        if (this.props.input && prevProps.input.value !== this.props.input.value) {
             const values = this.getValues();
             if (values.length > 0) {
                 this.props.dispatch(cacheEntries(this.props.fieldId, values));
@@ -188,7 +187,7 @@ class DropDownField extends React.Component {
      * @return {[]}
      */
     getValues() {
-        const value = this.props.input.value;
+        const value = this.props.input && this.props.input.value;
         if (!value && value !== 0) {
             return [];
         }
@@ -292,7 +291,9 @@ class DropDownField extends React.Component {
     }
 
     _onChange(value) {
-        this.props.input.onChange(value);
+        if (this.props.input) {
+            this.props.input.onChange(value);
+        }
         this.props.onChange && this.props.onChange(value);
     }
 
@@ -390,11 +391,11 @@ class DropDownField extends React.Component {
 
 export default connect(
     (state, props) => ({
-        multiple: props.multiple || props.metaItem.multiple,
-        enumClassName: !_isUndefined(props.enumClassName) ? props.enumClassName : props.metaItem.enumClassName,
-        autoComplete: !_isUndefined(props.autoComplete) ? props.autoComplete : props.metaItem.autoComplete,
+        multiple: props.multiple || (props.metaItem ? props.metaItem.multiple : null),
+        enumClassName: !_isUndefined(props.enumClassName) ? props.enumClassName : (props.metaItem ? props.metaItem.enumClassName : null),
+        autoComplete: !_isUndefined(props.autoComplete) ? props.autoComplete : (props.metaItem ? props.metaItem.autoComplete : null),
         autoCompleteItems: getAutoComplete(state, props.fieldId),
-        valueLabels: getLabels(state, props.fieldId, [].concat(props.input.value || [])),
+        valueLabels: getLabels(state, props.fieldId, [].concat(props.input && props.input.value || [])),
     })
 )(
     enhanceWithClickOutside(DropDownField)
