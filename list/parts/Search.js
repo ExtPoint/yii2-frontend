@@ -48,7 +48,7 @@ export default class Search extends React.Component {
         if (this.props.list && this.props.list.isFetched && !_isEqual(this.props.formValues, nextProps.formValues)) {
             this.props.dispatch(fetch(this.props.id, {
                 page: 1,
-                params: nextProps.formValues,
+                query: nextProps.formValues,
             }));
         }
     }
