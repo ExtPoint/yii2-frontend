@@ -25,6 +25,7 @@ class Form extends React.Component {
         contentId: PropTypes.string,
         formValues: PropTypes.object,
         autoSave: PropTypes.bool,
+        initialValues: PropTypes.object,
     };
 
     static childContextTypes = {
@@ -57,7 +58,10 @@ class Form extends React.Component {
         if (this.props.autoSave) {
             const values = clientStorage.get(`${Form.STORAGE_KEY_PREFIX}_${this.props.formId}`);
             if (values) {
-                this.props.dispatch(initialize(this.props.formId, JSON.parse(values)));
+                this.props.dispatch(initialize(this.props.formId, {
+                    ...JSON.parse(values),
+                    ...this.props.initialValues,
+                }));
             }
 
         }
