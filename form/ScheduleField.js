@@ -32,6 +32,17 @@ export default class ScheduleField extends React.Component {
 
         const {fieldId, metaItem, ...props} = this.props;
         const ScheduleFieldView = view.getFormView('ScheduleFieldView');
+
+        const extractTimeFromDateTime = dateTimeString => {
+            if (!dateTimeString) {
+                return '';
+            }
+
+            return dateTimeString.indexOf(' ') !== -1
+                ? dateTimeString.split(' ')[1]
+                : dateTimeString
+        };
+
         return (
             <ScheduleFieldView
                 {...props}
@@ -42,8 +53,8 @@ export default class ScheduleField extends React.Component {
                     onClick: () => this.selectDay(index + 1),
                 }))}
                 onAllTimeClick={() => {
-                    timeSinceInput.onChange('0:0');
-                    timeTillInput.onChange('23:59');
+                    timeSinceInput.onChange('00:00');
+                    timeTillInput.onChange('00:00');
                 }}
                 onEverydayClick={() => daysInput.onChange('1,2,3,4,5,6,7')}
                 sinceHourProps={{
@@ -53,7 +64,7 @@ export default class ScheduleField extends React.Component {
                     fieldId: `${fieldId}_sinceHour`,
                     input: {
                         ...timeSinceInput,
-                        value: (timeSinceInput.value || '').split(':')[0] || '00',
+                        value: extractTimeFromDateTime(timeSinceInput.value).split(':')[0] || '00',
                         onChange: v => this.setSincePartTime(0, v),
                     },
                     items: ScheduleField.hours,
@@ -65,7 +76,7 @@ export default class ScheduleField extends React.Component {
                     fieldId: `${fieldId}_sinceMinute`,
                     input: {
                         ...timeSinceInput,
-                        value: (timeSinceInput.value || '').split(':')[1] || '00',
+                        value: extractTimeFromDateTime(timeSinceInput.value).split(':')[1] || '00',
                         onChange: v => this.setSincePartTime(1, v),
                     },
                     items: ScheduleField.minutes,
@@ -77,7 +88,7 @@ export default class ScheduleField extends React.Component {
                     fieldId: `${fieldId}_tillHour`,
                     input: {
                         ...timeTillInput,
-                        value: (timeTillInput.value || '').split(':')[0] || '00',
+                        value: extractTimeFromDateTime(timeTillInput.value).split(':')[0] || '00',
                         onChange: v => this.setTillPartTime(0, v),
                     },
                     items: ScheduleField.hours,
@@ -89,7 +100,7 @@ export default class ScheduleField extends React.Component {
                     fieldId: `${fieldId}_tillMinute`,
                     input: {
                         ...timeTillInput,
-                        value: (timeTillInput.value || '').split(':')[1] || '00',
+                        value: extractTimeFromDateTime(timeTillInput.value).split(':')[1] || '00',
                         onChange: v => this.setTillPartTime(1, v),
                     },
                     items: ScheduleField.minutes,
@@ -99,7 +110,7 @@ export default class ScheduleField extends React.Component {
     }
 
     selectDay(dayNumber) {
-        const daysInput = _get(this.props, this.props.name).input;
+        const daysInput = _get(this.props, this.props.attributesMap[this.props.attribute]).input;
         const value = (daysInput.value || '').split(',').filter(Boolean).map(v => parseInt(v));
         const index = value.indexOf(dayNumber);
         if (index !== -1) {
