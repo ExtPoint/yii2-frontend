@@ -27,6 +27,7 @@ class FileField extends React.Component {
         thumbnailProcessor: PropTypes.string,
         onlyImages: PropTypes.bool,
         mimeTypes: PropTypes.arrayOf(PropTypes.string),
+        fixedSize: PropTypes.arrayOf(PropTypes.number),
     };
 
     static defaultProps = {
@@ -230,6 +231,9 @@ class FileFieldWrapper extends React.Component {
             reduxStateId = this._id;
         }
 
+        const fixedSize = this.props.fixedSize && this.props.fixedSize.length === 2
+            ? this.props.fixedSize.map(size => parseInt(size)).join(',')
+            : null;
         const mimeTypes = this.props.onlyImages
             ? [
                 'image/gif',
@@ -241,6 +245,7 @@ class FileFieldWrapper extends React.Component {
         const params = {
             processor: this.props.thumbnailProcessor,
             mimeTypes: (mimeTypes || []).join(','),
+            fixedSize,
         };
         const query = Object.keys(params)
             .filter(key => !!params[key])
