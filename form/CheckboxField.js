@@ -30,7 +30,7 @@ class CheckboxField extends React.Component {
 
     render() {
         const {input, disabled, labelProps, ...props} = this.props;
-        const CheckboxFieldView = view.getFormView('CheckboxFieldView');
+        const CheckboxFieldView = this.props.view || view.getFormView('CheckboxFieldView');
         return (
             <CheckboxFieldView
                 {...props}

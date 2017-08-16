@@ -132,7 +132,7 @@ class AddressField extends React.Component {
                 break;
         }
 
-        const AddressFieldView = view.getFormView('AddressFieldView');
+        const AddressFieldView = this.props.view || view.getFormView('AddressFieldView');
         return (
             <AddressFieldView {...props}/>
         );

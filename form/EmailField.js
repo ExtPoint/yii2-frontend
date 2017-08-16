@@ -28,7 +28,7 @@ export default class EmailField extends React.Component {
 
     render() {
         const {input, disabled, placeholder, ...props} = this.props;
-        const EmailFieldView = view.getFormView('EmailFieldView');
+        const EmailFieldView = this.props.view || view.getFormView('EmailFieldView');
         return (
             <EmailFieldView
                 {...props}

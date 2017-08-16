@@ -28,7 +28,7 @@ export default class PhoneField extends React.Component {
 
     render() {
         const {input, disabled, placeholder, ...props} = this.props;
-        const PhoneFieldView = view.getFormView('PhoneFieldView');
+        const PhoneFieldView = this.props.view || view.getFormView('PhoneFieldView');
         return (
             <PhoneFieldView
                 {...props}

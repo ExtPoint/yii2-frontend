@@ -39,7 +39,7 @@ export default class DateTimeField extends React.Component {
 
     render() {
         const {fieldId, metaItem, input, ...props} = this.props; // eslint-disable-line no-unused-vars
-        const DateTimeFieldView = view.getFormView('DateTimeFieldView');
+        const DateTimeFieldView = this.props.view || view.getFormView('DateTimeFieldView');
 
         const hour = this.getDate('HH');
         const minute = this.getDate('mm');

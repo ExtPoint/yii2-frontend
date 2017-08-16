@@ -22,7 +22,7 @@ export default class CategorizedStringField extends React.Component {
 
     render() {
         const {fieldId, formId, metaItem, disabled, stringProps, dropDownProps, ...props} = this.props;
-        const CategorizedStringFieldView = view.getFormView('CategorizedStringFieldView');
+        const CategorizedStringFieldView = this.props.view || view.getFormView('CategorizedStringFieldView');
         return (
             <CategorizedStringFieldView
                 {...props}

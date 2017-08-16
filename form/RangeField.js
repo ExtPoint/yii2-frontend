@@ -27,7 +27,7 @@ export default class RangeField extends React.Component {
 
     render() {
         const {fromProps, toProps, attributesMap, labelProps, errorProps, hintProps, ...props} = this.props;
-        const RangeFieldView = view.getFormView('RangeFieldView');
+        const RangeFieldView = this.props.view || view.getFormView('RangeFieldView');
         return (
             <RangeFieldView
                 {...props}

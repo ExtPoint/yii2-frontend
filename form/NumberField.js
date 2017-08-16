@@ -24,7 +24,7 @@ export default class NumberField extends React.Component {
 
     render() {
         const {disabled, placeholder, input, ...props} = this.props;
-        const NumberFieldView = view.getFormView('NumberFieldView');
+        const NumberFieldView = this.props.view || view.getFormView('NumberFieldView');
         return (
             <NumberFieldView
                 {...props}

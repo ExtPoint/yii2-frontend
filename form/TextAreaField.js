@@ -16,7 +16,7 @@ export default class TextAreaField extends React.Component {
 
     render() {
         const {input, placeholder, ...props} = this.props;
-        const TextAreaFieldView = view.getFormView('TextAreaFieldView');
+        const TextAreaFieldView = this.props.view || view.getFormView('TextAreaFieldView');
         return (
             <TextAreaFieldView
                 {...props}

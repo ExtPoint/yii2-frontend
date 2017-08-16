@@ -16,7 +16,7 @@ export default class ReCaptchaField extends React.Component {
 
     render() {
         const {input, ...props} = this.props;
-        const ReCaptchaFieldView = view.getFormView('ReCaptchaFieldView');
+        const ReCaptchaFieldView = this.props.view || view.getFormView('ReCaptchaFieldView');
         return (
             <ReCaptchaFieldView
                 {...props}

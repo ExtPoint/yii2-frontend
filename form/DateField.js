@@ -33,7 +33,7 @@ export default class DateField extends React.Component {
 
     render() {
         const {input, pickerProps, onChange, ...props} = this.props; // eslint-disable-line no-unused-vars
-        const DateFieldView = view.getFormView('DateFieldView');
+        const DateFieldView = this.props.view || view.getFormView('DateFieldView');
         let value = this.props.input.value || null;
         if (_isString(value)) {
             value = locale.moment(value, this.props.valueFormat);

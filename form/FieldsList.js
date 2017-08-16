@@ -61,7 +61,7 @@ class FieldsListArrayComponent extends React.Component {
 
     render() {
         const {fields, columns, ...props} = this.props;
-        const FieldsListView = view.getFormView('FieldsListView');
+        const FieldsListView = this.props.view || view.getFormView('FieldsListView');
         const errors = [].concat(_get(this.props, 'meta.error.' + this.props.attribute, []));
 
         return (

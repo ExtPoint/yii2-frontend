@@ -224,7 +224,7 @@ class DropDownField extends React.Component {
     render() {
         const values = this.getValues();
         const {input, disabled, onChange, ...props} = this.props; // eslint-disable-line no-unused-vars
-        const DropDownFieldView = view.getFormView('DropDownFieldView');
+        const DropDownFieldView = this.props.view || view.getFormView('DropDownFieldView');
         return (
             <span>
                 <DropDownFieldView

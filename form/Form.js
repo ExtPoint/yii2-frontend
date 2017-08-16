@@ -89,7 +89,7 @@ class Form extends React.Component {
 
     render() {
         const {handleSubmit, model, formId, children, action, onSubmit, onComplete, ...props} = this.props; // eslint-disable-line no-unused-vars
-        const FormView = view.getFormView('FormView');
+        const FormView = this.props.view || view.getFormView('FormView');
         return (
             <FormView
                 {...props}

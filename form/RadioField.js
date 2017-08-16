@@ -36,7 +36,7 @@ class RadioField extends React.Component {
     render() {
         const items = this.getItems();
         const {input, ...props} = this.props;
-        const RadioFieldView = view.getFormView('RadioFieldView');
+        const RadioFieldView = this.props.view || view.getFormView('RadioFieldView');
         return (
             <RadioFieldView
                 {...props}

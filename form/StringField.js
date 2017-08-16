@@ -31,7 +31,7 @@ export default class StringField extends React.Component {
 
     render() {
         const {input, disabled, placeholder, ...props} = this.props;
-        const StringFieldView = view.getFormView('StringFieldView');
+        const StringFieldView = this.props.view || view.getFormView('StringFieldView');
         return (
             <StringFieldView
                 {...props}

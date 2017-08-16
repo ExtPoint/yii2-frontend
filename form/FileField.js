@@ -97,7 +97,7 @@ class FileField extends React.Component {
 
     render() {
         const {buttonLabel, buttonProps, disabled, files, remove, thumbnailProcessor, uploader, ...props} = this.props; // eslint-disable-line no-unused-vars
-        const FileFieldView = view.getFormView('FileFieldView');
+        const FileFieldView = this.props.view || view.getFormView('FileFieldView');
         return (
             <FileFieldView
                 {...props}

@@ -31,7 +31,7 @@ export default class ScheduleField extends React.Component {
         const selectedDays = (daysInput.value || '').split(',').filter(Boolean).map(v => parseInt(v));
 
         const {fieldId, metaItem, ...props} = this.props;
-        const ScheduleFieldView = view.getFormView('ScheduleFieldView');
+        const ScheduleFieldView = this.props.view || view.getFormView('ScheduleFieldView');
 
         const extractTimeFromDateTime = dateTimeString => {
             if (!dateTimeString) {

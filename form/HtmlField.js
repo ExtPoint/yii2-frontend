@@ -173,7 +173,7 @@ export default class HtmlField extends React.Component {
 
     render() {
         const {input, ...props} = this.props;
-        const HtmlFieldView = view.getFormView('HtmlFieldView');
+        const HtmlFieldView = this.props.view || view.getFormView('HtmlFieldView');
         return (
             <HtmlFieldView
                 {...props}

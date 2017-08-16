@@ -22,7 +22,7 @@ export default class MoneyField extends React.Component {
 
     render() {
         const {input, disabled, placeholder, ...props} = this.props;
-        const MoneyFieldView = view.getFormView('MoneyFieldView');
+        const MoneyFieldView = this.props.view || view.getFormView('MoneyFieldView');
         return (
             <MoneyFieldView
                 {...props}

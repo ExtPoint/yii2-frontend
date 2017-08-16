@@ -40,7 +40,7 @@ class SwitcherField extends React.Component {
     render() {
         const items = types.getEnumLabels(this.props.enumClassName || this.props.metaItem.enumClassName);
         const {input, ...props} = this.props;
-        const SwitcherFieldView = view.getFormView('SwitcherFieldView');
+        const SwitcherFieldView = this.props.view || view.getFormView('SwitcherFieldView');
         return (
             <SwitcherFieldView
                 {...props}

@@ -27,7 +27,7 @@ export default class Button extends React.Component {
 
     render() {
         const {type, label, children, onClick, ...props} = this.props;
-        const ButtonView = view.getFormView('ButtonView');
+        const ButtonView = this.props.view || view.getFormView('ButtonView');
 
         return (
             <ButtonView

@@ -67,7 +67,7 @@ class FileButtonField extends React.Component {
         }
 
         const {size, color, ...props} = this.props;
-        const FileButtonFieldView = view.getFormView('FileButtonFieldView');
+        const FileButtonFieldView = this.props.view || view.getFormView('FileButtonFieldView');
         return (
             <FileButtonFieldView
                 {...props}

@@ -31,7 +31,7 @@ export default class PasswordField extends React.Component {
 
     render() {
         const {input, disabled, placeholder, ...props} = this.props;
-        const PasswordFieldView = view.getFormView('PasswordFieldView');
+        const PasswordFieldView = this.props.view || view.getFormView('PasswordFieldView');
         return (
             <PasswordFieldView
                 {...props}
