@@ -20,7 +20,7 @@ export default class LocaleComponent {
     }
 
     moment(date, format) {
-        if (this.backendTimeZone && date && moment(date, 'YYYY-MM-DD HH:mm:ss').isValid()) {
+        if (this.backendTimeZone && date && date.length === 19 && moment(date, 'YYYY-MM-DD HH:mm:ss').isValid()) {
             date = date + this.backendTimeZone;
         }
         return moment(date, format).locale(this.language);

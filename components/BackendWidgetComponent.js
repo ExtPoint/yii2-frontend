@@ -14,17 +14,19 @@ export default class BackendWidgetComponent {
 
         this._widgets = {};
 
-        loadJs(
-            this.scripts.map(url => ({
-                url,
-                async: true,
-            }))
-        )
-            .then(() => {
-                domready(() => {
-                    this.toRender.forEach(args => this.render.apply(this, args));
+        setTimeout(() => {
+            loadJs(
+                this.scripts.map(url => ({
+                    url,
+                    async: true,
+                }))
+            )
+                .then(() => {
+                    domready(() => {
+                        this.toRender.forEach(args => this.render.apply(this, args));
+                    });
                 });
-            });
+        });
     }
 
     register(name, func) {
