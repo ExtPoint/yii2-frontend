@@ -41,13 +41,13 @@ export default class AddressHelper {
                 .then(result => {
                     this._detectCallbacks.forEach(callback => callback(result));
                 })
-                .catch(e => console.error(e));
+                .catch(e => console.error(e)); // eslint-disable-line no-console
 
             this._detectCallbacks = [];
         }
 
         return new Promise(resolve => {
-            this._detectCallbacks.push(resolve)
+            this._detectCallbacks.push(resolve);
         });
     }
 

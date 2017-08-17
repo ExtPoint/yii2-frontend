@@ -1,6 +1,6 @@
 {
   "name": "extpoint-yii2",
-  "version": "1.9.7",
+  "version": "1.10.0",
   "description": "JavaScript part for projects on ExtPoint Yii2 Boilerplate and yii2-core",
   "main": "index.js",
   "author": "Vladimir Kozhin <affka@affka.ru>",
@@ -48,6 +48,8 @@
     "eslint-plugin-react": "^7.1.0",
     "stylelint": "^8.0.0",
     "stylelint-config-standard": "^17.0.0",
-    "stylelint-webpack-plugin": "^0.9.0"
+    "stylelint-webpack-plugin": "^0.9.0",
+    "domready": "^1.0.8",
+    "load-js": "^2.0.0"
   }
 }

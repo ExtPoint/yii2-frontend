@@ -194,7 +194,7 @@ class AddressField extends React.Component {
                     isDetecting: false,
                 });
             })
-            .catch(e => console.error(e));
+            .catch(e => console.error(e)); // eslint-disable-line no-console
     }
 
     _initSuggest() {

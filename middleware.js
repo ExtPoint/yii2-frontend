@@ -27,6 +27,10 @@ const prepare = (action, dispatch, getState, errorHandler = defaultErrorHandler)
 
     // Default case
     if (_isPlainObject(action) && action.type) {
+        if (process.env.NODE_ENV !== 'production') {
+            window.__snapshot = (window.__snapshot || []).concat({action});
+        }
+
         try {
             return dispatch(action);
         } catch (e) {

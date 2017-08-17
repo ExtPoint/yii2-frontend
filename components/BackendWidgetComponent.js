@@ -1,5 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
+import domready from 'domready';
+import loadJs from 'load-js';
 import ReactDOM from 'react-dom';
 import _trimStart from 'lodash/trimStart';
 
@@ -7,7 +9,22 @@ export default class BackendWidgetComponent {
 
     constructor(store) {
         this.store = store || null;
+        this.scripts = [];
+        this.toRender = [];
+
         this._widgets = {};
+
+        loadJs(
+            this.scripts.map(url => ({
+                url,
+                async: true,
+            }))
+        )
+            .then(() => {
+                domready(() => {
+                    this.toRender.forEach(args => this.render.apply(this, args));
+                });
+            });
     }
 
     register(name, func) {
@@ -24,6 +41,17 @@ export default class BackendWidgetComponent {
     }
 
     render(elementId, name, props) {
+        if (process.env.NODE_ENV !== 'production') {
+            window.__snapshot = (window.__snapshot || []).concat({
+                widget: {
+                    elementHtml: document.getElementById(elementId).innerHTML,
+                    elementId,
+                    name,
+                    props,
+                },
+            });
+        }
+
         const WidgetComponent = this._widgets[_trimStart(name, '\\')];
         ReactDOM.render(
             <Provider store={this.store}>

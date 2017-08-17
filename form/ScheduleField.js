@@ -40,7 +40,7 @@ export default class ScheduleField extends React.Component {
 
             return dateTimeString.indexOf(' ') !== -1
                 ? dateTimeString.split(' ')[1]
-                : dateTimeString
+                : dateTimeString;
         };
 
         return (

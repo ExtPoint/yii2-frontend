@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
-import _isFunction from 'lodash/isFunction';
 
 import {view} from 'components';
 

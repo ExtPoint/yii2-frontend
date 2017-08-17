@@ -1,5 +1,6 @@
 import React from 'react';
 import {Provider} from 'react-redux';
+import domready from 'domready';
 import {reduxForm} from 'redux-form';
 import ReactDOM from 'react-dom';
 import _isFunction from 'lodash/isFunction';
@@ -15,6 +16,13 @@ export default class TypesComponent {
         this.enums = {};
         this.fetchUrl = null;
         this.autoCompleteUrl = null;
+        this.toRenderForm = [];
+        this.toRenderField = [];
+
+        domready(() => {
+            this.toRenderForm.forEach(args => this.renderForm.apply(this, args));
+            this.toRenderField.forEach(args => this.renderField.apply(this, args));
+        });
     }
 
     addFieldComponents(fields) {
