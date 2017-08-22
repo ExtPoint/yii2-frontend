@@ -9,6 +9,7 @@ export default class FieldErrorView extends React.Component {
 
     static propTypes = {
         className: PropTypes.string,
+        error: PropTypes.string,
     };
 
     render() {

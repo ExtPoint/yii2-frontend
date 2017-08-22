@@ -16,6 +16,7 @@ class Form extends React.Component {
             PropTypes.string,
             PropTypes.func,
         ]),
+        prefix: PropTypes.string,
         action: PropTypes.string,
         layout: PropTypes.string,
         layoutCols: PropTypes.arrayOf(PropTypes.number),
@@ -33,6 +34,7 @@ class Form extends React.Component {
             PropTypes.string,
             PropTypes.func,
         ]),
+        prefix: PropTypes.string,
         formId: PropTypes.string,
         layout: PropTypes.string,
         layoutCols: PropTypes.arrayOf(PropTypes.number),
@@ -48,6 +50,7 @@ class Form extends React.Component {
     getChildContext() {
         return {
             model: this.props.model,
+            prefix: this.props.prefix || '',
             formId: this.props.formId,
             layout: this.props.layout,
             layoutCols: this.props.layoutCols,
