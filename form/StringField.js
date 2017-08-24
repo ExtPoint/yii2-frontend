@@ -43,6 +43,7 @@ export default class StringField extends React.Component {
                     placeholder,
                     onChange: this._onChange,
                     value: input.value,
+                    ...this.props.inputProps,
                 }}
                 onEdit={() => this.setState({readOnly: false})}
             />

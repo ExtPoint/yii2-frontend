@@ -119,7 +119,25 @@ class AddressField extends React.Component {
                 }
                 break;
 
+            // Make address field uncontrolled so that API's SuggestView won't reopen it on suggest selection
             case AddressHelper.TYPE_ADDRESS:
+                props.stringProps = {
+                    ...props,
+                    inputProps: {
+                        defaultValue: props.input.value,
+                        value: undefined,
+                        onChange: undefined,
+                    },
+                    input: {
+                        onChange: () => {},
+                    },
+                    onChange: this._onChange,
+                    labelProps: null,
+                    hintProps: null,
+                    errorProps: null,
+                };
+                break;
+
             case AddressHelper.TYPE_LONGITUDE:
             case AddressHelper.TYPE_LATITUDE:
                 props.stringProps = {
