@@ -231,7 +231,7 @@ class AddressField extends React.Component {
 
 export default connect(
     (state, props) => ({
-        parentId: AddressHelper.getParentId(state, props.formId, props.model, props.prefix, props.attribute),
+        parentId: AddressHelper.getParentId(state, props.formId, props.model, props.prefix, props.attribute, props.attributePrefix),
         addressNames: AddressHelper.getNames(props.model, props.prefix || ''),
         addressNamesWithoutPrefix: AddressHelper.getNames(props.model, ''),
         addressValues: AddressHelper.getValues(state, props.formId, props.model, props.prefix, props.attribute),

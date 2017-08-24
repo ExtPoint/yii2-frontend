@@ -86,7 +86,7 @@ export default class AddressHelper {
         ];
     }
 
-    static getParentId(state, formId, model, prefix, attribute) {
+    static getParentId(state, formId, model, prefix, attribute, attributePrefix) {
         const meta = types.getModelMeta(model);
         const metaItem = types.getMetaItem(model, attribute);
         const addressType = metaItem.addressType;
@@ -95,7 +95,13 @@ export default class AddressHelper {
             return null;
         }
 
-        const parentName = Object.keys(meta).find(key => meta[key].addressType === parentAddressType) || null;
+        const parentName = Object.keys(meta).find(attributeName => {
+            // A kludge to separate address fieldsets on the same page with the different prefix
+            if (attributePrefix && attributeName.indexOf(attributePrefix) !== 0) {
+                return false;
+            }
+            return meta[attributeName].addressType === parentAddressType;
+        });
         const parentId = parentName ? formValueSelector(formId)(state, prefix + parentName) : null;
         return parentId ? parseInt(parentId) : null;
     }
