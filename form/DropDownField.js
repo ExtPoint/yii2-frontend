@@ -13,7 +13,7 @@ import _isObject from 'lodash/isObject';
 import _isUndefined from 'lodash/isUndefined';
 import _find from 'lodash/find';
 
-import {types, view} from 'components';
+import {types, view, locale} from 'components';
 import {fetchByIds, fetchAutoComplete, cacheEntries} from 'actions/formList';
 import {getLabels, getAutoComplete} from '../reducers/formList';
 
@@ -64,8 +64,8 @@ class DropDownField extends React.Component {
     };
 
     static defaultProps = {
-        placeholder: 'Выбрать',
-        searchPlaceholder: 'Начните вводить символы для поиска...',
+        placeholder: locale.t('Выбрать'),
+        searchPlaceholder: locale.t('Начните вводить символы для поиска...'),
         autoSelectFirst: false,
     };
 
@@ -240,7 +240,7 @@ class DropDownField extends React.Component {
                     }}
                     searchInputProps={{
                         type: 'search',
-                        placeholder: 'Поиск',
+                        placeholder: locale.t('Поиск'),
                         onChange: e => this.search(e.target.value),
                         tabIndex: -1
                     }}

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {html} from 'components';
+import {html, locale} from 'components';
 
 const bem = html.bem('PaginationSizeView');
 
@@ -21,7 +21,7 @@ export default class PaginationSizeView extends React.Component {
         return (
             <div className={bem.block()}>
                 <div className={bem.element('label')}>
-                    Выводить по:
+                    {locale.t('Выводить по')}:
                 </div>
                 <ul className={bem.element('sizes')}>
                     {this.props.sizes.map(size => (

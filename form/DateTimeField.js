@@ -69,7 +69,7 @@ export default class DateTimeField extends React.Component {
                         value: hour,
                         onChange: this._onChangeHours,
                     },
-                    placeholder: 'ЧЧ',
+                    placeholder: locale.t('ЧЧ'),
                     items: DateTimeField.hours,
                 }}
                 minutesProps={{
@@ -81,7 +81,7 @@ export default class DateTimeField extends React.Component {
                         value: minute,
                         onChange: this._onChangeMinutes,
                     },
-                    placeholder: 'ММ',
+                    placeholder: locale.t('ММ'),
                     items: DateTimeField.minutes,
                 }}
             />

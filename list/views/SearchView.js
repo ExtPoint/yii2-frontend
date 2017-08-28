@@ -2,7 +2,7 @@ import React from 'react';
 import Collapse from 'react-bootstrap/lib/Collapse';
 import PropTypes from 'prop-types';
 
-import {html} from 'components';
+import {html, locale} from 'components';
 
 const bem = html.bem('SearchView');
 
@@ -32,19 +32,19 @@ export default class SearchView extends React.Component {
         return (
             <div className={bem.block()}>
                 <div className={bem.element('toggle-control')}>
-                    Фильтры
+                    {locale.t('Фильтры')}
                     <div
                         className={bem.element('toggle-control-button')}
                         onClick={() => this.setState({isOpened: !this.state.isOpened})}
                     >
-                        {this.state.isOpened ? 'Скрыть' : 'Показать'}
+                        {this.state.isOpened ? locale.t('Скрыть') : locale.t('Показать')}
                     </div>
                     {this.state.isOpened && (
                         <div
                             className={bem.element('reset-button')}
                             onClick={this.props.onReset}
                         >
-                            Очистить
+                            {locale.t('Очистить')}
                         </div>
                     )}
                 </div>

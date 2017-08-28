@@ -26,6 +26,10 @@ export default class LocaleComponent {
         return moment(date, format).locale(this.language);
     }
 
+    t(message, params = {}) {
+        return this.translate(message, params);
+    }
+
     translate(message, params = {}) {
         // Translate
         message = this.translations[message] || message;

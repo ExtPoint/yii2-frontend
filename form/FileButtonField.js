@@ -8,7 +8,7 @@ import File from 'fileup-core/lib/models/File';
 import QueueCollection from 'fileup-core/lib/models/QueueCollection';
 import _sum from 'lodash/sum';
 
-import {view} from 'components';
+import {view, locale} from 'components';
 
 class FileButtonField extends React.Component {
 
@@ -59,11 +59,11 @@ class FileButtonField extends React.Component {
 
     render() {
         const percent = this.getProgressPercent();
-        let buttonLabel = this.props.multiple ? 'Загрузить файлы' : 'Загрузить файл';
+        let buttonLabel = this.props.multiple ? locale.t('Загрузить файлы') : locale.t('Загрузить файл');
         if (percent === 100) {
-            buttonLabel = 'Загружено';
+            buttonLabel = locale.t('Загружено');
         } else if (percent > 0) {
-            buttonLabel = `Загрузка ${percent}%...`;
+            buttonLabel = locale.t('Загрузка {percent}%...', {percent});
         }
 
         const {size, color, ...props} = this.props;

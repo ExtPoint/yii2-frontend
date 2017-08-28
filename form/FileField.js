@@ -9,7 +9,7 @@ import FilePropType from 'fileup-redux/lib/types/FilePropType';
 import {fetchByIds, clearCache} from 'actions/formList';
 import {getEntries} from '../reducers/formList';
 
-import {view} from 'components';
+import {view, locale} from 'components';
 
 class FileField extends React.Component {
 
@@ -108,7 +108,7 @@ class FileField extends React.Component {
                     disabled,
                     onClick: this._onBrowseClick,
                 }}
-                buttonLabel={buttonLabel || (this.props.multiple ? 'Прикрепить файлы' : 'Прикрепить файл')}
+                buttonLabel={buttonLabel || (this.props.multiple ? locale.t('Прикрепить файлы') : locale.t('Прикрепить файл'))}
                 items={files.map(file => {
                     const data = file.resultHttpMessage || {};
                     return {

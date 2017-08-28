@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {html} from 'components';
+import {html, locale} from 'components';
 import FieldLabelView from './FieldLabelView';
 import FieldErrorView from './FieldErrorView';
 
@@ -94,7 +94,7 @@ export default class FieldsListView extends React.Component {
                         className={bem.element('link-add')}
                         onClick={this.props.onAdd}
                     >
-                        Добавить ещё
+                        {locale.t('Добавить ещё')}
                     </a>
                 )}
             </div>

@@ -5,7 +5,7 @@ import _uniq from 'lodash/uniq';
 import _range from 'lodash/range';
 import _padStart from 'lodash/padStart';
 
-import {view} from 'components';
+import {view, locale} from 'components';
 
 export default class ScheduleField extends React.Component {
 
@@ -27,7 +27,7 @@ export default class ScheduleField extends React.Component {
         const timeSinceInput = _get(this.props, this.props.attributesMap[this.props.metaItem.sinceTimeAttribute]).input;
         const timeTillInput = _get(this.props, this.props.attributesMap[this.props.metaItem.tillTimeAttribute]).input;
 
-        const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+        const weekDays = [locale.t('Пн'), locale.t('Вт'), locale.t('Ср'), locale.t('Чт'), locale.t('Пт'), locale.t('Сб'), locale.t('Вс')];
         const selectedDays = (daysInput.value || '').split(',').filter(Boolean).map(v => parseInt(v));
 
         const {fieldId, metaItem, ...props} = this.props;

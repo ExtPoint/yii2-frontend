@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {html} from 'components';
+import {html, locale} from 'components';
 import FieldWrapper from './FieldWrapper';
 import DropDownField from '../DropDownField';
 
@@ -39,7 +39,7 @@ export default class ScheduleFieldView extends React.Component {
                         className={bem.element('everyday')}
                         onClick={this.props.onEverydayClick}
                     >
-                        ежедневно
+                        {locale.t('ежедневно')}
                     </a>
                     <div className={bem.element('week')}>
                         {this.props.weekDays.map(item => (
@@ -60,13 +60,13 @@ export default class ScheduleFieldView extends React.Component {
                 </div>
                 <div className={bem.element('time-container')}>
                     <div className={bem.element('since')}>
-                        <span className={bem.element('since-label')}>с</span>
+                        <span className={bem.element('since-label')}>{locale.t('с')}</span>
                         <DropDownField {...this.props.sinceHourProps} />
                         <span className={bem.element('since-separator')}>:</span>
                         <DropDownField {...this.props.sinceMinuteProps} />
                     </div>
                     <div className={bem.element('till')}>
-                        <span className={bem.element('till-label')}>до</span>
+                        <span className={bem.element('till-label')}>{locale.t('до')}</span>
                         <DropDownField {...this.props.tillHourProps} />
                         <span className={bem.element('since-separator')}>:</span>
                         <DropDownField {...this.props.tillMinuteProps} />
@@ -75,7 +75,7 @@ export default class ScheduleFieldView extends React.Component {
                         <a
                             onClick={this.props.onAllTimeClick}
                         >
-                            круглосуточно
+                            {locale.t('круглосуточно')}
                         </a>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Tooltip from 'react-bootstrap/lib/Tooltip';
 
-import {html} from 'components';
+import {html, locale} from 'components';
 
 const bem = html.bem('FileItem');
 
@@ -65,7 +65,7 @@ export default class FileItem extends React.Component {
                     )}
                 >
                     <div className={bem.element('status-error')}>
-                        Ошибка
+                        {locale.t('Ошибка')}
                     </div>
                 </OverlayTrigger>
             );
@@ -80,7 +80,7 @@ export default class FileItem extends React.Component {
                             <span>
                                 {this.props.progress.uploaded}
                                 &nbsp;
-                                из
+                                {locale.t('из')}
                             </span>
                         </Tooltip>
                     )}

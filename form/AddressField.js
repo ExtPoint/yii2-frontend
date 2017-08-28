@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {change, getFormInitialValues} from 'redux-form';
 import {saveToCache} from 'extpoint-yii2/actions/formList';
 
-import {view, resource} from 'components';
+import {view, resource, locale} from 'components';
 import AddressHelper from './AddressHelper';
 
 class AddressField extends React.Component {
@@ -106,7 +106,7 @@ class AddressField extends React.Component {
                     errorProps: null,
                 };
                 if ([AddressHelper.TYPE_COUNTRY, AddressHelper.TYPE_REGION, AddressHelper.TYPE_CITY].indexOf(this.props.metaItem.addressType) !== -1) {
-                    props.dropDownProps.placeholder = this.state.isDetecting ? 'Определение...' : undefined;
+                    props.dropDownProps.placeholder = this.state.isDetecting ? locale.t('Определение...') : undefined;
                 }
                 if (this.props.metaItem.addressType === AddressHelper.TYPE_COUNTRY) {
                     props.dropDownProps.enumClassName = this.props.countryModelClass;

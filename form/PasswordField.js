@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {view} from 'components';
+import {view, locale} from 'components';
 
 export default class PasswordField extends React.Component {
 
@@ -98,7 +98,7 @@ export default class PasswordField extends React.Component {
             }
         }
 
-        let error = 'Пароль слишком короткий, ' + password.length + ' символов.';
+        let error = locale.t('Пароль слишком короткий, {count} символов.', {count: password.length});
         let level = '';
 
         let rating = 0;
@@ -133,7 +133,7 @@ export default class PasswordField extends React.Component {
         }
 
         if (is_rus) {
-            error = 'Пароль содержит запрещенные символы';
+            error = locale.t('Пароль содержит запрещенные символы');
         }
 
         return [level, error];
