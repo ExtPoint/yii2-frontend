@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {reduxForm, SubmissionError, getFormValues, initialize} from 'redux-form';
 import _isEqual from 'lodash/isEqual';
+import _get from 'lodash/get';
+import _set from 'lodash/set';
+import _isUndefined from 'lodash/isUndefined';
 
 import {http, view, clientStorage} from 'components';
 
@@ -115,6 +118,13 @@ class Form extends React.Component {
     }
 
     _onSubmit(values) {
+        Object.keys(this.props.formRegisteredFields).forEach(key => {
+            const name = this.props.formRegisteredFields[key].name;
+            if (_isUndefined(_get(values, name))) {
+                _set(values, name, null);
+            }
+        });
+
         if (this.props.onSubmit) {
             return this.props.onSubmit(values);
         }
@@ -141,5 +151,6 @@ export default connect(
     (state, props) => ({
         form: props.formId,
         formValues: getFormValues(props.formId)(state),
+        formRegisteredFields: _get(state, 'form.' + props.formId + '.registeredFields')
     })
 )(reduxForm({})(Form));
