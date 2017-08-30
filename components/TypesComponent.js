@@ -58,14 +58,13 @@ export default class TypesComponent {
     }
 
     getMetaItem(metaClass, attribute) {
-        const meta = this.getModelMeta(metaClass);
-        const metaItem = meta[attribute];
-        if (!metaItem) {
-            const metaClassName = _isFunction(metaClass) ? metaClass.constructor.name : metaClass;
-            throw new Error(`Not found meta item for attribute '${attribute}', model '${metaClassName}'`);
-        }
-
-        return metaItem;
+        return {
+            appType: 'string',
+            label: '',
+            hint: '',
+            required: false,
+            ...this.getModelMeta(metaClass)[attribute],
+        };
     }
 
     addEnum(enumClass, data) {

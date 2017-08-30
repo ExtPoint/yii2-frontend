@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Field as ReduxField, Fields as ReduxFields} from 'redux-form';
 import _isBoolean from 'lodash/isBoolean';
+import _isFunction from 'lodash/isFunction';
 import _isArray from 'lodash/isArray';
 import _isObject from 'lodash/isObject';
 import _get from 'lodash/get';
@@ -163,7 +164,9 @@ class Field extends React.Component {
         const fieldConfig = types.getFieldConfig(metaItem.appType || this.props.appType);
 
         // Get input component
-        props.component = component || types.getFieldComponent(fieldConfig.component || 'StringField');
+        props.component = _isFunction(component)
+            ? component
+            : types.getFieldComponent(component || fieldConfig.component || 'StringField');
         delete fieldConfig.component;
 
         // Get prefix
