@@ -92,21 +92,19 @@ export default class ListView extends React.Component {
     }
 
     componentDidMount() {
-        if (!this.props.list) {
-            this.props.dispatch(init(
-                this.props.id,
-                {
-                    method: _isFunction(this.props.method) ? this.props.method() : this.props.method,
-                    pageSize: this.props.pageSize,
-                    sort: this.props.sort,
-                    query: this.props.list ? _merge(this.props.list.query, this.props.query) : this.props.query,
-                    items: this.props.items,
-                    page: this.getCurrentPage(),
-                    loadMore: this.props.loadMore,
-                    primaryKey: this.props.primaryKey,
-                }
-            ));
-        }
+        this.props.dispatch(init(
+            this.props.id,
+            {
+                method: _isFunction(this.props.method) ? this.props.method() : this.props.method,
+                pageSize: this.props.pageSize,
+                sort: this.props.sort || (this.props.list ? this.props.list.sort : null),
+                query: this.props.list ? _merge(this.props.list.query, this.props.query) : this.props.query,
+                items: this.props.items,
+                page: this.getCurrentPage(),
+                loadMore: this.props.loadMore,
+                primaryKey: this.props.primaryKey,
+            }
+        ));
 
         if (!this.props.list || !this.props.list.isFetched || this.props.disableCache) {
             this.setPage(this.getCurrentPage());

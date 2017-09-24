@@ -13,7 +13,9 @@ export default (state = {}, action) => {
                     hasPagination: false,
                     ...(state[action.id] || {}),
                     ...action,
-                    items: action.items,
+                    items: action.items
+                        ? [].concat(action.items)
+                        : state[action.id] && state[action.id].items || [],
                     isFetched: !!action.items || !!state[action.id],
                     isLoading: !action.items,
                 }
@@ -23,14 +25,14 @@ export default (state = {}, action) => {
             let items = [];
             const list = state[action.id];
 
-            if (list && list.items && list.isLoadMore && list.page > 1) {
-                items = [].concat(state[action.id].items);
+            if (list && list.items && list.loadMore && list.page > 1) {
+                items = [].concat(list.items);
                 action.items.forEach((entry, i) => {
-                    const index = (list.page * list.size) + i;
+                    const index = ((list.page - 1) * list.pageSize) + i;
                     items[index] = entry;
                 });
             } else {
-                items = action.items;
+                items = [].concat(action.items);
             }
 
             return {
