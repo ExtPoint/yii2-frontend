@@ -65,7 +65,7 @@ export default class ScheduleField extends React.Component {
                     input: {
                         ...timeSinceInput,
                         value: extractTimeFromDateTime(timeSinceInput.value).split(':')[0] || '00',
-                        onChange: v => this.setSincePartTime(0, v),
+                        onChange: v => this.setPartTime(0, v, this.props.metaItem.sinceTimeAttribute),
                     },
                     items: ScheduleField.hours,
                 }}
@@ -77,7 +77,7 @@ export default class ScheduleField extends React.Component {
                     input: {
                         ...timeSinceInput,
                         value: extractTimeFromDateTime(timeSinceInput.value).split(':')[1] || '00',
-                        onChange: v => this.setSincePartTime(1, v),
+                        onChange: v => this.setPartTime(1, v, this.props.metaItem.sinceTimeAttribute),
                     },
                     items: ScheduleField.minutes,
                 }}
@@ -89,7 +89,7 @@ export default class ScheduleField extends React.Component {
                     input: {
                         ...timeTillInput,
                         value: extractTimeFromDateTime(timeTillInput.value).split(':')[0] || '00',
-                        onChange: v => this.setTillPartTime(0, v),
+                        onChange: v => this.setPartTime(0, v, this.props.metaItem.tillTimeAttribute),
                     },
                     items: ScheduleField.hours,
                 }}
@@ -101,7 +101,7 @@ export default class ScheduleField extends React.Component {
                     input: {
                         ...timeTillInput,
                         value: extractTimeFromDateTime(timeTillInput.value).split(':')[1] || '00',
-                        onChange: v => this.setTillPartTime(1, v),
+                        onChange: v => this.setPartTime(1, v, this.props.metaItem.tillTimeAttribute),
                     },
                     items: ScheduleField.minutes,
                 }}
@@ -122,18 +122,17 @@ export default class ScheduleField extends React.Component {
         daysInput.onChange(_uniq(value.sort()).join(','));
     }
 
-    setSincePartTime(index, partValue) {
-        const timeSinceInput = _get(this.props, this.props.attributesMap[this.props.metaItem.sinceTimeAttribute]).input;
-        const value = (timeSinceInput.value || '').split(':') || ['00', '00'];
-        value[index] = partValue;
-        timeSinceInput.onChange(value.join(':'));
-    }
+    setPartTime(index, partValue, timeAttribute) {
+        const timeInput = _get(this.props, this.props.attributesMap[timeAttribute]).input;
+        const defaultTime = ['00', '00'];
 
-    setTillPartTime(index, partValue) {
-        const timeTillInput = _get(this.props, this.props.attributesMap[this.props.metaItem.tillTimeAttribute]).input;
-        const value = (timeTillInput.value || '').split(':') || ['00', '00'];
-        value[index] = partValue;
-        timeTillInput.onChange(value.join(':'));
+        let existingValue = (timeInput.value || '').split(':') || defaultTime;
+
+        existingValue[0] = existingValue[0] || defaultTime[0];
+        existingValue[1] = existingValue[1] || defaultTime[1];
+
+        existingValue[index] = partValue;
+        timeInput.onChange(existingValue.join(':'));
     }
 
 }
