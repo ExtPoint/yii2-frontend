@@ -24,12 +24,15 @@ export default class AddressHelper {
         }
 
         if (this._detectCallbacks === null) {
+            let coordinates = null;
+
             ymaps.geolocation.get({
                 provider: 'yandex',
                 mapStateAutoApply: true
             })
                 .then(result => {
                     const geoObject = result.geoObjects.get(0);
+                    coordinates = geoObject.geometry.getCoordinates();
 
                     // Get ids for country, city and metro
                     return http.post('/address/auto-complete/ids/', {
@@ -39,6 +42,12 @@ export default class AddressHelper {
                     });
                 })
                 .then(result => {
+                    result = {
+                        ...result,
+                        coordinates,
+                    };
+
+                    this._detectedAddress = result;
                     this._detectCallbacks.forEach(callback => callback(result));
                 })
                 .catch(e => console.error(e)); // eslint-disable-line no-console
