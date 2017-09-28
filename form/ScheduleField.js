@@ -124,14 +124,16 @@ export default class ScheduleField extends React.Component {
 
     setPartTime(index, partValue, timeAttribute) {
         const timeInput = _get(this.props, this.props.attributesMap[timeAttribute]).input;
-        const defaultTime = ['00', '00'];
+        const defaultTime = ['00', '00', '00'];
 
         let existingValue = (timeInput.value || '').split(':') || defaultTime;
 
         existingValue[0] = existingValue[0] || defaultTime[0];
         existingValue[1] = existingValue[1] || defaultTime[1];
+        existingValue[2] = existingValue[2] || defaultTime[2];
 
         existingValue[index] = partValue;
+
         timeInput.onChange(existingValue.join(':'));
     }
 
