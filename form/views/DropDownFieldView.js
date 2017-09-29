@@ -102,7 +102,8 @@ export default class DropDownFieldView extends React.Component {
                             {item.label}
                         </span>
                     </div>
-                ) || (
+                ) ||
+                (
                     <span className={bem.element('dropdown-label')}>
                         {item.label}
                     </span>

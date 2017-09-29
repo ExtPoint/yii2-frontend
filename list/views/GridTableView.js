@@ -31,47 +31,47 @@ export default class GridTableView extends React.Component {
             <div className='table-responsive'>
                 <table className={bem(bem.element('table'), 'table', 'table-striped')}>
                     <thead className={bem.element('table-head')}>
-                    <tr className={bem(bem.element('table-row', 'head'), bem.element('table-row'))}>
-                        {this.props.headerColumns.map((column, index) => (
-                            <th
-                                key={index}
-                                className={bem(
-                                    bem.element('cell', {
-                                        center: column.textCenter,
-                                        sortable: column.sortable,
-                                    }),
-                                    column.className,
-                                )}
-                            >
-                                {column.title}
-                                {column.hint && (
-                                    <div className={bem.element('hint')}>
-                                        <Tooltip text={column.hint}>
-                                            <span className='Icon Icon_help'/>
-                                        </Tooltip>
-                                    </div>
-                                )}
-                                {column.sortable && (
-                                    <div className={bem.element('sort-actions')}>
-                                        <a
-                                            href='javascript:void(0)'
-                                            className={bem.element('sort-icon-asc', {active: column.direction === 'asc'})}
-                                            onClick={column.onSortAsc}
-                                        />
-                                        <a
-                                            href='javascript:void(0)'
-                                            className={bem.element('sort-icon-desc', {active: column.direction === 'desc'})}
-                                            onClick={column.onSortDesc}
-                                        />
-                                    </div>
-                                )}
-                            </th>
-                        ))}
-                    </tr>
+                        <tr className={bem(bem.element('table-row', 'head'), bem.element('table-row'))}>
+                            {this.props.headerColumns.map((column, index) => (
+                                <th
+                                    key={index}
+                                    className={bem(
+                                        bem.element('cell', {
+                                            center: column.textCenter,
+                                            sortable: column.sortable,
+                                        }),
+                                        column.className,
+                                    )}
+                                >
+                                    {column.title}
+                                    {column.hint && (
+                                        <div className={bem.element('hint')}>
+                                            <Tooltip text={column.hint}>
+                                                <span className='Icon Icon_help'/>
+                                            </Tooltip>
+                                        </div>
+                                    )}
+                                    {column.sortable && (
+                                        <div className={bem.element('sort-actions')}>
+                                            <a
+                                                href='javascript:void(0)'
+                                                className={bem.element('sort-icon-asc', {active: column.direction === 'asc'})}
+                                                onClick={column.onSortAsc}
+                                            />
+                                            <a
+                                                href='javascript:void(0)'
+                                                className={bem.element('sort-icon-desc', {active: column.direction === 'desc'})}
+                                                onClick={column.onSortDesc}
+                                            />
+                                        </div>
+                                    )}
+                                </th>
+                            ))}
+                        </tr>
                     </thead>
                     <tbody className={bem.element('table-body')}>
-                    {this.props.items}
-                    {this.props.empty}
+                        {this.props.items}
+                        {this.props.empty}
                     </tbody>
                 </table>
             </div>

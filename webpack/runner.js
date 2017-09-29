@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
-const webpackEasy = require('webpack-easy');
+const webpackEasy = require('./easy');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
@@ -12,7 +12,6 @@ module.exports = (entry, stands, standsPath) => {
         .entry(entry)
         .config({
             resolve: {
-                root: path.resolve(process.cwd(), 'app'),
                 alias: {
                     app: path.resolve(process.cwd(), 'app'),
                     actions: 'core/frontend/actions',
@@ -20,7 +19,10 @@ module.exports = (entry, stands, standsPath) => {
                     reducers: 'core/frontend/reducers',
                     shared: 'core/frontend/shared',
                 },
-                extensions: ['', '.js']
+                modules: [
+                    'node_modules',
+                    path.resolve(process.cwd(), 'app'),
+                ],
             },
         })
         .output({
@@ -28,26 +30,15 @@ module.exports = (entry, stands, standsPath) => {
             filename: `${staticPath}assets/bundle-[name].js`,
             chunkFilename: `${staticPath}assets/bundle-[name].js`,
         })
-        .loaderLess({
-            loaders: [
-                'style',
-                'css',
-                'less?' + JSON.stringify({
-                    modifyVars: {
-                        'bem-namespace': '',
-                    }
-                })
-            ]
-        })
         .loaderJs({
             exclude: /node_modules(\/|\\+)(?!jii)(?!extpoint-yii2)/
         })
         .loader({
             test: /\.(jpe?g|gif|png|svg)$/,
-            loader: 'file'
+            loader: 'file-loader'
         })
         .serverConfig({
-            contentBase: './public',
+            contentBase: path.join(process.cwd(), 'public'),
             proxy: {
                 '**': 'http://localhost',
             },
@@ -55,10 +46,10 @@ module.exports = (entry, stands, standsPath) => {
                 '**': 'http://localhost',
             },
         })
-        .plugin(new webpack.optimize.CommonsChunkPlugin(
-            'index',
-            `${staticPath}assets/bundle-index.js`
-        ))
+        .plugin(new webpack.optimize.CommonsChunkPlugin({
+            name: 'index',
+            filename: `${staticPath}assets/bundle-index.js`
+        }))
         .plugin(fs.existsSync(path.resolve(process.cwd(), '.stylelintrc')) &&  new StyleLintPlugin({
             files: ['**/*.less'],
             syntax: 'less',

@@ -28,12 +28,19 @@ const api = module.exports = {
     base(path) {
         this._entries.push(
             webpackEasy.glob(path)
-                .then(files => (
-                    files.sort(file => file.indexOf('app/core/') !== -1 ? -1 : 1))
-                )
-                .then(result => ({
-                    index: result,
-                }))
+                .then(files => {
+                    return files.sort(file => file.indexOf('app/core/') !== -1 ? -1 : 1);
+                })
+                .then(result => {
+                    if (!webpackEasy.isProduction()) {
+                        result.unshift('react-hot-loader/patch');
+                    }
+                    //result.unshift('babel-polyfill');
+
+                    return {
+                        index: result,
+                    };
+                })
         );
         return this;
     },
