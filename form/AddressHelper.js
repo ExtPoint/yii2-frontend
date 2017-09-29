@@ -24,12 +24,15 @@ export default class AddressHelper {
         }
 
         if (this._detectCallbacks === null) {
+            let coordinates = null;
+
             ymaps.geolocation.get({
                 provider: 'yandex',
                 mapStateAutoApply: true
             })
                 .then(result => {
                     const geoObject = result.geoObjects.get(0);
+                    coordinates = geoObject.geometry.getCoordinates();
 
                     // Get ids for country, city and metro
                     return http.post('/address/auto-complete/ids/', {
@@ -39,6 +42,12 @@ export default class AddressHelper {
                     });
                 })
                 .then(result => {
+                    result = {
+                        ...result,
+                        coordinates,
+                    };
+
+                    this._detectedAddress = result;
                     this._detectCallbacks.forEach(callback => callback(result));
                 })
                 .catch(e => console.error(e)); // eslint-disable-line no-console
@@ -106,10 +115,16 @@ export default class AddressHelper {
         return parentId ? parseInt(parentId) : null;
     }
 
-    static getNames(model, prefix) {
+    static getNames(model, prefix, attributePrefix) {
         const meta = types.getModelMeta(model);
         return AddressHelper.getTypes().reduce((obj, addressType) => {
-            const attribute = Object.keys(meta).find(key => meta[key].addressType === addressType) || null;
+            const attribute = Object.keys(meta).find(
+                attributeName =>
+                    // Check that attribute is of the addresType
+                    meta[attributeName].addressType === addressType
+                    // Check if the attribute has given prefix (if the prefix exists)
+                    && (attributePrefix ? attributeName.indexOf(attributePrefix) === 0 : true)
+            ) || null;
             if (attribute) {
                 obj[addressType] = prefix + attribute;
             }
@@ -117,9 +132,9 @@ export default class AddressHelper {
         }, {});
     }
 
-    static getValues(state, formId, model, prefix, attribute) {
+    static getValues(state, formId, model, prefix, attribute, attributePrefix) {
         const selector = formValueSelector(formId);
-        const addressNames = AddressHelper.getNames(model, prefix);
+        const addressNames = AddressHelper.getNames(model, prefix, attributePrefix);
         const addressNamesWithoutPrefix = AddressHelper.getNames(model, '');
 
         return Object.keys(addressNames).reduce((obj, addressType) => {

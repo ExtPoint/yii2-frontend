@@ -252,7 +252,7 @@ export default connect(
         parentId: AddressHelper.getParentId(state, props.formId, props.model, props.prefix, props.attribute, props.attributePrefix),
         addressNames: AddressHelper.getNames(props.model, props.prefix || ''),
         addressNamesWithoutPrefix: AddressHelper.getNames(props.model, ''),
-        addressValues: AddressHelper.getValues(state, props.formId, props.model, props.prefix, props.attribute),
+        addressValues: AddressHelper.getValues(state, props.formId, props.model, props.prefix, props.attribute, props.attributePrefix),
         initialValues: getFormInitialValues(props.formId)(state),
     })
 )(AddressField);
