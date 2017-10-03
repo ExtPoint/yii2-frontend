@@ -1,6 +1,6 @@
 const runner = require('./runner');
 const fs = require('fs');
-const webpackEasy = require('webpack-easy');
+const webpackEasy = require('./easy');
 
 let stands = null;
 let standsPath = '';
