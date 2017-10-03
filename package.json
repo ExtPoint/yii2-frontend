@@ -1,6 +1,6 @@
 {
   "name": "extpoint-yii2",
-  "version": "1.12.3",
+  "version": "1.12.4",
   "description": "JavaScript part for projects on ExtPoint Yii2 Boilerplate and yii2-core",
   "main": "index.js",
   "author": "Vladimir Kozhin <affka@affka.ru>",
@@ -59,6 +59,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.24.1",
     "html-webpack-plugin": "^2.30.1",
     "stylelint-webpack-plugin": "^0.9.0",
     "style-loader": "^0.18.2",
