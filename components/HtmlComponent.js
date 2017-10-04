@@ -1,6 +1,6 @@
 import _isString from 'lodash/isString';
 
-export default class HtmlHelper {
+export default class HtmlComponent {
 
     constructor() {
         this.namespace = '';

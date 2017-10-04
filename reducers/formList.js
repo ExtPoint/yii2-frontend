@@ -38,9 +38,9 @@ export default (state = initialState, action) => {
             const cache = {...state.cache};
             Object.keys(action.entries).forEach(fieldId => {
                 cache[fieldId] = {
-                    ...(cache[fieldId] && cache[fieldId].entries),
+                    ...cache[fieldId],
                     entries: {
-                        ...cache[fieldId].entries,
+                        ...(cache[fieldId] && cache[fieldId].entries),
                         ..._keyBy(action.entries[fieldId], 'id'),
                     },
                 };

@@ -184,7 +184,7 @@ export default class ListView extends React.Component {
         return (
             <PaginationSizeView
                 {...this.props.paginationSizeViewProps}
-                currentSize={this.props.list.pageSize}
+                currentSize={this.props.list.pageSize || this.props.pageSize}
                 onSelect={this.setPageSize}
             />
         );

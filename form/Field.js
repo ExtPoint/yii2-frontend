@@ -108,7 +108,10 @@ class Field extends React.Component {
         prefix: PropTypes.string,
         layout: PropTypes.string,
         layoutCols: PropTypes.arrayOf(PropTypes.number),
-        component: PropTypes.func,
+        component: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.func,
+        ]),
         label: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.bool,
