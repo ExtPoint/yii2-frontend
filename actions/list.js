@@ -4,6 +4,8 @@ export const LIST_BEFORE_FETCH = 'LIST_BEFORE_FETCH';
 export const LIST_AFTER_FETCH = 'LIST_AFTER_FETCH';
 export const LIST_ITEM_UPDATE = 'LIST_ITEM_UPDATE';
 export const LIST_REMOVE = 'LIST_REMOVE';
+export const LIST_TOGGLE_ITEM = 'LIST_TOGGLE_ITEM';
+export const LIST_TOGGLE_ALL = 'LIST_TOGGLE_ALL';
 
 export const init = (id, options) => (dispatch, getState) => dispatch({
     page: 1,
@@ -61,4 +63,15 @@ export const update = (id, where, item) => ({
 export const remove = (id) => ({
     id,
     type: LIST_REMOVE,
+});
+
+export const toggleItem = (id, itemId) => ({
+    id,
+    itemId,
+    type: LIST_TOGGLE_ITEM,
+});
+
+export const toggleAll = (id) => ({
+    id,
+    type: LIST_TOGGLE_ALL,
 });

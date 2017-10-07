@@ -36,12 +36,23 @@ export default class GridWrapper extends React.Component {
     }
 
     renderTable() {
-        const headerColumns = this.props.columns.filter(Boolean).map(column => ({
-            ...column,
-            direction: this.props.list.sort && this.props.list.sort[column.attribute] || null,
-            onSortAsc: () => this.setSort(column.attribute, 'asc', ),
-            onSortDesc: () => this.setSort(column.attribute, 'desc', ),
-        }));
+        const headerColumns = this.props.columns.filter(Boolean).map(column => {
+            const HeaderComponent = column.headerComponent;
+            return {
+                ...column,
+                title: HeaderComponent
+                    ? (
+                        <HeaderComponent
+                            inHeader
+                            listId={this.props.id}
+                        />
+                    )
+                    : column.title,
+                    direction: this.props.list.sort && this.props.list.sort[column.attribute] || null,
+                onSortAsc: () => this.setSort(column.attribute, 'asc', ),
+                onSortDesc: () => this.setSort(column.attribute, 'desc', ),
+            };
+        });
         if (this.props.actions) {
             headerColumns.push({});
         }

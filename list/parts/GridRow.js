@@ -7,6 +7,7 @@ import {view} from 'components';
 export default class GridRow extends React.Component {
 
     static propTypes = {
+        listId: PropTypes.string,
         itemComponent: PropTypes.func,
         itemComponentProps: PropTypes.object,
     };
@@ -46,6 +47,7 @@ export default class GridRow extends React.Component {
                 <ValueComponent
                     attribute={column.attribute}
                     item={this.props.item}
+                    listId={this.props.listId}
                     column={column}
                     rowIndex={this.props.index}
                     cellIndex={cellIndex}

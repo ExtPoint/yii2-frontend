@@ -208,6 +208,7 @@ export default class ListView extends React.Component {
                 key={_get(item, this.props.primaryKey) || index}
                 item={item}
                 index={index}
+                listId={this.props.id}
             />
         );
     }
