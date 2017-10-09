@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import _get from 'lodash/get';
 
+import {view} from 'components';
 import {toggleItem, toggleAll} from 'actions/list';
 import {isCheckedAll} from '../reducers/list';
-import CheckboxField from '../form/CheckboxField';
 
 @connect(
     (state, props) => {
@@ -40,8 +40,9 @@ export default class CheckBoxColumn extends React.Component {
     }
 
     render() {
+        const CheckBoxColumnView = view.getListView('CheckBoxColumnView');
         return (
-            <CheckboxField
+            <CheckBoxColumnView
                 input={{
                     name: 'id',
                     value: this.props.inHeader

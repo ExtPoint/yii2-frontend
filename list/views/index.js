@@ -1,3 +1,4 @@
+export CheckBoxColumnView from './CheckBoxColumnView';
 export EmptyView from './EmptyView';
 export GridRowView from './GridRowView';
 export GridTableView from './GridTableView';
