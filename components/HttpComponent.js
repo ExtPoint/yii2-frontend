@@ -60,13 +60,16 @@ export default class HttpComponent {
 
             constructor() {
                 super(...arguments);
+
                 this.state = {
                     data: null,
                 };
+
+                this._fetch = this._fetch.bind(this);
             }
 
             componentDidMount() {
-                requestFunc(this.props).then(data => this.setState({data}));
+                this._fetch();
             }
 
             render() {
@@ -74,8 +77,20 @@ export default class HttpComponent {
                     <WrappedComponent
                         {...this.props}
                         {...this.state.data}
+                        fetch={this._fetch}
                     />
                 );
+            }
+
+            _fetch(params) {
+                return requestFunc({
+                    ...this.props,
+                    ...params,
+                })
+                    .then(data => {
+                        this.setState({data});
+                        return data;
+                    });
             }
 
         };

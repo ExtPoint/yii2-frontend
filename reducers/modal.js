@@ -1,25 +1,45 @@
+import _get from 'lodash/get';
+import _values from 'lodash/values';
+
 import {OPEN_MODAL, CLOSE_MODAL} from 'actions/modal';
 
-export default (state = null, action) => {
+const initialState = {
+    opened: {},
+};
+
+export default (state = initialState, action) => {
     switch (action.type) {
         case OPEN_MODAL:
-            if (action.modal) {
-                return {
-                    modal: action.modal,
-                    props: action.props,
-                };
-            } else if (state && state.modal) {
-                return {
-                    modal: state.modal,
-                    props: {...state.props, ...action.props || {}},
-                };
-            }
-            return null;
+            return {
+                opened: {
+                    ...state.opened,
+                    [action.id]: {
+                        id: action.id,
+                        modal: action.modal,
+                        props: {
+                            ..._get(state, `opened.${action.id}.props`),
+                            ...action.props
+                        },
+                    }
+                }
+            };
 
         case CLOSE_MODAL:
-            return null;
+            if (action.id) {
+                const opened = state.opened;
+                delete opened[action.id];
+                return {
+                    opened,
+                };
+            } else {
+                return {
+                    opened: {},
+                };
+            }
 
         default:
             return state;
     }
 };
+
+export const getOpened = (state) => _values(state.modal.opened);
