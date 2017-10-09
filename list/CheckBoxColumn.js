@@ -9,7 +9,8 @@ import CheckboxField from '../form/CheckboxField';
 
 @connect(
     (state, props) => {
-        const itemId = props.item[_get(state, `list.${props.listId}.primaryKey`)];
+        const pk = _get(state, `list.${props.listId}.primaryKey`);
+        const itemId = _get(props, `item.${pk}`);
         return {
             itemId,
             isChecked: !!_get(state, `list.${props.listId}.checkedIds.${itemId}`),
@@ -21,7 +22,7 @@ export default class CheckBoxColumn extends React.Component {
 
     static propTypes = {
         item: PropTypes.object,
-        listId: PropTypes.stirng,
+        listId: PropTypes.string,
         itemId: PropTypes.oneOfType([
             PropTypes.number,
             PropTypes.string,
@@ -29,7 +30,14 @@ export default class CheckBoxColumn extends React.Component {
         isChecked: PropTypes.bool,
         isCheckedAll: PropTypes.bool,
         inHeader: PropTypes.bool,
+        defaultValue: PropTypes.bool,
     };
+
+    componentWillMount() {
+        if (!this.props.inHeader && this.props.defaultValue) {
+            this.props.dispatch(toggleItem(this.props.listId, this.props.itemId));
+        }
+    }
 
     render() {
         return (

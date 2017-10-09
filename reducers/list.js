@@ -93,13 +93,14 @@ export default (state = {}, action) => {
         case LIST_TOGGLE_ALL:
             const list4 = state[action.id];
             if (list4) {
-                const isCheckedAll = isCheckedAll(state, action.id);
+                const ids = list4.items.map(item => item[list4.primaryKey]) || [];
+                const isAll = _every(ids.map(id => list4.checkedIds[id]));
                 return {
                     ...state,
                     [action.id]: {
                         ...list4,
-                        checkedIds: getIds(state, action.id).reduce((obj, id) => {
-                            obj[id] = !isCheckedAll;
+                        checkedIds: ids.reduce((obj, id) => {
+                            obj[id] = !isAll;
                             return obj;
                         }, {}),
                     },
@@ -119,6 +120,11 @@ export const getEntry = (state, listId, itemId) => {
 export const getIds = (state, listId) => {
     const list = state.list[listId];
     return list && list.items.map(item => item[list.primaryKey]) || [];
+};
+export const getCheckedIds = (state, listId) => {
+    const list = state.list[listId];
+    const checkedIds = list && list.checkedIds || {};
+    return Object.keys(checkedIds).filter(id => checkedIds[id]);
 };
 export const isCheckedAll = (state, listId) => {
     const list = state.list[listId];

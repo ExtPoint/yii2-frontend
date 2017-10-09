@@ -1,6 +1,6 @@
 {
   "name": "extpoint-yii2",
-  "version": "1.12.6",
+  "version": "1.12.7",
   "description": "JavaScript part for projects on ExtPoint Yii2 Boilerplate and yii2-core",
   "main": "index.js",
   "author": "Vladimir Kozhin <affka@affka.ru>",
