@@ -57,6 +57,7 @@ export default class GridView extends React.Component {
         wrapperViewProps: PropTypes.object,
         loadingView: PropTypes.func,
         loadingViewProps: PropTypes.object,
+        emptyText: PropTypes.string,
         emptyView: PropTypes.func,
         emptyViewProps: PropTypes.object,
         searchView: PropTypes.func,

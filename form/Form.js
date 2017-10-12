@@ -118,7 +118,7 @@ class Form extends React.Component {
     }
 
     _onSubmit(values) {
-        Object.keys(this.props.formRegisteredFields).forEach(key => {
+        Object.keys(this.props.formRegisteredFields || {}).forEach(key => {
             const name = this.props.formRegisteredFields[key].name;
             if (_isUndefined(_get(values, name))) {
                 _set(values, name, null);

@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
                         modal: action.modal,
                         props: {
                             ..._get(state, `opened.${action.id}.props`),
-                            ...action.props
+                            ...action.props,
                         },
                     }
                 }
