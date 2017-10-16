@@ -9,8 +9,7 @@ import {isCheckedAll} from '../reducers/list';
 
 @connect(
     (state, props) => {
-        const pk = _get(state, `list.${props.listId}.primaryKey`);
-        const itemId = _get(props, `item.${pk}`);
+        const itemId = _get(props, `item.${props.primaryKey}`);
         return {
             itemId,
             isChecked: !!_get(state, `list.${props.listId}.checkedIds.${itemId}`),

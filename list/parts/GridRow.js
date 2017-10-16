@@ -8,10 +8,7 @@ export default class GridRow extends React.Component {
 
     static propTypes = {
         listId: PropTypes.string,
-        itemId: PropTypes.oneOfType([
-            PropTypes.number,
-            PropTypes.string,
-        ]),
+        primaryKey: PropTypes.string,
         itemComponent: PropTypes.func,
         itemComponentProps: PropTypes.object,
     };
@@ -51,8 +48,8 @@ export default class GridRow extends React.Component {
                 <ValueComponent
                     attribute={column.attribute}
                     item={this.props.item}
-                    itemId={this.props.itemId}
                     listId={this.props.listId}
+                    primaryKey={this.props.primaryKey}
                     column={column}
                     rowIndex={this.props.index}
                     cellIndex={cellIndex}
