@@ -33,13 +33,13 @@ export const clearCache = (fieldId, entryIds) => ({
     type: FORM_LIST_CLEAR_CACHE,
 });
 
-export const fetchAutoComplete = (fieldId, queryString, params = {}) => [
+export const fetchAutoComplete = (fieldId, queryString, isAutoFetch, params = {}) => [
     {
         fieldId,
         type: FORM_LIST_BEFORE_AUTO_COMPLETE,
     },
     dispatch => {
-        if (!queryString) {
+        if (!isAutoFetch && !queryString) {
             return dispatch({
                 entries: [],
                 fieldId,
@@ -52,8 +52,7 @@ export const fetchAutoComplete = (fieldId, queryString, params = {}) => [
             http.post(method || types.autoCompleteUrl, {
                 ...requestParams,
                 queryString,
-            }, {
-                lazy: 100
+                isAutoFetch,
             })
                 .then(entries => ({
                     entries,

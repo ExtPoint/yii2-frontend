@@ -9,6 +9,8 @@ import _remove from 'lodash/remove';
 import _filter from 'lodash/filter';
 import _isArray from 'lodash/isArray';
 import _isString from 'lodash/isString';
+import _isEqual from 'lodash/isEqual';
+import _get from 'lodash/get';
 import _isObject from 'lodash/isObject';
 import _isUndefined from 'lodash/isUndefined';
 import _find from 'lodash/find';
@@ -41,6 +43,7 @@ class DropDownField extends React.Component {
                 method: PropTypes.string,
             }),
         ]),
+        autoCompleteFetch: PropTypes.bool,
         autoSelectFirst: PropTypes.bool,
         onChange: PropTypes.func,
         items: PropTypes.oneOfType([
@@ -131,6 +134,10 @@ class DropDownField extends React.Component {
                 attribute: this.props.attribute,
             }));
         }
+
+        if (this.props.autoCompleteFetch) {
+            this._checkToAutoFetch();
+        }
     }
 
     componentDidMount() {
@@ -162,6 +169,16 @@ class DropDownField extends React.Component {
             const values = this.getValues();
             if (values.length > 0) {
                 this.props.dispatch(cacheEntries(this.props.fieldId, values));
+            }
+        }
+
+        // Check auto fetch on change config
+        if (!prevProps.autoCompleteFetch && this.props.autoCompleteFetch) {
+            this._checkToAutoFetch();
+        } else {
+            // Check auto fetch on change condition
+            if (this.props.autoCompleteFetch && _isObject(this.props.autoComplete) && !_isEqual(_get(prevProps, 'autoComplete.condition'), this.props.autoComplete.condition)) {
+                this._checkToAutoFetch();
             }
         }
     }
@@ -290,6 +307,13 @@ class DropDownField extends React.Component {
         });
     }
 
+    _checkToAutoFetch() {
+        const values = this.getValues();
+        if (values.length === 0 && (_isString(this.props.autoComplete) || _isObject(this.props.autoComplete))) {
+            this.search('', true);
+        }
+    }
+
     _onChange(value) {
         if (this.props.input) {
             this.props.input.onChange(value);
@@ -299,14 +323,15 @@ class DropDownField extends React.Component {
 
     /**
      * @param {string} query
+     * @param {boolean} force
      */
-    search(query) {
+    search(query, force) {
         this.setState({query});
 
         query = query.toLowerCase();
 
         if (_isString(this.props.autoComplete) || _isObject(this.props.autoComplete)) {
-            this.props.dispatch(fetchAutoComplete(this.props.fieldId, query, {
+            this.props.dispatch(fetchAutoComplete(this.props.fieldId, query, force, {
                 ...this.props.autoComplete,
                 model: this.props.modelClass,
                 attribute: this.props.attribute,
