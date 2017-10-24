@@ -195,6 +195,13 @@ class DropDownField extends React.Component {
 
     getFilteredItems() {
         if (_isString(this.props.autoComplete) || _isObject(this.props.autoComplete)) {
+            // Show selected values on render field
+            if (this.state.query === '' && this.props.valueLabels) {
+                return Object.keys(this.props.valueLabels).map(id => ({
+                    id: /^[0-9]+$/.test(id) ? parseInt(id) : id,
+                    label: this.props.valueLabels[id],
+                }));
+            }
             return this.props.autoCompleteItems || [];
         }
         return this.state.filteredItems;
