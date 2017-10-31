@@ -77,6 +77,8 @@ class DropDownField extends React.Component {
 
         this._onKeyDown = this._onKeyDown.bind(this);
 
+        this._searchRequestTimeout = null;
+
         this.state = {
             query: '',
             isOpened: false,
@@ -195,6 +197,13 @@ class DropDownField extends React.Component {
 
     getFilteredItems() {
         if (_isString(this.props.autoComplete) || _isObject(this.props.autoComplete)) {
+            // Show selected values on render field
+            if (this.state.query === '' && this.props.valueLabels) {
+                return Object.keys(this.props.valueLabels).map(id => ({
+                    id: /^[0-9]+$/.test(id) ? parseInt(id) : id,
+                    label: this.props.valueLabels[id],
+                }));
+            }
             return this.props.autoCompleteItems || [];
         }
         return this.state.filteredItems;
@@ -331,11 +340,18 @@ class DropDownField extends React.Component {
         query = query.toLowerCase();
 
         if (_isString(this.props.autoComplete) || _isObject(this.props.autoComplete)) {
-            this.props.dispatch(fetchAutoComplete(this.props.fieldId, query, force, {
-                ...this.props.autoComplete,
-                model: this.props.modelClass,
-                attribute: this.props.attribute,
-            }));
+
+            if (this._searchRequestTimeout) {
+                clearTimeout(this._searchRequestTimeout);
+            }
+
+            this._searchRequestTimeout = setTimeout(() => {
+                this.props.dispatch(fetchAutoComplete(this.props.fieldId, query, force, {
+                    ...this.props.autoComplete,
+                    model: this.props.modelClass,
+                    attribute: this.props.attribute,
+                }));
+            }, 250);
         } else {
             this.setState({
                 filteredItems: query
