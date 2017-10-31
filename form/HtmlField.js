@@ -80,6 +80,7 @@ CKEDITOR.plugins.add('fileup', {
                                     background: ''
                                 });
                                 element.setHtml('<img src="' + url + '" width="100%" alt="" />');
+                                editor.fire('change');
                                 return;
                             }
                         }
@@ -88,6 +89,7 @@ CKEDITOR.plugins.add('fileup', {
                             color: 'red'
                         });
                         element.setHtml(editor.lang.filetools.httpError.replace('%1', file.getResultHttpStatus()));
+                        editor.fire('change');
                     }
                 });
                 uploader.queue.on(QueueCollection.EVENT_ITEM_PROGRESS, file => {
@@ -160,7 +162,7 @@ export default class HtmlField extends React.Component {
             },
         ],
         stylesSet: false,
-        allowedContent: 'p h1[text-align]; a[!href]; strong em; p(tip); img[alt,width,!src]',
+        allowedContent: 'p h1[text-align]; a[!href]; strong em; p(tip); img[alt,width,!src]; blockquote; ul ol',
         extraPlugins: 'fileup',
         uploadUrl: '/file/upload/editor',
     };
