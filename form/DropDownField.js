@@ -150,6 +150,17 @@ class DropDownField extends React.Component {
         if (this.props.items !== nextProps.items) {
             this.initItems(nextProps);
         }
+
+        // If autoComplete, autoCompleteFetch and autoSelectFirst is set, then set input to first item of
+        // the autocomplete results
+        if (_isString(this.props.autoComplete) || _isObject(this.props.autoComplete)
+            && this.props.autoCompleteFetch && !this.state.isOpened && this.props.autoSelectFirst
+            && this.props.autoCompleteItems !== nextProps.autoCompleteItems && nextProps.autoCompleteItems.length > 0
+        ) {
+            const id = nextProps.autoCompleteItems[0].id;
+            const value = this.props.multiple ? [id] : id;
+            this.props.dispatch(change(this.props.formId, this.props.input.name, value));
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
