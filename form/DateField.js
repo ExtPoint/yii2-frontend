@@ -67,12 +67,15 @@ export default class DateField extends React.Component {
     }
 
     _onChangeRaw(e) {
-        const raw = e.target.value;
-        const value = raw ? locale.moment(e.target.value, this.props.displayFormat).format(this.props.valueFormat) : null;
-        this.props.onChange && this.props.onChange({
-            [this.props.input.name]: value,
-        });
-        return this.props.input.onChange(value);
+        const rawValue = e.target.value;
+        const value = rawValue ? locale.moment(rawValue, this.props.displayFormat).format(this.props.valueFormat) : null;
+
+        if (value === rawValue) {
+            this.props.onChange && this.props.onChange({
+                [this.props.input.name]: value,
+            });
+        }
+        return this.props.input.onChange(rawValue);
     }
 
 }
