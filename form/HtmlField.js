@@ -33,6 +33,10 @@ CKEDITOR.plugins.loaded = {
     notificationaggregator: 1,
     uploadwidget: 1,
 };
+CKEDITOR.lang.languages = {
+    ru: 1,
+    en: 1,
+};
 
 // Replace icons path
 Object.keys(CKEDITOR.skin.icons).forEach(name => {
@@ -161,6 +165,8 @@ export default class HtmlField extends React.Component {
                 ]
             },
         ],
+        language: 'ru',
+        defaultLanguage: 'ru',
         stylesSet: false,
         allowedContent: 'p h1[text-align]; a[!href]; strong em; p(tip); img[alt,width,!src]; blockquote; ul ol',
         extraPlugins: 'fileup',
