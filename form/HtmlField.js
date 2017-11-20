@@ -168,7 +168,7 @@ export default class HtmlField extends React.Component {
         language: 'ru',
         defaultLanguage: 'ru',
         stylesSet: false,
-        allowedContent: 'p h1[text-align]; a[!href]; strong em; p(tip); img[alt,width,!src]; blockquote; ul ol',
+        allowedContent: 'p h1[text-align]; a[!href]; strong em; p(tip); img[alt,width,!src]; blockquote; ul ol; li',
         extraPlugins: 'fileup',
         uploadUrl: '/file/upload/editor',
     };
