@@ -135,7 +135,12 @@ export default class HttpComponent {
 
                 // Ajax redirect
                 if (response.redirectUrl) {
-                    window.location.href = response.redirectUrl;
+                    if (location.href === response.redirectUrl.split('#')[0]) {
+                        window.location.href = response.redirectUrl;
+                        window.location.reload();
+                    } else {
+                        window.location.href = response.redirectUrl;
+                    }
                 }
 
                 return response;
