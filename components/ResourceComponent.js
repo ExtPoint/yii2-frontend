@@ -35,7 +35,7 @@ export default class ResourceComponent {
         const locale = require('components').locale;
 
         if (window.ymaps) {
-            return Promise.resolve(window.ymaps);
+            return new Promise(resolve => window.ymaps.ready(() => resolve(window.ymaps)));
         }
 
         return this._loadScript(
