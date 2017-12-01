@@ -53,7 +53,7 @@ export default (state = {}, action) => {
             const items2 = list2 && list2.items || [];
 
             _filter(items2, action.where).forEach((item, index) => {
-                items2[index] = {
+                items2[items2.indexOf(item)] = {
                     ...item,
                     ...action.item,
                 };
