@@ -1,5 +1,6 @@
 import _filter from 'lodash/filter';
 import _every from 'lodash/every';
+import _extend from 'lodash/extend';
 
 import {LIST_BEFORE_FETCH, LIST_AFTER_FETCH, LIST_ITEM_UPDATE, LIST_REMOVE, LIST_TOGGLE_ITEM, LIST_TOGGLE_ALL} from '../actions/list';
 
@@ -53,6 +54,9 @@ export default (state = {}, action) => {
             const items2 = list2 && list2.items || [];
 
             _filter(items2, action.where).forEach((item, index) => {
+                // Update old object, fix saved it in comet collection (if used)
+                _extend(item, action.item);
+
                 items2[items2.indexOf(item)] = {
                     ...item,
                     ...action.item,
