@@ -9,7 +9,7 @@ export const LIST_TOGGLE_ALL = 'LIST_TOGGLE_ALL';
 
 export const init = (id, options) => (dispatch, getState) => dispatch({
     page: 1,
-    size: 50,
+    pageSize: 50,
     isLoadMore: true,
     ...getState().list[id],
     ...options,
@@ -36,7 +36,7 @@ export const fetch = (id, options) => (dispatch, getState) => {
             http.post(state.method, {
                 ...state.query,
                 page: state.page,
-                pageSize: state.size,
+                pageSize: state.pageSize,
                 sort: state.sort,
             })
                 .then(result => ({
