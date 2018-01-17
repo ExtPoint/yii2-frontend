@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getFormValues} from 'redux-form';
+import {getFormValues, change} from 'redux-form';
+import _get from 'lodash/get';
 import fileup from 'fileup-redux';
 import File from 'fileup-core/lib/models/File';
 import FilePropType from 'fileup-redux/lib/types/FilePropType';
 
 import {fetchByIds, clearCache} from 'actions/formList';
 import {getEntries} from '../reducers/formList';
+import Field from './Field';
+import HiddenField from './HiddenField';
 
 import {view, locale} from 'components';
 
@@ -28,6 +31,7 @@ class FileField extends React.Component {
         onlyImages: PropTypes.bool,
         mimeTypes: PropTypes.arrayOf(PropTypes.string),
         fixedSize: PropTypes.arrayOf(PropTypes.number),
+        selectAttribute: PropTypes.string,
     };
 
     static defaultProps = {
@@ -99,49 +103,67 @@ class FileField extends React.Component {
     render() {
         const {buttonLabel, buttonProps, disabled, files, remove, thumbnailProcessor, uploader, ...props} = this.props; // eslint-disable-line no-unused-vars
         const FileFieldView = this.props.view || view.getFormView('FileFieldView');
+        const selectedFileId = _get(this.props.formValues, this.props.selectAttribute);
         return (
-            <FileFieldView
-                {...props}
-                buttonProps={{
-                    size: 'sm',
-                    ...buttonProps,
-                    disabled,
-                    onClick: this._onBrowseClick,
-                }}
-                buttonLabel={buttonLabel || (this.props.multiple ? locale.t('Прикрепить файлы') : locale.t('Прикрепить файл'))}
-                items={files.map(file => {
-                    const data = file.resultHttpMessage || {};
-                    return {
-                        uid: file.uid,
-                        fileId: data.id || null,
-                        title: file.name,
-                        error: file.result === File.RESULT_ERROR
-                            ? file.resultHttpMessage.error
-                            : null,
-                        image: data.images && data.images[this.props.thumbnailProcessor]
-                            ? {
-                                src: data.images[this.props.thumbnailProcessor].url,
-                                width: data.images[this.props.thumbnailProcessor].width,
-                                height: data.images[this.props.thumbnailProcessor].height,
-                                alt: file.name,
-                            }
-                            : null,
-                        progress: file.status === File.STATUS_PROCESS
-                            ? {
-                                uploaded: FileField.asHumanFileSize(file.bytesUploaded),
-                                percent: file.progress.percent,
-                            }
-                            : null,
-                        onRemove: () => this._onUserRemove(file.uid),
-                    };
-                })}
-            />
+            <span>
+                {this.props.selectAttribute && (
+                    <Field
+                        formId={this.props.formId}
+                        attribute={this.props.prefix + this.props.selectAttribute}
+                        component={HiddenField}
+                    />
+                )}
+                <FileFieldView
+                    {...props}
+                    buttonProps={{
+                        size: 'sm',
+                        ...buttonProps,
+                        disabled,
+                        onClick: this._onBrowseClick,
+                    }}
+                    buttonLabel={buttonLabel || (this.props.multiple ? locale.t('Прикрепить файлы') : locale.t('Прикрепить файл'))}
+                    items={files.map(file => {
+                        const data = file.resultHttpMessage || {};
+                        return {
+                            uid: file.uid,
+                            fileId: data.id || null,
+                            title: file.name,
+                            selected: data.id && data.id === selectedFileId,
+                            error: file.result === File.RESULT_ERROR
+                                ? file.resultHttpMessage.error
+                                : null,
+                            image: data.images && data.images[this.props.thumbnailProcessor]
+                                ? {
+                                    src: data.images[this.props.thumbnailProcessor].url,
+                                    width: data.images[this.props.thumbnailProcessor].width,
+                                    height: data.images[this.props.thumbnailProcessor].height,
+                                    alt: file.name,
+                                }
+                                : null,
+                            progress: file.status === File.STATUS_PROCESS
+                                ? {
+                                    uploaded: FileField.asHumanFileSize(file.bytesUploaded),
+                                    percent: file.progress.percent,
+                                }
+                                : null,
+                            onClick: () => this._onUserSelect(data.id),
+                            onRemove: () => this._onUserRemove(file.uid),
+                        };
+                    })}
+                />
+            </span>
         );
     }
 
     _onBrowseClick(e) {
         e.preventDefault();
         this.props.uploader.browse();
+    }
+
+    _onUserSelect(id) {
+        if (this.props.selectAttribute) {
+            this.props.dispatch(change(this.props.formId, this.props.prefix + this.props.selectAttribute, id));
+        }
     }
 
     _onUserRemove(uid) {
@@ -197,7 +219,13 @@ class FileField extends React.Component {
 
 const FileFieldHoc = fileup()(FileField);
 
-class FileFieldWrapper extends React.Component {
+@connect(
+    (state, props) => ({
+        formValues: getFormValues(props.formId)(state) || {},
+        initialFiles: getEntries(state, props.fieldId, [].concat(props.input.value || [])) || {},
+    })
+)
+export default class FileFieldWrapper extends React.Component {
 
     static propTypes = {
         id: PropTypes.oneOfType([
@@ -261,10 +289,3 @@ class FileFieldWrapper extends React.Component {
         );
     }
 }
-
-export default connect(
-    (state, props) => ({
-        formValues: getFormValues(props.formId)(state) || {},
-        initialFiles: getEntries(state, props.fieldId, [].concat(props.input.value || [])) || {},
-    })
-)(FileFieldWrapper);
