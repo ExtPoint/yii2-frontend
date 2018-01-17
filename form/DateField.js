@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _isString from 'lodash/isString';
 
 import {locale, view} from 'components';
 
@@ -27,17 +26,19 @@ export default class DateField extends React.Component {
     constructor() {
         super(...arguments);
 
+        this.state = {
+            selected: this.props.input.value
+                ? locale.moment(this.props.input.value, this.props.valueFormat)
+                : null,
+        };
+
         this._onChange = this._onChange.bind(this);
         this._onChangeRaw = this._onChangeRaw.bind(this);
     }
 
     render() {
-        const {input, pickerProps, onChange, ...props} = this.props; // eslint-disable-line no-unused-vars
+        const {pickerProps, onChange, ...props} = this.props; // eslint-disable-line no-unused-vars
         const DateFieldView = this.props.view || view.getFormView('DateFieldView');
-        let value = this.props.input.value || null;
-        if (_isString(value)) {
-            value = locale.moment(value, this.props.valueFormat);
-        }
 
         return (
             <DateFieldView
@@ -47,9 +48,12 @@ export default class DateField extends React.Component {
                     peekNextMonth: true,
                     showYearDropdown: true,
                     scrollableYearDropdown: true,
-                    selected: value,
+                    selected: this.state.selected,
                     dateFormat: this.props.displayFormat,
-                    ...input,
+                    input: {
+                        ...this.props.input,
+                        value: undefined,
+                    },
                     onChange: this._onChange,
                     onChangeRaw: this._onChangeRaw,
                     ...pickerProps,
@@ -63,6 +67,7 @@ export default class DateField extends React.Component {
         this.props.onChange && this.props.onChange({
             [this.props.input.name]: date,
         });
+        this.setState({selected: momentDate});
         return this.props.input.onChange(date);
     }
 
@@ -74,6 +79,7 @@ export default class DateField extends React.Component {
             this.props.onChange && this.props.onChange({
                 [this.props.input.name]: value,
             });
+            this.setState({selected: locale.moment(value, this.props.valueFormat)});
         }
         return this.props.input.onChange(rawValue);
     }
