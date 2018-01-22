@@ -13,6 +13,7 @@ import 'ckeditor/plugins/notificationaggregator/plugin';
 import 'ckeditor/plugins/uploadwidget/plugin';
 import 'ckeditor/plugins/uploadwidget/lang/ru';
 import 'ckeditor/plugins/link/dialogs/link';
+import 'ckeditor/plugins/pastefromword/filter/default';
 import FileUp from 'fileup-core';
 import QueueCollection from 'fileup-core/lib/models/QueueCollection';
 
@@ -32,6 +33,7 @@ CKEDITOR.plugins.loaded = {
     filetools: 1,
     notificationaggregator: 1,
     uploadwidget: 1,
+    pastefromword: 1,
 };
 CKEDITOR.lang.languages = {
     ru: 1,
