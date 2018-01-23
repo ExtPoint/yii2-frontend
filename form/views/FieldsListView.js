@@ -76,7 +76,7 @@ export default class FieldsListView extends React.Component {
                                             <a
                                                 href='javascript:void(0)'
                                                 className={bem.element('remove')}
-                                                onClick={this.props.onRemove(rowIndex)}
+                                                onClick={() => this.props.onRemove(rowIndex)}
                                             >
                                                 &times;
                                             </a>
