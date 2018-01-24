@@ -1,6 +1,6 @@
 {
   "name": "extpoint-yii2",
-  "version": "1.14.4",
+  "version": "1.14.5",
   "description": "JavaScript part for projects on ExtPoint Yii2 Boilerplate and yii2-core",
   "main": "index.js",
   "author": "Vladimir Kozhin <affka@affka.ru>",
@@ -39,7 +39,7 @@
     "react-datepicker": "^1.0.4",
     "react-google-recaptcha": "^0.9.7",
     "redux": "^3.7.2",
-    "redux-form": "^7.0.4",
+    "redux-form": "=7.0.4",
     "raw-loader": "^0.5.1",
     "eslint": "^4.7.2",
     "eslint-loader": "^1.9.0",
