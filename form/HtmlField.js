@@ -17,7 +17,7 @@ import 'ckeditor/plugins/pastefromword/filter/default';
 import FileUp from 'fileup-core';
 import QueueCollection from 'fileup-core/lib/models/QueueCollection';
 
-import {view} from 'components';
+import {types, view} from 'components';
 import iconsPath from './images/icons.png';
 const CKEDITOR = window.CKEDITOR;
 
@@ -172,7 +172,7 @@ export default class HtmlField extends React.Component {
         stylesSet: false,
         allowedContent: 'p h1[text-align]; a[!href]; strong em; p(tip); img[alt,width,!src]; blockquote; ul ol; li',
         extraPlugins: 'fileup',
-        uploadUrl: '/file/upload/editor',
+        uploadUrl: types.fileEditorUrl,
     };
 
     constructor() {

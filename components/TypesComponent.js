@@ -18,6 +18,8 @@ export default class TypesComponent {
         this.autoCompleteUrl = null;
         this.toRenderForm = [];
         this.toRenderField = [];
+        this.fileBackendUrl = '/file/upload/';
+        this.fileEditorUrl = '/file/upload/editor';
 
         domready(() => {
             this.toRenderForm.forEach(args => this.renderForm.apply(this, args));

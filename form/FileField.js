@@ -12,7 +12,8 @@ import {getEntries} from '../reducers/formList';
 import Field from './Field';
 import HiddenField from './HiddenField';
 
-import {view, locale} from 'components';
+import {types, view, locale} from 'components';
+import {types} from "../../../app/core/frontend/components/index";
 
 class FileField extends React.Component {
 
@@ -280,11 +281,13 @@ export default class FileFieldWrapper extends React.Component {
             .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
             .join('&');
 
+        const backendUrl = (this.props.backendUrl || types.fileBackendUrl) + (query ? '?' + query : '');
+
         return (
             <FileFieldHoc
                 reduxStateId={reduxStateId}
-                backendUrl={'/file/upload/' + (query ? '?' + query : '')}
                 {...this.props}
+                backendUrl={backendUrl}
             />
         );
     }
