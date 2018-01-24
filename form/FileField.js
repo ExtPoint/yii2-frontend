@@ -13,7 +13,6 @@ import Field from './Field';
 import HiddenField from './HiddenField';
 
 import {types, view, locale} from 'components';
-import {types} from "../../../app/core/frontend/components/index";
 
 class FileField extends React.Component {
 
