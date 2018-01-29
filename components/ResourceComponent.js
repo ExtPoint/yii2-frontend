@@ -5,6 +5,7 @@ export default class ResourceComponent {
 
     static RESOURCE_GOOGLE_MAP_API = '//maps.googleapis.com/maps/api/js';
     static RESOURCE_YANDEX_MAP_API = 'https://api-maps.yandex.ru/2.1/';
+    static RESOURCE_TWITTER_WIDGET = 'https://platform.twitter.com/widgets.js';
 
     constructor() {
         this.googleApiKey = '';
@@ -44,6 +45,18 @@ export default class ResourceComponent {
                 lang: locale.language,
             },
             () => new Promise(resolve => window.ymaps.ready(() => resolve(window.ymaps)))
+        );
+    }
+
+    loadTwitterWidget() {
+        if (window.twttr) {
+            return new Promise(resolve => window.ymaps.ready(() => resolve(window.twttr)));
+        }
+
+        return this._loadScript(
+            ResourceComponent.RESOURCE_TWITTER_WIDGET,
+            {},
+            () => new Promise(resolve => resolve(window.twttr))
         );
     }
 
