@@ -1,30 +1,34 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
+const _extend = require('lodash/extend');
 const webpackEasy = require('./easy');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
-module.exports = (entry, stands, standsPath) => {
+module.exports = (config, entry, stands, standsPath) => {
     const staticPath = (webpackEasy.isProduction() ? '' : 'static/1.0/');
 
     webpackEasy
         .entry(entry)
-        .config({
-            resolve: {
-                alias: {
-                    app: path.resolve(process.cwd(), 'app'),
-                    actions: 'core/frontend/actions',
-                    components: 'core/frontend/components',
-                    reducers: 'core/frontend/reducers',
-                    shared: 'core/frontend/shared',
+        .config(_extend(
+            {
+                resolve: {
+                    alias: {
+                        app: path.resolve(process.cwd(), 'app'),
+                        actions: 'core/frontend/actions',
+                        components: 'core/frontend/components',
+                        reducers: 'core/frontend/reducers',
+                        shared: 'core/frontend/shared',
+                    },
+                    modules: [
+                        'node_modules',
+                        path.resolve(process.cwd(), 'app'),
+                    ],
                 },
-                modules: [
-                    'node_modules',
-                    path.resolve(process.cwd(), 'app'),
-                ],
             },
-        })
+            config
+        ))
         .output({
             path: path.resolve(process.cwd(), 'public'),
             filename: `${staticPath}assets/bundle-[name].js`,

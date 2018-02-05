@@ -56,7 +56,7 @@ export default class ResourceComponent {
         return this._loadScript(
             ResourceComponent.RESOURCE_TWITTER_WIDGET,
             {},
-            () => new Promise(resolve => resolve(window.twttr))
+            () => new Promise(resolve => window.twttr.ready(() => resolve(window.twttr)))
         );
     }
 

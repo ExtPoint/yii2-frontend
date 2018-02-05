@@ -19,6 +19,12 @@ process.argv.slice(2).forEach(value => {
 const api = module.exports = {
 
     _entries: [],
+    _config: {},
+
+    config(value) {
+        this._config = value;
+        return this;
+    },
 
     /**
      * Index js. Core module at first
@@ -73,7 +79,7 @@ const api = module.exports = {
             this._entries.push(
                 webpackEasy.glob(path)
                     .then(result => result.reduce((obj, file) => {
-                            const name = file.match(/([^\/]+)\.less$/)[1].replace(/^index/, 'style');
+                            const name = file.match(/([^\/]+)\.(less|scss)$/)[1].replace(/^index/, 'style');
                             obj[name] = obj[name] || [];
                             obj[name].push(file);
                             return obj;
@@ -172,6 +178,7 @@ setTimeout(() => {
     Promise.all(api._entries)
         .then(result => {
             runner(
+                this._config,
                 Object.assign.apply(null, result),
                 stands,
                 standsPath

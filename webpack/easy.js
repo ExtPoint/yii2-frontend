@@ -317,6 +317,14 @@ class WebpackEasy {
                     }
                 }
             },
+            sass: {
+                test: /\.scss$/,
+                use: {
+                    style: 'style-loader',
+                    css: 'css-loader',
+                    sass: 'sass-loader'
+                }
+            },
             font: {
                 test: /(\/|\\)fonts(\/|\\).*\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
                 use: {
@@ -425,7 +433,7 @@ class WebpackEasy {
      * @returns {WebpackEasy}
      */
     config(value) {
-        this._config = value;
+        this._config = _.extend(this._config || {}, value);
         return this;
     }
 
@@ -478,7 +486,7 @@ class WebpackEasy {
                 output: _.merge({}, this._output, {
                     publicPath: this._manager.isProduction() ?
                         this._output.publicPath :
-                    'http://localhost:' + this._manager.getPort() + this._output.publicPath,
+                        'http://localhost:' + this._manager.getPort() + this._output.publicPath,
                 }),
                 devtool: this._manager.isProduction() ? 'hidden-sourcemap' : 'eval',
                 module: {
