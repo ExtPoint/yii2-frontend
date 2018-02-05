@@ -474,6 +474,14 @@ class WebpackEasy {
      * @param {object|boolean} value
      * @returns {WebpackEasy}
      */
+    loaderSass(value) {
+        return this._loader('sass', value);
+    }
+
+    /**
+     * @param {object|boolean} value
+     * @returns {WebpackEasy}
+     */
     loaderFont(value) {
         return this._loader('font', value);
     }

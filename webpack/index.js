@@ -135,7 +135,7 @@ const api = module.exports = {
 
         const entries = {};
         function processDirEntries(name, parentName = null) {
-            ['js', 'less', 'html'].forEach(ext => {
+            ['js', 'less', 'scss', 'html'].forEach(ext => {
                 if (fs.existsSync(`${path}/${name}/index.${ext}`)) {
                     const key = name.replace(/\//g, '-');
                     if (ext === 'html') {
@@ -155,7 +155,7 @@ const api = module.exports = {
             });
         }
         fs.readdirSync(path).forEach(name => {
-            if (name === 'less' || !fs.lstatSync(`${path}/${name}`).isDirectory()) {
+            if (name === 'less' || name === 'scss' || !fs.lstatSync(`${path}/${name}`).isDirectory()) {
                 return;
             }
 
@@ -178,7 +178,7 @@ setTimeout(() => {
     Promise.all(api._entries)
         .then(result => {
             runner(
-                this._config,
+                api._config,
                 Object.assign.apply(null, result),
                 stands,
                 standsPath
