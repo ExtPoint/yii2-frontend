@@ -32,10 +32,12 @@ class FileField extends React.Component {
         mimeTypes: PropTypes.arrayOf(PropTypes.string),
         fixedSize: PropTypes.arrayOf(PropTypes.number),
         selectAttribute: PropTypes.string,
+        showRemove: PropTypes.bool,
     };
 
     static defaultProps = {
         thumbnailProcessor: 'default',
+        showRemove: true,
     };
 
     static asHumanFileSize(bytes, showZero) {
@@ -148,6 +150,7 @@ class FileField extends React.Component {
                                 : null,
                             onClick: () => this._onUserSelect(data.id),
                             onRemove: () => this._onUserRemove(file.uid),
+                            showRemove: this.props.showRemove,
                         };
                     })}
                 />
