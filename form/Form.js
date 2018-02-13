@@ -46,6 +46,7 @@ class Form extends React.Component {
     constructor() {
         super(...arguments);
 
+        this._refContent = null;
         this._previousNodeParent = null;
         this._onSubmit = this._onSubmit.bind(this);
     }
@@ -77,13 +78,13 @@ class Form extends React.Component {
         if (this.props.contentId) {
             const node = document.getElementById(this.props.contentId);
             this._previousNodeParent = node.parentNode;
-            this.refs.content.appendChild(node);
+            this._refContent.appendChild(node);
         }
     }
 
     componentWillUnmount() {
         if (this.props.contentId) {
-            this.refs.content.appendChild(this._previousNodeParent);
+            this._refContent.appendChild(this._previousNodeParent);
         }
     }
 
@@ -102,7 +103,7 @@ class Form extends React.Component {
                 onSubmit={this.props.handleSubmit(this._onSubmit)}
             >
                 {children}
-                <span ref='content' />
+                <span ref={ref => this._refContent = ref} />
             </FormView>
         );
     }

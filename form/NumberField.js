@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _isString from 'lodash/isString';
+import _isNumber from 'lodash/isNumber';
+import _isNaN from 'lodash/isNaN';
 
 import {view} from 'components';
 
@@ -15,6 +18,8 @@ export default class NumberField extends React.Component {
         }),
         showButtons: PropTypes.bool,
         step: PropTypes.number,
+        min: PropTypes.number,
+        max: PropTypes.number,
     };
 
     static defaultProps = {
@@ -33,12 +38,31 @@ export default class NumberField extends React.Component {
                     disabled,
                     placeholder,
                     value: input.value,
-                    onChange: e => input.onChange(e.target.value),
+                    onChange: e => this.onChange(e.target.value),
                 }}
-                onPlus={() => input.onChange(parseFloat(input.value || 0) + this.props.step)}
-                onMinus={() => input.onChange(parseFloat(input.value || 0) - this.props.step)}
+                onPlus={() => this.onChange(parseFloat(input.value || 0) + this.props.step)}
+                onMinus={() => this.onChange(parseFloat(input.value || 0) - this.props.step)}
             />
         );
+    }
+
+    onChange(value) {
+        value = value || '';
+        if (_isString(value)) {
+            value = value.replace(/[^0-9,.-]/, '');
+        }
+        value = parseFloat(value || 0);
+        if (!_isNumber(value) || isNaN(value)) {
+            value = 0;
+        }
+        if (_isNumber(this.props.min)) {
+            value = Math.max(this.props.min, value);
+        }
+        if (_isNumber(this.props.max)) {
+            value = Math.min(this.props.max, value);
+        }
+
+        this.props.input.onChange(value);
     }
 
 }
