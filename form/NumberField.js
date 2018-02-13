@@ -51,10 +51,6 @@ export default class NumberField extends React.Component {
         if (_isString(value)) {
             value = value.replace(/[^0-9,.-]/, '');
         }
-        value = parseFloat(value || 0);
-        if (!_isNumber(value) || isNaN(value)) {
-            value = 0;
-        }
         if (_isNumber(this.props.min)) {
             value = Math.max(this.props.min, value);
         }
