@@ -18,7 +18,7 @@ export default (state = {}, action) => {
                     ...action,
                     items: action.items
                         ? [].concat(action.items)
-                        : state[action.id] && state[action.id].items || [],
+                        : state[action.id] && state[action.id].items || null,
                     isFetched: !!action.items || !!state[action.id],
                     isLoading: !action.items,
                 }
