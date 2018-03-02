@@ -83,6 +83,7 @@ export default class Search extends React.Component {
                 formId={Search.getFormId(this.props)}
             >
                 <SearchView
+                    {...this.props.searchViewProps}
                     rows={rows}
                     columnsCount={columnsCount}
                     onReset={() => this.props.dispatch(reset(Search.getFormId(this.props)))}
