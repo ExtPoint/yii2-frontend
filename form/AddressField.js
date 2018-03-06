@@ -90,6 +90,17 @@ class AddressField extends React.Component {
             });
     }
 
+    componentDidUpdate(prevProps) {
+        // Listter reset for address field
+        if (this.props.metaItem.addressType === AddressHelper.TYPE_ADDRESS
+            && prevProps.input.value && !this.props.input.value) {
+            const input = ReactDOM.findDOMNode(this).querySelector('input[type=text]');
+            if (input) {
+                input.value = '';
+            }
+        }
+    }
+
     render() {
         const props = {...this.props};
 
@@ -158,13 +169,24 @@ class AddressField extends React.Component {
 
 
     _onChange(value) {
+        const attributes = [
+            'country',
+            'region',
+            'city',
+            'metroStation',
+            'address',
+            'latitude',
+            'longitude',
+        ];
         let isFined = false;
-        Object.keys(this.props.addressNames).forEach(key => {
+        attributes.forEach(key => {
             const name = this.props.addressNames[key];
-            if (this.props.input.name === name && key !== AddressHelper.TYPE_METRO_STATION) {
-                isFined = true;
-            } else if (isFined) {
-                this.props.dispatch(change(this.props.formId, name, null));
+            if (name) {
+                if (this.props.input.name === name && key !== AddressHelper.TYPE_METRO_STATION) {
+                    isFined = true;
+                } else if (isFined) {
+                    this.props.dispatch(change(this.props.formId, name, null));
+                }
             }
         });
 
