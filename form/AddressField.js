@@ -91,12 +91,20 @@ class AddressField extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        // Listter reset for address field
+        // Listen reset for address field
         if (this.props.metaItem.addressType === AddressHelper.TYPE_ADDRESS
-            && prevProps.input.value && !this.props.input.value) {
+            && prevProps.input.value) {
             const input = ReactDOM.findDOMNode(this).querySelector('input[type=text]');
             if (input) {
-                input.value = '';
+                input.value = this.props.input.value;
+
+                // Close ymaps autocomplete on set value
+                setTimeout(() => {
+                    const ymapsEl = input.parentNode.querySelector('ymaps');
+                    if (ymapsEl) {
+                        ymapsEl.style.display = 'none';
+                    }
+                });
             }
         }
     }
