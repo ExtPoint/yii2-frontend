@@ -9,6 +9,7 @@ import 'ckeditor/plugins/widgetselection/plugin';
 import 'ckeditor/plugins/lineutils/plugin';
 import 'ckeditor/plugins/filetools/plugin';
 import 'ckeditor/plugins/filetools/lang/ru';
+import 'ckeditor/plugins/notification/plugin';
 import 'ckeditor/plugins/notificationaggregator/plugin';
 import 'ckeditor/plugins/uploadwidget/plugin';
 import 'ckeditor/plugins/uploadwidget/lang/ru';
@@ -31,6 +32,7 @@ CKEDITOR.plugins.loaded = {
     widgetselection: 1,
     lineutils: 1,
     filetools: 1,
+    notification: 1,
     notificationaggregator: 1,
     uploadwidget: 1,
     pastefromword: 1,
