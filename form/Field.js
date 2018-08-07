@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Field as ReduxField, Fields as ReduxFields} from 'redux-form';
-import _isBoolean from 'lodash/isBoolean';
-import _isFunction from 'lodash/isFunction';
-import _isArray from 'lodash/isArray';
-import _isObject from 'lodash/isObject';
-import _get from 'lodash/get';
+import _isBoolean from 'lodash-es/isBoolean';
+import _isFunction from 'lodash-es/isFunction';
+import _isArray from 'lodash-es/isArray';
+import _isObject from 'lodash-es/isObject';
+import _get from 'lodash-es/get';
 
 import {types} from 'components';
 

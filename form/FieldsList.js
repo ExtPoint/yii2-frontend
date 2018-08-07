@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FieldArray} from 'redux-form';
-import _isBoolean from 'lodash/isBoolean';
-import _get from 'lodash/get';
+import _isBoolean from 'lodash-es/isBoolean';
+import _get from 'lodash-es/get';
 
 import {types, view} from 'components';
 import Field from './Field';

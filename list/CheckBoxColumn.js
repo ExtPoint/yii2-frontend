@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import _get from 'lodash/get';
+import _get from 'lodash-es/get';
 
 import {view} from 'components';
 import {toggleItem, toggleAll} from 'actions/list';

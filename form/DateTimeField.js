@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _isString from 'lodash/isString';
-import _range from 'lodash/range';
-import _padStart from 'lodash/padStart';
+import _isString from 'lodash-es/isString';
+import _range from 'lodash-es/range';
+import _padStart from 'lodash-es/padStart';
 
 import {view, locale} from 'components';
 

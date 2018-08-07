@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import domready from 'domready';
 import loadJs from 'load-js';
 import ReactDOM from 'react-dom';
-import _trimStart from 'lodash/trimStart';
+import _trimStart from 'lodash-es/trimStart';
 
 export default class BackendWidgetComponent {
 

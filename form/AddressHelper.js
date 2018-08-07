@@ -1,6 +1,6 @@
 import {formValueSelector} from 'redux-form';
-import _values from 'lodash/values';
-import _findLast from 'lodash/findLast';
+import _values from 'lodash-es/values';
+import _findLast from 'lodash-es/findLast';
 
 import {http, types} from 'components';
 import {getLabels} from '../reducers/formList';

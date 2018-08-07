@@ -1,4 +1,4 @@
-import _isString from 'lodash/isString';
+import _isString from 'lodash-es/isString';
 
 export default class HtmlComponent {
 

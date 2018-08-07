@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import _isFunction from 'lodash/isFunction';
-import _get from 'lodash/get';
-import _merge from 'lodash/merge';
+import _isFunction from 'lodash-es/isFunction';
+import _get from 'lodash-es/get';
+import _merge from 'lodash-es/merge';
 
 import {view} from 'components';
 import Search from './parts/Search';

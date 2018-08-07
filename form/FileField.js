@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getFormValues, change} from 'redux-form';
-import _get from 'lodash/get';
+import _get from 'lodash-es/get';
 import fileup from 'fileup-redux';
 import File from 'fileup-core/lib/models/File';
 import FilePropType from 'fileup-redux/lib/types/FilePropType';

@@ -3,8 +3,8 @@ import {Provider} from 'react-redux';
 import domready from 'domready';
 import {reduxForm} from 'redux-form';
 import ReactDOM from 'react-dom';
-import _isFunction from 'lodash/isFunction';
-import _isArray from 'lodash/isArray';
+import _isFunction from 'lodash-es/isFunction';
+import _isArray from 'lodash-es/isArray';
 
 export default class TypesComponent {
 

@@ -1,4 +1,4 @@
-import _isArray from 'lodash/isArray';
+import _isArray from 'lodash-es/isArray';
 import queryString from 'query-string';
 
 export default class ResourceComponent {

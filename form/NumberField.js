@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _isString from 'lodash/isString';
-import _isNumber from 'lodash/isNumber';
-import _isNaN from 'lodash/isNaN';
+import _isString from 'lodash-es/isString';
+import _isNumber from 'lodash-es/isNumber';
+import _isNaN from 'lodash-es/isNaN';
 
 import {view} from 'components';
 

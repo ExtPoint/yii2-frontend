@@ -1,5 +1,5 @@
-import _get from 'lodash/get';
-import _values from 'lodash/values';
+import _get from 'lodash-es/get';
+import _values from 'lodash-es/values';
 
 import {OPEN_MODAL, CLOSE_MODAL} from 'actions/modal';
 

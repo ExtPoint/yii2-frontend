@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {getFormValues, reset} from 'redux-form';
 import Form from 'extpoint-yii2/form/Form';
 import Field from 'extpoint-yii2/form/Field';
-import _get from 'lodash/get';
-import _isEqual from 'lodash/isEqual';
+import _get from 'lodash-es/get';
+import _isEqual from 'lodash-es/isEqual';
 
 import {view} from 'components';
 import {fetch} from 'actions/list';

@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {reduxForm, SubmissionError, getFormValues, initialize} from 'redux-form';
-import _isEqual from 'lodash/isEqual';
-import _get from 'lodash/get';
-import _set from 'lodash/set';
-import _isUndefined from 'lodash/isUndefined';
+import _isEqual from 'lodash-es/isEqual';
+import _get from 'lodash-es/get';
+import _set from 'lodash-es/set';
+import _isUndefined from 'lodash-es/isUndefined';
 
 import {http, view, clientStorage} from 'components';
 

@@ -1,4 +1,4 @@
-import _isPlainObject from 'lodash/isPlainObject';
+import _isPlainObject from 'lodash-es/isPlainObject';
 
 const defaultErrorHandler = (error) => {
     throw error;

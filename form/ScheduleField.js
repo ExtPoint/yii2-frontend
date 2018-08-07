@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _get from 'lodash/get';
-import _uniq from 'lodash/uniq';
-import _range from 'lodash/range';
-import _padStart from 'lodash/padStart';
+import _get from 'lodash-es/get';
+import _uniq from 'lodash-es/uniq';
+import _range from 'lodash-es/range';
+import _padStart from 'lodash-es/padStart';
 
 import {view, locale} from 'components';
 

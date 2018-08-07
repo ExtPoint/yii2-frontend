@@ -6,7 +6,7 @@ import fileup from 'fileup-redux';
 import FilePropType from 'fileup-redux/lib/types/FilePropType';
 import File from 'fileup-core/lib/models/File';
 import QueueCollection from 'fileup-core/lib/models/QueueCollection';
-import _sum from 'lodash/sum';
+import _sum from 'lodash-es/sum';
 
 import {view, locale} from 'components';
 
