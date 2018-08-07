@@ -9,7 +9,6 @@ import 'ckeditor/plugins/widgetselection/plugin';
 import 'ckeditor/plugins/lineutils/plugin';
 import 'ckeditor/plugins/filetools/plugin';
 import 'ckeditor/plugins/filetools/lang/ru';
-import 'ckeditor/plugins/notification/plugin';
 import 'ckeditor/plugins/notificationaggregator/plugin';
 import 'ckeditor/plugins/uploadwidget/plugin';
 import 'ckeditor/plugins/uploadwidget/lang/ru';

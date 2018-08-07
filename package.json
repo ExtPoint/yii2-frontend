@@ -1,6 +1,6 @@
 {
   "name": "extpoint-yii2",
-  "version": "2.0.0",
+  "version": "2.0.4",
   "description": "JavaScript part for projects on ExtPoint Yii2 Boilerplate and yii2-core",
   "main": "index.js",
   "author": "Vladimir Kozhin <affka@affka.ru>",
@@ -20,6 +20,8 @@
     "url": "https://github.com/extpoint/yii2-frontend/issues"
   },
   "dependencies": {
+    "bootstrap": "^3.3.7",
+    "ckeditor": "=4.7.3",
     "axios": "^0.17.1",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
@@ -32,8 +34,6 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "bootstrap": "=4.0.0",
-    "ckeditor": "^4.8.0",
     "css-loader": "^0.28.10",
     "domready": "^1.0.8",
     "eslint": "^4.18.2",
