@@ -29,6 +29,7 @@ class FileButtonField extends React.Component {
             remove: PropTypes.func,
         }),
         onUpload: PropTypes.func,
+        folder: PropTypes.string,
         cleanOnUpload: PropTypes.bool,
         thumbnailProcessor: PropTypes.string,
     };
@@ -175,10 +176,19 @@ class FileButtonFieldWrapper extends React.Component {
             reduxStateId = this._id;
         }
 
+        const params = {
+            processor: this.props.thumbnailProcessor,
+            folder: this.props.folder,
+        };
+        const query = Object.keys(params)
+            .filter(key => !!params[key])
+            .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
+            .join('&');
+
         return (
             <FileButtonFieldHoc
                 reduxStateId={reduxStateId}
-                backendUrl={'/file/upload/' + (this.props.thumbnailProcessor ? '?processor=' + this.props.thumbnailProcessor : '')}
+                backendUrl={'/file/upload/' + (query ? '?' + query : '')}
                 {...this.props}
             />
         );

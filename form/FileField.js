@@ -32,6 +32,7 @@ class FileField extends React.Component {
         mimeTypes: PropTypes.arrayOf(PropTypes.string),
         fixedSize: PropTypes.arrayOf(PropTypes.number),
         selectAttribute: PropTypes.string,
+        folder: PropTypes.string,
         showRemove: PropTypes.bool,
     };
 
@@ -276,6 +277,7 @@ export default class FileFieldWrapper extends React.Component {
         const params = {
             processor: this.props.thumbnailProcessor,
             mimeTypes: (mimeTypes || []).join(','),
+            folder: this.props.folder,
             fixedSize,
         };
         const query = Object.keys(params)
