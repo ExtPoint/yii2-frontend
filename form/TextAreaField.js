@@ -12,6 +12,7 @@ export default class TextAreaField extends React.Component {
             value: PropTypes.any,
             onChange: PropTypes.func,
         }),
+        inputProps: PropTypes.object,
     };
 
     render() {
@@ -22,6 +23,7 @@ export default class TextAreaField extends React.Component {
                 {...props}
                 inputProps={{
                     placeholder,
+                    ...this.props.inputProps,
                     value: input.value,
                     onChange: e => input.onChange(e.target.value),
                 }}
