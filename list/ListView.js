@@ -10,12 +10,13 @@ import Search from './parts/Search';
 import {init, fetch, remove} from 'actions/list';
 import {getList} from '../reducers/list';
 
+export default
 @connect(
     (state, props) => ({
         list: getList(state, props.id),
     })
 )
-export default class ListView extends React.Component {
+class ListView extends React.Component {
 
     static propTypes = {
         id: PropTypes.string.isRequired,

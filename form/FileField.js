@@ -223,13 +223,14 @@ class FileField extends React.Component {
 
 const FileFieldHoc = fileup()(FileField);
 
+export default
 @connect(
     (state, props) => ({
         formValues: getFormValues(props.formId)(state) || {},
         initialFiles: getEntries(state, props.fieldId, [].concat(props.input.value || [])) || {},
     })
 )
-export default class FileFieldWrapper extends React.Component {
+class FileFieldWrapper extends React.Component {
 
     static propTypes = {
         id: PropTypes.oneOfType([

@@ -7,6 +7,7 @@ import {view} from 'components';
 import {toggleItem, toggleAll} from 'actions/list';
 import {isCheckedAll} from '../reducers/list';
 
+export default
 @connect(
     (state, props) => {
         const itemId = _get(props, `item.${props.primaryKey}`);
@@ -17,7 +18,7 @@ import {isCheckedAll} from '../reducers/list';
         };
     }
 )
-export default class CheckBoxColumn extends React.Component {
+class CheckBoxColumn extends React.Component {
 
     static propTypes = {
         item: PropTypes.object,

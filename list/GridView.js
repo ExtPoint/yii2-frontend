@@ -8,12 +8,13 @@ import GridEmpty from './parts/GridEmpty';
 import GridRow from './parts/GridRow';
 import GridWrapper from './parts/GridWrapper';
 
+export default
 @connect(
     (state, props) => ({
         list: getList(state, props.id),
     })
 )
-export default class GridView extends React.Component {
+class GridView extends React.Component {
 
     static propTypes = {
         id: PropTypes.string.isRequired,

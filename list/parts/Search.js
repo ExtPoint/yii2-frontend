@@ -11,13 +11,14 @@ import {view} from 'components';
 import {fetch} from 'actions/list';
 import {getList} from '../../reducers/list';
 
+export default
 @connect(
     (state, props) => ({
         list: getList(state, props.id),
         formValues: getFormValues(Search.getFormId(props))(state),
     })
 )
-export default class Search extends React.Component {
+class Search extends React.Component {
 
     static propTypes = {
         search: PropTypes.shape({
