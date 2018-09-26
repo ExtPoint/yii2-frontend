@@ -126,7 +126,7 @@ export default (state = initialState, action) => {
             };
 
         case FORM_LIST_COPY:
-            const fromEntries = _get(state, `cache.${action.fromFieldId}.entries`);
+            const fromEntries = _get(state, `cache.${action.fromFieldId}.entries`) || {};
             const fromAutoCompleteList = _get(state, `autoComplete.${action.fromFieldId}.entries`);
             const entries3 = {};
             [].concat(action.entryIds || []).forEach(id => {
